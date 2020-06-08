@@ -36,6 +36,7 @@
 </template>
 
 <script>
+const API = require('./util/api.js')
 import HelloWorld from './components/HelloWorld'
 
 export default {
@@ -43,6 +44,15 @@ export default {
 
   components: {
     HelloWorld
+  },
+  created() {
+    this.test()
+  },
+  methods: {
+    async test() {
+      let testRes = await API.init('/test', null, 'get')
+      console.log(testRes)
+    }
   },
 
   data: () => ({
