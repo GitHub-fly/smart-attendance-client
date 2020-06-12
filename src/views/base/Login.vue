@@ -1,5 +1,5 @@
 <template>
-  <v-app>
+  <v-container>
     <v-content>
       <v-responsive height="780">
         <v-row class="flex-column align-center" style="margin-top: 200px">
@@ -25,11 +25,10 @@
     <v-footer absolute class="font-weight-medium">
       <v-col class="text-center" cols="12"> {{ new Date().getFullYear() }} — <strong>smart-attendance</strong> </v-col>
     </v-footer>
-  </v-app>
+  </v-container>
 </template>
 
 <script>
-const API = require('../util/api.js')
 export default {
   name: 'Login',
   data() {
@@ -47,10 +46,10 @@ export default {
   mounted() {},
   methods: {
     async login() {
-      let loginRes = await API.init('/user/login', this.loginDto, 'post')
+      let loginRes = await this.GLOBAL.API.init('/user/login', this.loginDto, 'post')
       if (loginRes.code == 1) {
         localStorage.setItem('user', JSON.stringify(loginRes.data))
-        this.$router.push('/note')
+        this.$router.push('/index')
       } else {
         alert(loginRes.msg)
       }
