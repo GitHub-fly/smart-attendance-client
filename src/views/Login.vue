@@ -50,7 +50,7 @@ export default {
       let loginRes = await API.init('/user/login', this.loginDto, 'post')
       if (loginRes.code == 1) {
         localStorage.setItem('user', JSON.stringify(loginRes.data))
-        this.$router.push('/note')
+        this.$router.push('/Note')
       } else {
         alert(loginRes.msg)
       }
