@@ -1,8 +1,8 @@
 <template>
-  <div>
+  <router-link :to="path">
     <v-icon>{{ icon }}</v-icon>
     <p class="body-2">{{ name }}</p>
-  </div>
+  </router-link>
 </template>
 <script>
 export default {
@@ -14,6 +14,12 @@ export default {
       }
     },
     name: {
+      type: String,
+      default() {
+        return ''
+      }
+    },
+    path: {
       type: String,
       default() {
         return ''

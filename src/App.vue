@@ -21,4 +21,8 @@ export default {
   padding: 0;
   box-sizing: border-box;
 }
+a {
+  color: rgb(238, 238, 238);
+  text-decoration: none;
+}
 </style>
