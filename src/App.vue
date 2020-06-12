@@ -22,7 +22,8 @@ export default {
   box-sizing: border-box;
 }
 a {
-  color: rgb(238, 238, 238);
+  font-weight: bold;
+  color: black;
   text-decoration: none;
 }
 </style>

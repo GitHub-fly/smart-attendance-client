@@ -1,19 +1,26 @@
 <template>
   <div>
-    <h1>消息</h1>
+    <Nav title="消息" :items="items" @operation="operation"></Nav>
   </div>
 </template>
 
 <script>
+import Nav from '../../components/Nav'
 export default {
   name: 'New',
   data() {
-    return {}
+    return {
+      items: ['预览', '打印']
+    }
   },
-  components: {},
+  components: { Nav },
   created() {},
   mounted() {},
-  methods: {},
+  methods: {
+    operation(item) {
+      console.log(item[0])
+    }
+  },
   computed: {}
 }
 </script>

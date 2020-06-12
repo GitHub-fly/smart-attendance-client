@@ -48,7 +48,7 @@ export default {
     async login() {
       let loginRes = await this.GLOBAL.API.init('/user/login', this.loginDto, 'post')
       if (loginRes.code == 1) {
-        localStorage.setItem('user', JSON.stringify(loginRes.data))
+        localStorage.setItem('user', JSON.stringify(loginRes.data.user))
         this.$router.push('/index')
       } else {
         alert(loginRes.msg)

@@ -27,11 +27,6 @@ const routes = [
         component: () => import(/* webpackChunkName: "about" */ '../views/base/Home.vue')
       },
       {
-        path: '/note',
-        name: 'Note',
-        component: () => import(/* webpackChunkName: "about" */ '../views/sicknote/Note.vue')
-      },
-      {
         path: '/new',
         name: 'New',
         component: () => import(/* webpackChunkName: "about" */ '../views/base/New.vue')
@@ -40,13 +35,28 @@ const routes = [
         path: '/my',
         name: 'My',
         component: () => import(/* webpackChunkName: "about" */ '../views/base/My.vue')
-      },
-      {
-        path: '/attendance',
-        name: 'Attendance',
-        component: () => import('../views/attendance/Attendance.vue')
       }
     ]
+  },
+  {
+    path: '/note',
+    name: 'Note',
+    component: () => import(/* webpackChunkName: "about" */ '../views/sicknote/Note.vue')
+  },
+  {
+    path: '/attendance',
+    name: 'Attendance',
+    component: () => import(/* webpackChunkName: "about" */ '../views/attendance/Attendance.vue')
+  },
+  {
+    path: '/notepreview',
+    name: 'NotePreview',
+    component: () => import(/* webpackChunkName: "about" */ '../views/sicknote/NotePreview')
+  },
+  {
+    path: '/noteall',
+    name: 'NoteAll',
+    component: () => import(/* webpackChunkName: "about" */ '../views/sicknote/NoteAll')
   }
 ]
 
