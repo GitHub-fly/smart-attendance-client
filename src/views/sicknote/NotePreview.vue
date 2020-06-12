@@ -1,13 +1,13 @@
 <template>
   <div>
-    <Nav title="假条申请"></Nav>
+    <Nav title="假条详情（预览）"></Nav>
   </div>
 </template>
 
 <script>
 import Nav from '../../components/Nav'
 export default {
-  name: 'Note',
+  name: 'NotePreview',
   data() {
     return {}
   },

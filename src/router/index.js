@@ -35,11 +35,6 @@ const routes = [
         path: '/my',
         name: 'My',
         component: () => import(/* webpackChunkName: "about" */ '../views/base/My.vue')
-      },
-      {
-        path: '/attendance',
-        name: 'Attendance',
-        component: () => import('../views/attendance/Attendance.vue')
       }
     ]
   },
@@ -52,6 +47,16 @@ const routes = [
     path: '/attendance',
     name: 'Attendance',
     component: () => import(/* webpackChunkName: "about" */ '../views/attendance/Attendance.vue')
+  },
+  {
+    path: '/notepreview',
+    name: 'NotePreview',
+    component: () => import(/* webpackChunkName: "about" */ '../views/sicknote/NotePreview')
+  },
+  {
+    path: '/noteall',
+    name: 'NoteAll',
+    component: () => import(/* webpackChunkName: "about" */ '../views/sicknote/NoteAll')
   }
 ]
 

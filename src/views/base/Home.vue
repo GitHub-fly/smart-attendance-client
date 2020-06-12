@@ -28,7 +28,7 @@ export default {
         {
           icon: 'mdi-credit-card-scan-outline',
           name: '扫一扫',
-          path: ''
+          path: '/notepreview'
         },
         {
           icon: 'mdi-note-outline',
