@@ -1,23 +1,8 @@
 <template>
   <v-app>
-    <v-card flat>
-      <v-container fluid>
-        <v-row class="child-flex">
-          <div style="flex-basis: 20%">
-            <v-toolbar blue>
-              <v-btn icon>
-                <v-icon>mdi-arrow-left</v-icon>
-              </v-btn>
-              <v-toolbar-title>学生请假</v-toolbar-title>
-              <v-spacer></v-spacer>
-              <v-btn icon>
-                <v-icon>mdi-dots-vertical</v-icon>
-              </v-btn>
-            </v-toolbar>
-          </div>
-        </v-row>
-      </v-container>
-    </v-card>
+    <div>
+      <Nav title="学生请假"></Nav>
+    </div>
     <div>
       <div class="top">
         <div class="userName">
@@ -43,21 +28,20 @@
           </div>
         </div>
       </div>
-      <div class="bottom">
-        
-      </div>
+      <div class="bottom"></div>
       <button style="width: 95%; margin: 30px 0 0 2.5%; border-radius: 10px; bcakground-color: #f2f6fd">提交</button>
     </div>
   </v-app>
 </template>
 
 <script>
+import Nav from '../../components/Nav'
 export default {
   name: 'Note',
   data() {
     return {}
   },
-  components: {},
+  components: { Nav },
   created() {},
   mounted() {
     // async getUser() {
@@ -103,7 +87,6 @@ export default {
 .reason input {
   width: 100%;
   height: 70px;
-
 }
 .label {
   margin: 0 auto;

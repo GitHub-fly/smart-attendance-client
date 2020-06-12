@@ -1,16 +1,17 @@
 <template>
   <div>
-    <h1>考勤界面</h1>
+    <Nav title="我的所有假条"></Nav>
   </div>
 </template>
 
 <script>
+import Nav from '../../components/Nav'
 export default {
-  name: 'Attendance',
+  name: 'NoteAll',
   data() {
     return {}
   },
-  components: {},
+  components: { Nav },
   created() {},
   mounted() {},
   methods: {},

@@ -5,8 +5,8 @@
     </v-content>
     <v-footer padless fixed style="background-color: rgb(238, 238, 238);" class="flex-column justify-center">
       <v-col class="text-center d-flex justify-space-around" style="height: 60px;">
-        <div v-for="(item, index) in functions" :key="index" @click="toPage(index)">
-          <Icon :icon="item.icon" :name="item.name"></Icon>
+        <div v-for="(item, index) in functions" :key="index">
+          <Icon :icon="item.icon" :name="item.name" :path="item.path"></Icon>
         </div>
       </v-col>
     </v-footer>
@@ -52,4 +52,10 @@ export default {
 }
 </script>
 
-<style scoped lang="scss"></style>
+<style scoped lang="scss">
+a {
+  &.router-link-exact-active {
+    color: rgb(239, 83, 80);
+  }
+}
+</style>

@@ -1,26 +1,20 @@
 <template>
   <div>
-    <Nav title="消息" :items="items" @operation="operation"></Nav>
+    <Nav title="假条详情（预览）"></Nav>
   </div>
 </template>
 
 <script>
 import Nav from '../../components/Nav'
 export default {
-  name: 'New',
+  name: 'NotePreview',
   data() {
-    return {
-      items: ['预览', '打印']
-    }
+    return {}
   },
   components: { Nav },
   created() {},
   mounted() {},
-  methods: {
-    operation(item) {
-      console.log(item[0])
-    }
-  },
+  methods: {},
   computed: {}
 }
 </script>
