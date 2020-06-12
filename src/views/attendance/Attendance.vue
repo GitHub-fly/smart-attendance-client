@@ -5,27 +5,44 @@
       <v-avatar size="160">
         <img :src="user.sysUserAvatar" />
       </v-avatar>
-      <v-card width="320" class="mt-5" justify="space-between">
+      <div class="ml-6 mt-5 content" justify="space-between">
         <v-list-item-group>
           <v-list-item>
-            <v-list-content>姓名 </v-list-content>
-            <v-list-content>{{ user.sysUserName }} </v-list-content>
+            <v-list-item-content>姓名 </v-list-item-content>
+            <v-list-item-content>{{ user.sysUserName }} </v-list-item-content>
           </v-list-item>
+          <v-divider></v-divider>
           <v-list-item>
-            <v-list-content>学号</v-list-content>
-            <v-list-content>{{ user.sysJobNumber }} </v-list-content>
+            <v-list-item-content>学号</v-list-item-content>
+            <v-list-item-content>{{ user.sysJobNumber }} </v-list-item-content>
           </v-list-item>
+          <v-divider></v-divider>
           <v-list-item>
-            <v-list-content>所属房间</v-list-content>
+            <v-list-item-content>所属房间</v-list-item-content>
+            <v-list-item-content>{{ studentVo.roomName }} </v-list-item-content>
           </v-list-item>
+          <v-divider></v-divider>
           <v-list-item>
-            <v-list-content>所属班级</v-list-content>
+            <v-list-item-content>所属班级</v-list-item-content>
+            <v-list-item-content>{{ studentVo.clazzName }} </v-list-item-content>
           </v-list-item>
+          <v-divider></v-divider>
           <v-list-item>
-            <v-list-content>所属学院</v-list-content>
+            <v-list-item-content>所属学院</v-list-item-content>
+            <v-list-item-content>{{ studentVo.academyName }} </v-list-item-content>
           </v-list-item>
+          <v-divider></v-divider>
+          <v-list-item>
+            <v-list-item-content>当前位置</v-list-item-content>
+
+            <v-btn><v-icon>place</v-icon>点击定位</v-btn>
+          </v-list-item>
+          <v-divider></v-divider>
         </v-list-item-group>
-      </v-card>
+      </div>
+      <div class="mt-5">
+        <v-btn width="220" color="rgb(1, 152, 255)" dark>立即打卡</v-btn>
+      </div>
     </v-row>
   </v-container>
 </template>
@@ -41,8 +58,9 @@ export default {
   },
   components: {},
   async created() {
-    this.studentVo = await this.GLOBAL.API.init('/attendance/user/info', this.user, 'post')
-    console.log(this.studentVo.data)
+    let student = await this.GLOBAL.API.init('/attendance/user/info', this.user, 'post')
+    this.studentVo = student.data
+    // console.log(student.data.roomName)
   },
   mounted() {},
   methods: {},
@@ -50,4 +68,8 @@ export default {
 }
 </script>
 
-<style scoped lang="scss"></style>
+<style scoped lang="scss">
+.content {
+  width: 290px;
+}
+</style>

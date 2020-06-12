@@ -1,6 +1,7 @@
 import axios from 'axios'
 
-axios.defaults.baseURL = 'http://localhost:8080/api'
+// axios.defaults.baseURL = 'http://localhost:8080/api'
+axios.defaults.baseURL = 'http://121.196.196.150:8080/api'
 
 //全局请求拦截
 axios.interceptors.request.use((config) => {
