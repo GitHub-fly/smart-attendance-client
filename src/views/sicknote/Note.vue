@@ -3,45 +3,49 @@
     <div>
       <Nav title="学生请假"></Nav>
     </div>
-    <div>
-      <div class="top">
-        <div class="userName">
-          <sapn style="margin: 20px 0 0 30px">请假人</sapn>
-          <sapn style="margin: 20px 0 0 20%">{{ user.userName }} {{ user.userGender }} {{ user.userXh }}</sapn>
+    <div class="d-flex flex-column align-center" style="padding-top: 20px">
+      <div class="top d-flex flex-column justify-center padding">
+        <div class="userName d-flex justify-space-between">
+          <span>请假人</span>
+          <span>{{ user.userName }} {{ user.userGender }} {{ user.userXh }}</span>
         </div>
-        <div class="userPhone">
-          <span style="margin: 15px 0 0 30px">联系方式</span>
-          <input type="text" style="margin: 5px 0 0 15%; border: 1px solid gray; border-radius: 5px;" placeholder="手机号" />
+        <div class="userPhone d-flex justify-space-between margin-top">
+          <span>联系方式</span>
+          <input
+            type="text"
+            style="padding-left: 5px; border: 1px solid gray; outline: none; border-radius: 5px; width: 145px"
+            placeholder="手机号"
+          />
         </div>
       </div>
-      <div class="middle">
+      <div class="middle padding d-flex flex-column align-start margin">
         <div class="reason">
-          <span style="margin-left: 20px">请假原因*</span>
-          <input type="textarea" value="请输入请假原因" />
+          <span style="display: block">请假原因*</span>
+          <textarea type="textarea" placeholder="请输入请假原因" class="margin-top" />
           <!-- <v-textarea auto-grow outlined v-on="on"></v-textarea> -->
-          <div class="label">
-            <span style="margin-right: 20px;">请假类型*</span>
-            <label v-for="(label, index) in labels" :key="index">{{ label }}</label>
+          <div class="margin-top">
+            <span>请假类型*</span>
+            <label class="label" v-for="(label, index) in labels" :key="index">{{ label }}</label>
           </div>
         </div>
       </div>
-      <div class="bottom">
-        <div class="time">
+      <div class="bottom margin padding">
+        <div class="border-bottom d-flex flex-column">
           <span>请假起止时间*</span>
-          <div style="display: flex">
-            <div>
-              <div class="my-content-list" @click="show">
-                <div class="date-time-input">现在时间&nbsp;&nbsp;{{ msg }}</div>
+          <div class="margin-top" style="display: flex;">
+            <div class="date-box" @click="show">
+              <div class="my-content-list">
+                <div class="date-time-input">{{ msg }}</div>
               </div>
               <date-time ref="dateTime" @confirm="select" format="yyyy-MM-dd hh:mm" color="black">
                 <div slot="prevMonth"><i>-</i></div>
                 <div slot="nextMonth"><i>+</i></div>
               </date-time>
             </div>
-            <span>至</span>
-            <div>
-              <div class="my-content-list" @click="show1">
-                <div class="date-time-input">截止时间&nbsp;&nbsp;{{ msg1 }}</div>
+            <span style="margin-left: 5px; margin-right: 5px">至</span>
+            <div class="date-box" @click="show1">
+              <div class="my-content-list">
+                <div class="date-time-input">{{ msg1 }}</div>
               </div>
               <date-time ref="dateTime1" @confirm="select1" format="yyyy-MM-dd hh:mm" color="black">
                 <div slot="prevMonth"><i>-</i></div>
@@ -50,23 +54,23 @@
             </div>
           </div>
         </div>
-        <div class="dayCount">
+        <div class="border-bottom dayCount margin">
           <span>请假天数*</span>
           <input type="text" style="width: 20px" />天
         </div>
-        <div class="school">
-          <sapn>是否需要出校门*</sapn>
-          <v-checkbox v-model="school" :label="`是否需要出校`"></v-checkbox>
+        <div class="border-bottom school margin">
+          <span>是否需要出校门*</span>
+          <v-checkbox dense class="checkbot" v-model="school" :label="`是否需要出校`"></v-checkbox>
         </div>
-        <div class="attentance" style="display: flex">
+        <div class="border-bottom attentance margin" style="display: flex">
           <span>是否归寝*</span>
-          <v-checkbox v-model="attentance" :label="`是否归寝`"></v-checkbox>
+          <v-checkbox class="checkbot" v-model="attentance" :label="`是否归寝`"></v-checkbox>
         </div>
-        <div class="teacher">
+        <div class="border-bottom teacher margin">
           <span>班级审核人*</span>
           <span>{{ user.teacherName }}</span>
         </div>
-        <div class="acmedy">
+        <div class="acmedy margin">
           <span>学院审核人*</span>
           <span>{{ user.instructorName }}</span>
         </div>
@@ -91,8 +95,8 @@ export default {
         teacherName: JSON.parse(localStorage.getItem('user')).teacherName,
         instructorName: JSON.parse(localStorage.getItem('user')).sysUserInstructorName
       },
-      msg: '',
-      msg1: '',
+      msg: '请假时间',
+      msg1: '结束时间',
       count: 0,
       isLoading: false,
       school: false,
@@ -107,8 +111,11 @@ export default {
     // }
   },
   methods: {
-    commit() {
+    async commit() {
+      let data = {}
       this.$router.push('/notepreview')
+      let increaseRes = await this.GLOBAL.API.init('/note/increase', data, 'psot')
+      console.log(increaseRes)
     },
     show() {
       console.log(this.$refs)
@@ -136,119 +143,102 @@ export default {
 </script>
 
 <style scoped lang="scss">
+.margin-top {
+  margin-top: 15px;
+}
+.margin {
+  margin-top: 30px;
+}
+.padding {
+  padding: 8px 20px 8px 20px;
+}
+.border-bottom {
+  padding-bottom: 8px;
+  border-bottom: 1px solid gray;
+}
+.checkbot {
+  height: 25px;
+  margin-top: -3px;
+}
 .top {
-  width: 95%;
-  height: 65px;
-  margin: 5% auto;
+  width: 90%;
   border: 1px solid gray;
   border-radius: 10px;
   background-color: #fbfbfb;
 }
 .middle {
-  width: 95%;
-  height: 150px;
-  margin: 20px auto;
+  width: 90%;
   border-radius: 10px;
   border: 1px solid gray;
-  padding: 10px;
   background-color: #fbfbfb;
 }
 .bottom {
-  width: 95%;
-  height: 350px;
-  margin: 0 auto;
+  width: 90%;
   display: flex;
   flex-direction: column;
-  align-content: center;
-  align-items: center;
   border-radius: 10px;
   border: 1px solid gray;
   background-color: #fbfbfb;
+
+  .date-box {
+    width: 50%;
+    border: 1px solid gray;
+    border-radius: 10px;
+    text-align: center;
+    height: 28px;
+  }
 }
-.reason {
-  display: flex;
-  float: left;
-  flex-direction: column;
-}
-.reason input {
+.reason textarea {
   width: 300px;
-  height: 70px;
-  margin-top: 2px;
-  margin-left: 20px;
+  height: 100px;
   border-radius: 5px;
+  outline: none;
+  padding: 5px 10px 5px 15px;
   border: 1px solid #e5e5e5;
 }
 .label {
-  margin: 10px auto;
-}
-.label label {
   margin-left: 15px;
   border: 1px solid #e5e5e5;
-  border-radius: 30%;
+  border-radius: 10px;
   background-color: #fbfbfb;
+  padding: 3px 8px 3px 8px;
+  font-size: 12px;
 }
 .electTime {
   display: flex;
 }
-.time {
-  width: 100%;
-  height: 120px;
-  // border-bottom: 1px solid gray;
-  // background-color: aqua;
-}
 .dayCount {
   width: 100%;
-  height: 85px;
   display: flex;
-  justify-content: space-around;
+  justify-content: space-between;
   align-items: center;
-  border-top: 1px solid gray;
-  border-bottom: 1px solid gray;
-  // background-color: aqua;
 }
 .school {
-  width: 100%;
-  height: 85px;
   display: flex;
-  justify-content: space-around;
-  align-items: center;
-  // border: 1px solid gray;
-  // background-color: aqua;
+  justify-content: space-between;
 }
 .attentance {
   width: 100%;
-  height: 85px;
   display: flex;
-  justify-content: space-around;
-  align-items: center;
-  border-top: 1px solid gray;
-  border-bottom: 1px solid gray;
-  // background-color: aqua;
+  justify-content: space-between;
 }
 .teacher {
   width: 100%;
-  height: 85px;
   display: flex;
-  justify-content: space-around;
-  align-items: center;
-  border-bottom: 1px solid gray;
-  
-  // background-color: aqua;
+  justify-content: space-between;
 }
 .acmedy {
   width: 100%;
-  height: 85px;
   display: flex;
-  justify-content: space-around;
-  align-items: center;
-  // border: 1px solid gray;
-  // background-color: aqua;
+  justify-content: space-between;
 }
 .btn {
-  width: 95%;
-  height: 50px;
-  margin: 30px 0 0 2.5%;
+  width: 90%;
+  height: 35px;
+  margin-top: 30px;
+  margin-bottom: 10px;
   border-radius: 10px;
   background-color: #6200ea;
+  font-size: 22px;
 }
 </style>
