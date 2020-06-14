@@ -56,7 +56,7 @@
         </div>
         <div class="border-bottom dayCount margin">
           <span>请假天数*</span>
-          <input type="text" style="width: 20px" />天
+          <input type="text" v-model="day" style="width: 20px" />天
         </div>
         <div class="border-bottom school margin">
           <span>是否需要出校门*</span>
@@ -100,7 +100,8 @@ export default {
       count: 0,
       isLoading: false,
       school: false,
-      attentance: false
+      attentance: false,
+      day: ''
     }
   },
   components: { Nav, DateTime },
@@ -136,6 +137,7 @@ export default {
       console.log(number1)
       var number2 = this.msg1.replace(/[^0-9]/gi, '').substring(6, 8) //提取数字
       console.log(number2)
+      this.day = number2 - number1
     }
   },
   computed: {}
