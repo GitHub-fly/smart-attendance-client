@@ -1,103 +1,131 @@
 <template>
   <div>
-    <div>
-      <Nav title="假条详情（预览）"></Nav>
-    </div>
-    <div>
-      <span>学生事(病)假申请单</span>
-      <template>
-        <v-container class="grey lighten-5">
-          <v-col outlined class="mb-6" no-gutters tile>
-            <v-row class="mb-6" no-gutters>
-              <v-col sm="5" md="6">
-                <v-card class="pa-2" outlined tile>
-                  请假人
-                </v-card>
-              </v-col>
-              <v-col sm="5" md="6">
-                <v-card class="pa-2" outlined tile>
-                  王登科
-                </v-card>
-              </v-col>
-              <v-col sm="5" md="6">
-                <v-card class="pa-2" outlined tile>
-                  性别
-                </v-card>
-              </v-col>
-              <v-col sm="5" md="6">
-              <v-card class="pa-2" outlined tile>
-                男
-              </v-card>
-            </v-col>
-          </v-row>
-          <v-row class="mb-6" no-gutters>
-            <v-col sm="5" md="6">
-              <v-card class="pa-2" outlined tile>
-                学号
-              </v-card>
-            </v-col>
-            <v-col sm="5" md="6">
-              <v-card class="pa-2" outlined tile>
-                1802343118
-              </v-card>
-            </v-col>
-            <v-col sm="5" md="6">
-              <v-card class="pa-2" mx-auto outlined tile>
-                联系方式
-              </v-card>
-            </v-col>
-            <v-col sm="5" md="6">
-              <v-card class="pa-2" outlined tile>
-                1886666999
-              </v-card>
-            </v-col>
-          </v-row>
-          <v-row class="mb-6" no-gutters>
-            <v-col sm="5" md="6">
-              <v-card class="pa-2" outlined tile>
-                学号
-              </v-card>
-            </v-col>
-            <v-col sm="5" md="6">
-              <v-card class="pa-2" outlined tile>
-                1802343118
-              </v-card>
-            </v-col>
-            <v-col sm="5" md="6">
-              <v-card class="pa-2" outlined tile>性别 </v-card>
-            </v-col>
-            <v-col sm="5" md="6">
-              <v-card class="pa-2" outlined tile>
-                1886666999
-              </v-card>
-            </v-col>
-          </v-row>
-          <v-row class="mb-6" no-gutters>
-            <v-col sm="5" md="6">
-              <v-card class="pa-2" outlined tile>
-                学号
-              </v-card>
-            </v-col>
-            <v-col sm="5" md="6">
-              <v-card class="pa-2" outlined tile>
-                1802343118
-              </v-card>
-            </v-col>
-            <v-col sm="5" md="6">
-              <v-card class="pa-2" outlined tile>
-                联系方式
-              </v-card>
-            </v-col>
-            <v-col sm="5" md="6">
-              <v-card class="pa-2" outlined tile>
-                1886666999
-              </v-card>
-            </v-col>
-          </v-row>
-          </v-col>
-          
-        </v-container>
-      </template>
+    <Nav title="假条详情（预览）" :items="items" style="margin-bottom: 20px"></Nav>
+    <div class="d-flex flex-column align-center" style="margin-bottom: 20px">
+      <p>学生事（病）请假条</p>
+      <div class="table">
+        <table border="1" cellspacing="0">
+          <tbody>
+            <!-- 基本信息区域 -->
+            <tr>
+              <td>姓名</td>
+              <td>张三</td>
+              <td>性别</td>
+              <td>男</td>
+            </tr>
+            <tr>
+              <td>学号</td>
+              <td>1802343124</td>
+              <td>联系方式</td>
+              <td>18851999738</td>
+            </tr>
+            <tr>
+              <td>班级</td>
+              <td>机器人1811</td>
+              <td>班主任</td>
+              <td>张大仙</td>
+            </tr>
+            <tr>
+              <td>类型</td>
+              <td>事假</td>
+              <td>请假天数</td>
+              <td>3天</td>
+            </tr>
+            <tr>
+              <td>是否归寝</td>
+              <td>是</td>
+              <td>是否出校</td>
+              <td>是</td>
+            </tr>
+            <tr>
+              <td>请假时间</td>
+              <td colspan="3">2020-06-06 18:00:00 至 2020-06-06 18:00:00</td>
+            </tr>
+            <!-- 请假原因 -->
+            <tr>
+              <td colspan="4" style="border-bottom: none">请假原因：</td>
+            </tr>
+            <tr>
+              <td rowspan="3" colspan="4" style="border-top: none; height: 150px">
+                最近受到冷空气的影响，肚子不舒服了。请假一上午
+              </td>
+            </tr>
+            <tr></tr>
+            <tr></tr>
+            <!-- 班主任意见 -->
+            <tr>
+              <td colspan="4" style="border-bottom: none">班主任意见：</td>
+            </tr>
+            <tr>
+              <td rowspan="3" colspan="4" class="re-top-bot" style="height: 60px; text-align: center; font-size: 18px">
+                同意
+              </td>
+            </tr>
+            <tr></tr>
+            <tr></tr>
+            <tr>
+              <td colspan="2" class="border-bottom re-ri"></td>
+              <td align="right" class="border-bottom  re-le-ri">签字</td>
+              <td align="center" class="border-bottom  rele">凡颖</td>
+            </tr>
+            <!-- 辅导员意见 -->
+            <tr>
+              <td colspan="4" style="border-bottom: none">辅导员意见：</td>
+            </tr>
+            <tr>
+              <td rowspan="3" colspan="4" class="re-top-bot" style="height: 60px; text-align: center; font-size: 18px">
+                同意
+              </td>
+            </tr>
+            <tr></tr>
+            <tr></tr>
+            <tr>
+              <td colspan="2" class="border-bottom re-ri"></td>
+              <td align="right" class="border-bottom  re-le-ri">签字</td>
+              <td align="center" class="border-bottom  rele">解宇宁</td>
+            </tr>
+            <!-- 二级学院意见 -->
+            <tr>
+              <td colspan="4" style="border-bottom: none">二级学院意见：</td>
+            </tr>
+            <tr>
+              <td rowspan="3" colspan="4" class="re-top-bot" style="height: 60px; text-align: center; font-size: 18px">
+                同意
+              </td>
+            </tr>
+            <tr></tr>
+            <tr></tr>
+            <tr>
+              <td colspan="2" class="border-bottom re-ri"></td>
+              <td align="right" class="border-bottom  re-le-ri">签字</td>
+              <td align="center" class="border-bottom  rele">刘老师</td>
+            </tr>
+            <!-- 假条说明区域 -->
+            <tr>
+              <td colspan="4" class="re-top-bot">说明：</td>
+            </tr>
+            <tr>
+              <td colspan="4" class="re-top-bot" style="font-size: 11px">
+                1. 本申请单由学工处统一印制，各院系派相关工作人员到学工处集体领用；
+              </td>
+            </tr>
+            <tr></tr>
+            <tr></tr>
+            <tr>
+              <td colspan="4" class="re-top-bot" style="font-size: 11px">
+                2. 批假权限：1天以内由班主任审批；2-3天有辅导员审批；4天以上由学院领导审批；
+              </td>
+            </tr>
+            <tr></tr>
+            <tr></tr>
+            <tr>
+              <td colspan="4" class="border-bottom" style="font-size: 11px">
+                3. 本申请单分上、下联。上联交班级考勤员并由班级考勤员交任课教师查验。请假期间学生如不在校内宿舍，下联请交公寓管理站。
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
     </div>
   </div>
 </template>
@@ -107,7 +135,9 @@ import Nav from '../../components/Nav'
 export default {
   name: 'NotePreview',
   data() {
-    return {}
+    return {
+      items: ['打印']
+    }
   },
   components: { Nav },
   created() {},
@@ -117,4 +147,37 @@ export default {
 }
 </script>
 
-<style scoped lang="scss"></style>
+<style scoped lang="scss">
+table {
+  border-collapse: collapse;
+}
+.border-bottom {
+  border-top: none;
+  border-bottom: 1px solid black;
+}
+.re-le-ri {
+  border-left: none;
+  border-right: none;
+}
+.re-top-bot {
+  border-top: none;
+  border-bottom: none;
+}
+.re-ri {
+  border-right: none;
+}
+.rele {
+  border-left: none;
+}
+.table {
+  width: 90%;
+  margin: 0 auto;
+}
+td {
+  font-size: 12px;
+  padding: 5px;
+  width: 150px;
+  height: 30px;
+  border: 1px solid black;
+}
+</style>

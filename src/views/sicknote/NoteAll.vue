@@ -1,18 +1,11 @@
 <template>
   <div>
-    <div>
-      <Nav title="我的所有假条"></Nav>
-    </div>
-    <div class="notes">
+    <Nav title="我的所有假条"></Nav>
+    <div class="notes d-flex flex-column align-center">
       <div class="note" v-for="(note, index) in noteList" :key="index">
         <span>{{ note.gmtCreate }}</span>
-        <span v-if="note.type === 1">事假</span>
-        <span v-if="note.type === 2">病假</span>
-        <span v-if="note.type === 3">休学</span>
-        <span v-if="note.type === 4">其他</span>
-        <span v-if="note.status === 0">未审核</span>
-        <span v-if="note.status === 1">同意</span>
-        <span v-if="note.status === 3">驳回</span>
+        <span class="span">{{ note.type }}</span>
+        <span class="span" :style="{ backgroundColor: note.color }">{{ note.status }}</span>
       </div>
     </div>
   </div>
@@ -39,8 +32,33 @@ export default {
     async getNote() {
       let noteAll = await this.GLOBAL.API.init('/note/student/all', this.sysNote, 'post')
       this.noteList = noteAll.data
+      this.noteList.forEach((item) => {
+        if (item.status == 0) {
+          item.status = '驳回'
+          item['color'] = 'rgb(239, 83, 80)'
+        }
+        if (item.status == 1) {
+          item.status = '未审核'
+          item['color'] = 'rgb(255, 238, 88)'
+        }
+        if (item.status == 2) {
+          item.status = '同意'
+          item['color'] = 'rgb(102, 187, 106)'
+        }
+        if (item.type == 1) {
+          item.type = '事假'
+        }
+        if (item.type == 2) {
+          item.type = '病假'
+        }
+        if (item.type == 3) {
+          item.type = '休学'
+        }
+        if (item.type == 4) {
+          item.type = '其它'
+        }
+      })
       console.log(this.noteList)
-      console.log(noteAll.data[0].gmtCreate)
     }
   },
   computed: {}
@@ -48,14 +66,29 @@ export default {
 </script>
 
 <style scoped lang="scss">
-.note {
-  width: 95%;
-  height: 50px;
-  margin: 20px 10px 15px 10px;
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
-  border-radius: 10px;
-  border: 1px solid gray;
+.notes {
+  width: 90%;
+  margin: 0 auto;
+  padding-top: 20px;
+  .note {
+    margin: 20px 0 20px 0;
+    width: 100%;
+    height: 50px;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    border-radius: 10px;
+    border: 1px solid gray;
+
+    .span {
+      border-radius: 10px;
+      width: 50px;
+      height: 22px;
+      display: flex;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+  }
 }
 </style>
