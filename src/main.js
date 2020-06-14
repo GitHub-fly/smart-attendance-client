@@ -5,6 +5,9 @@ import store from './store'
 import vuetify from './plugins/vuetify'
 import httpAxios from './util/httpAxios'
 import global from './util/Global.vue'
+import dateTime from 'vue-date-time-m'
+
+Vue.component('data-time', dateTime)
 
 Vue.config.productionTip = false
 

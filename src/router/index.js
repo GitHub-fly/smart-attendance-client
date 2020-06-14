@@ -57,6 +57,11 @@ const routes = [
     path: '/noteall',
     name: 'NoteAll',
     component: () => import(/* webpackChunkName: "about" */ '../views/sicknote/NoteAll')
+  },
+  {
+    path: '/teacheradmin',
+    name: 'TeacherAdmin',
+    component: () => import('../views/sicknote/TeacherAdmin')
   }
 ]
 
