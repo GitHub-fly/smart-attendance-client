@@ -39,15 +39,15 @@
               </date-time>
             </div>
             <span>至</span>
-            <!-- <div>
+            <div>
               <div class="my-content-list" @click="show1">
                 <div class="date-time-input">截止时间&nbsp;&nbsp;{{ msg1 }}</div>
               </div>
-              <date-time ref="dateTime" @confirm="select1" format="yyyy-MM-dd hh:mm" color="black">
+              <date-time ref="dateTime1" @confirm="select1" format="yyyy-MM-dd hh:mm" color="black">
                 <div slot="prevMonth"><i>-</i></div>
                 <div slot="nextMonth"><i>+</i></div>
               </date-time>
-            </div> -->
+            </div>
           </div>
         </div>
         <div class="dayCount">
@@ -71,7 +71,7 @@
           <span>{{ user.instructorName }}</span>
         </div>
       </div>
-      <button class="btn" @click="commit">提交</button>
+      <button class="btn" @click="getday">提交</button>
     </div>
   </v-app>
 </template>
@@ -92,7 +92,7 @@ export default {
         instructorName: JSON.parse(localStorage.getItem('user')).sysUserInstructorName
       },
       msg: '',
-      // msg1: '',
+      msg1: '',
       count: 0,
       isLoading: false,
       school: false,
@@ -111,18 +111,25 @@ export default {
       this.$router.push('/notepreview')
     },
     show() {
+      console.log(this.$refs)
       this.$refs.dateTime.show()
     },
-    // show1() {
-    //   this.$refs.dateTime.show1()
-    // },
+    show1() {
+      this.$refs.dateTime1.show()
+    },
     // 日期组件回调
     select(val) {
       this.msg = val
+    },
+    select1(val1) {
+      this.msg1 = val1
+    },
+    getday() {
+      var number1 = this.msg.replace(/[^0-9]/gi, '').substring(6, 8) //提取数字
+      console.log(number1)
+      var number2 = this.msg1.replace(/[^0-9]/gi, '').substring(6, 8) //提取数字
+      console.log(number2)
     }
-    // select1(val1) {
-    //   this.msg1 = val1
-    // }
   },
   computed: {}
 }
