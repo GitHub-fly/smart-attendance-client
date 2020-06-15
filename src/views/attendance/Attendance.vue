@@ -68,7 +68,7 @@ export default {
     async getInfo() {
       let student = await this.GLOBAL.API.init('/attendance/user/info', this.user, 'post')
       this.studentVo = student.data
-      console.log(student.data.roomName)
+      // console.log(student.data.roomName)
     }
   },
   computed: {}
