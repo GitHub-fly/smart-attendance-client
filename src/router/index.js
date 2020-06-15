@@ -80,6 +80,11 @@ const routes = [
     path: '/teacheradmin',
     name: 'TeacherAdmin',
     component: () => import('../views/sicknote/TeacherAdmin')
+  },
+  {
+    path: '/checknote',
+    name: 'CheckNote',
+    component: () => import('../views/sicknote/CheckNote')
   }
 ]
 
