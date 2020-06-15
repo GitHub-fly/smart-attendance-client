@@ -1,6 +1,6 @@
 <template>
   <div>
-    <Nav title="假条详情（预览）" :items="items" style="margin-bottom: 20px"></Nav>
+    <Nav title="假条详情（预览）" :items="items" style="margin-bottom: 20px" @operation="print"></Nav>
     <div class="d-flex flex-column align-center" style="margin-bottom: 20px">
       <p>学生事（病）请假条</p>
       <div class="table">
@@ -9,37 +9,37 @@
             <!-- 基本信息区域 -->
             <tr>
               <td>姓名</td>
-              <td>张三</td>
+              <td>{{ note.sysUserName }}</td>
               <td>性别</td>
-              <td>男</td>
+              <td>{{ note.sysUserGender }}</td>
             </tr>
             <tr>
               <td>学号</td>
-              <td>1802343124</td>
+              <td>{{ note.sysJobNumber }}</td>
               <td>联系方式</td>
-              <td>18851999738</td>
+              <td>{{ note.userPhone }}</td>
             </tr>
             <tr>
               <td>班级</td>
-              <td>机器人1811</td>
+              <td>{{ note.clazzName }}</td>
               <td>班主任</td>
-              <td>张大仙</td>
+              <td>{{ note.teacherName }}</td>
             </tr>
             <tr>
               <td>类型</td>
-              <td>事假</td>
+              <td>{{ note.type }}</td>
               <td>请假天数</td>
-              <td>3天</td>
+              <td>{{ note.dayCount }} 天</td>
             </tr>
             <tr>
               <td>是否归寝</td>
-              <td>是</td>
+              <td>{{ note.isDormitory }}</td>
               <td>是否出校</td>
-              <td>是</td>
+              <td>{{ note.isSchool }}</td>
             </tr>
             <tr>
               <td>请假时间</td>
-              <td colspan="3">2020-06-06 18:00:00 至 2020-06-06 18:00:00</td>
+              <td colspan="3">{{ note.startTime }} 至 {{ note.finishTime }}</td>
             </tr>
             <!-- 请假原因 -->
             <tr>
@@ -47,7 +47,7 @@
             </tr>
             <tr>
               <td rowspan="3" colspan="4" style="border-top: none; height: 150px">
-                最近受到冷空气的影响，肚子不舒服了。请假一上午
+                {{ note.reason }}
               </td>
             </tr>
             <tr></tr>
@@ -58,7 +58,7 @@
             </tr>
             <tr>
               <td rowspan="3" colspan="4" class="re-top-bot" style="height: 60px; text-align: center; font-size: 18px">
-                同意
+                {{ note.teacherOpinion }}
               </td>
             </tr>
             <tr></tr>
@@ -74,7 +74,7 @@
             </tr>
             <tr>
               <td rowspan="3" colspan="4" class="re-top-bot" style="height: 60px; text-align: center; font-size: 18px">
-                同意
+                {{ note.instructorOpinion }}
               </td>
             </tr>
             <tr></tr>
@@ -90,7 +90,7 @@
             </tr>
             <tr>
               <td rowspan="3" colspan="4" class="re-top-bot" style="height: 60px; text-align: center; font-size: 18px">
-                同意
+                {{ note.academyOpinion }}
               </td>
             </tr>
             <tr></tr>
@@ -127,6 +127,28 @@
         </table>
       </div>
     </div>
+    <div class="text-center">
+      <v-dialog v-model="dialog" width="200">
+        <v-card>
+          <v-card-title class="headline grey lighten-2" primary-title>
+            Info
+          </v-card-title>
+
+          <v-card-text>
+            打印成功
+          </v-card-text>
+
+          <v-divider></v-divider>
+
+          <v-card-actions>
+            <v-spacer></v-spacer>
+            <v-btn color="primary" text @click="dialog = false">
+              关闭
+            </v-btn>
+          </v-card-actions>
+        </v-card>
+      </v-dialog>
+    </div>
   </div>
 </template>
 
@@ -136,13 +158,43 @@ export default {
   name: 'NotePreview',
   data() {
     return {
-      items: ['打印']
+      items: ['打印'],
+      note: {},
+      dialog: false
     }
   },
   components: { Nav },
-  created() {},
+  created() {
+    this.getData()
+  },
   mounted() {},
-  methods: {},
+  methods: {
+    /**
+     * 调取接口数据
+     */
+    async getData() {
+      this.note['pkNoteId'] = 1
+      let res = await this.GLOBAL.API.init('/note/info', this.note, 'post')
+      let noteData = res.data
+      this.note = noteData
+      this.note.isDormitory = noteData.isDormitory == 0 ? '否' : '是'
+      this.note.isSchool = noteData.isSchool == 0 ? '否' : '是'
+      if (noteData.type == 1) {
+        this.note.type = '事假'
+      } else if (noteData.type == 2) {
+        this.note.type = '病假'
+      } else if (noteData.type == 3) {
+        this.note.type = '休学'
+      } else {
+        this.note.type = '其它'
+      }
+    },
+    print(items) {
+      if (items[0] == '打印') {
+        this.dialog = true
+      }
+    }
+  },
   computed: {}
 }
 </script>
@@ -176,7 +228,7 @@ table {
 td {
   font-size: 12px;
   padding: 5px;
-  width: 150px;
+  width: 140px;
   height: 30px;
   border: 1px solid black;
 }

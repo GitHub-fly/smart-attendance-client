@@ -2,33 +2,33 @@
   <div>
     <Nav title="归寝打卡"></Nav>
     <v-container>
-      <v-row justify="center" class="flex-column align-center">
-        <v-avatar size="160">
+      <v-row class="d-flex flex-column align-center">
+        <div class="img">
           <img :src="user.sysUserAvatar" />
-        </v-avatar>
-        <div class="ml-6 mt-5 content" justify="space-between">
+        </div>
+        <div class="mt-5 content" justify="space-between">
           <v-list-item-group>
-            <v-list-item>
+            <v-list-item disabled>
               <v-list-item-content>姓名 </v-list-item-content>
               <v-list-item-content>{{ user.sysUserName }} </v-list-item-content>
             </v-list-item>
             <v-divider></v-divider>
-            <v-list-item>
+            <v-list-item disabled>
               <v-list-item-content>学号</v-list-item-content>
               <v-list-item-content>{{ user.sysJobNumber }} </v-list-item-content>
             </v-list-item>
             <v-divider></v-divider>
-            <v-list-item>
+            <v-list-item disabled>
               <v-list-item-content>所属房间</v-list-item-content>
               <v-list-item-content>{{ studentVo.roomName }} </v-list-item-content>
             </v-list-item>
             <v-divider></v-divider>
-            <v-list-item>
+            <v-list-item disabled>
               <v-list-item-content>所属班级</v-list-item-content>
               <v-list-item-content>{{ studentVo.clazzName }} </v-list-item-content>
             </v-list-item>
             <v-divider></v-divider>
-            <v-list-item>
+            <v-list-item disabled>
               <v-list-item-content>所属学院</v-list-item-content>
               <v-list-item-content>{{ studentVo.academyName }} </v-list-item-content>
             </v-list-item>
@@ -37,15 +37,15 @@
               <v-list-item-content>当前位置</v-list-item-content>
               <v-list-item-content @click="showLocation()">点击获取当前定位</v-list-item-content>
             </v-list-item>
-            <div class="d-flex flex-column" style="height: 150px">
-              <div id="container" style="width: 280px; height: 100px"></div>
-              <span>{{ area }}</span>
+            <div class="d-flex flex-column">
+              <div id="container" style="width: 290px; height: 200px" class="mt-1"></div>
+              <span class="mt-1">{{ area }}</span>
             </div>
             <v-divider></v-divider>
           </v-list-item-group>
         </div>
-        <div class="mt-5">
-          <v-btn width="220" color="rgb(1, 152, 255)" dark>立即打卡</v-btn>
+        <div class="mt-5 d-flex justify-center" style="width: 290px;">
+          <v-btn width="100%" color="rgb(1, 152, 255)" dark>立即打卡</v-btn>
         </div>
       </v-row>
     </v-container>
@@ -83,6 +83,7 @@ export default {
       console.log(student.data.roomName)
     },
     showLocation() {
+      this.area = ''
       AMap().then((AMap) => {
         let map = new AMap.Map('container', {
           resizeEnable: true
@@ -133,5 +134,16 @@ export default {
 <style scoped lang="scss">
 .content {
   width: 290px;
+}
+.img {
+  width: 140px;
+  height: 140px;
+  border-radius: 50%;
+
+  img {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+  }
 }
 </style>

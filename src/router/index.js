@@ -49,6 +49,24 @@ const routes = [
     component: () => import(/* webpackChunkName: "about" */ '../views/attendance/Attendance.vue')
   },
   {
+    path: '/attendanceStatus',
+    name: 'AttendanceStatus',
+    component: () => import(/* webpackChunkName: "about" */ '../views/attendance/AttendanceStatus.vue'),
+    redirect: '/attendance/all',
+    children: [
+      {
+        path: '/attendance/all',
+        name: 'AllAttendance',
+        component: () => import('../views/attendance/AllAttendance.vue')
+      },
+      {
+        path: '/attendance/un',
+        name: 'UnAttendance',
+        component: () => import('../views/attendance/UnAttendanceInfo.vue')
+      }
+    ]
+  },
+  {
     path: '/notepreview',
     name: 'NotePreview',
     component: () => import(/* webpackChunkName: "about" */ '../views/sicknote/NotePreview')

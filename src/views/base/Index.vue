@@ -21,17 +21,17 @@ export default {
     return {
       functions: [
         {
-          icon: 'mdi-credit-card-scan-outline',
+          icon: 'home',
           name: '首页',
           path: '/home'
         },
         {
-          icon: 'mdi-arrow-left',
+          icon: 'mdi-message-processing-outline',
           name: '消息',
           path: '/new'
         },
         {
-          icon: 'mdi-credit-card-scan-outline',
+          icon: 'person',
           name: '我的',
           path: '/my'
         }

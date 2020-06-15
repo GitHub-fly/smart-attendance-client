@@ -1,8 +1,10 @@
 <template>
   <v-container>
+    <div class="bg"></div>
     <v-content>
       <v-responsive height="780">
-        <v-row class="flex-column align-center" style="margin-top: 200px">
+        <p class="tit">智慧考勤</p>
+        <v-row class="flex-column align-center" style="margin-top: 180px">
           <v-text-field
             class="xun-input title"
             :rules="rulesPhone"
@@ -15,10 +17,13 @@
             :rules="rulesPass"
             label="Password"
             type="password"
-            style="margin-top: 80px"
+            style="margin-top: 60px"
             v-model="loginDto.password"
           ></v-text-field>
-          <v-btn @click="login()">登录</v-btn>
+          <div class="d-flex justify-space-between" style="width: 50%">
+            <v-btn @click="login()">登录</v-btn>
+            <v-btn>注册</v-btn>
+          </div>
         </v-row>
       </v-responsive>
     </v-content>
@@ -62,5 +67,21 @@ export default {
 <style scoped lang="scss">
 .xun-input {
   width: 200px;
+}
+.bg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0.8;
+  background: url('../../assets/bg.jpg') no-repeat center center;
+  background-size: cover;
+  background-attachment: fixed;
+  display: flex;
+}
+.tit {
+  font-size: 30px;
+  font-family: 'TrueType';
 }
 </style>
