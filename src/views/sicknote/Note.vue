@@ -164,13 +164,11 @@ export default {
       console.log(number1)
       var number2 = this.note.finishTime.replace(/[^0-9]/gi, '').substring(6, 8) //提取数字
       console.log(number2)
-<<<<<<< HEAD
       this.note.dayCount = number2 - number1
     },
     getType(index) {
       this.note.type = index
       this.selectIndex = index
-=======
     },
     handle(items) {
       if (items[0] == '预览') {
@@ -178,7 +176,6 @@ export default {
       } else {
         this.$router.back(-1)
       }
->>>>>>> 6cfc2ac7b3420404390458cf0cd0bf71eed21331
     }
   },
   computed: {}
