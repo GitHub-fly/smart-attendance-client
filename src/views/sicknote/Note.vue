@@ -7,13 +7,14 @@
       <div class="top d-flex flex-column justify-center padding">
         <div class="userName d-flex justify-space-between">
           <span>请假人</span>
-          <span>{{ user.userName }} {{ user.userGender }} {{ user.userXh }}</span>
+          <span>{{ user.sysUserName }} {{ user.sysUserGender }} {{ user.sysJobNumber }}</span>
         </div>
         <div class="userPhone d-flex justify-space-between margin-top">
           <span>联系方式</span>
           <input
             type="text"
             style="padding-left: 5px; border: 1px solid gray; outline: none; border-radius: 5px; width: 145px"
+            v-model="note.userPhone"
             placeholder="手机号"
           />
         </div>
@@ -21,11 +22,18 @@
       <div class="middle padding d-flex flex-column align-start margin">
         <div class="reason">
           <span style="display: block">请假原因*</span>
-          <textarea type="textarea" placeholder="请输入请假原因" class="margin-top" />
+          <textarea v-model="note.reason" type="textarea" placeholder="请输入请假原因" class="margin-top" />
           <!-- <v-textarea auto-grow outlined v-on="on"></v-textarea> -->
           <div class="margin-top">
             <span>请假类型*</span>
-            <label class="label" v-for="(label, index) in labels" :key="index">{{ label }}</label>
+            <label
+              class="label"
+              v-for="(label, index) in labels"
+              :key="index"
+              @click="getType(index)"
+              v-bind:style="{ 'background-color': selectIndex === index ? 'gray' : '' }"
+              >{{ label }}</label
+            >
           </div>
         </div>
       </div>
@@ -56,7 +64,7 @@
         </div>
         <div class="border-bottom dayCount margin">
           <span>请假天数*</span>
-          <input type="text" style="width: 20px" />天
+          <input type="text" v-model="note.dayCount" style="width: 20px" />天
         </div>
         <div class="border-bottom school margin">
           <span>是否需要出校门*</span>
@@ -72,10 +80,10 @@
         </div>
         <div class="acmedy margin">
           <span>学院审核人*</span>
-          <span>{{ user.instructorName }}</span>
+          <span>{{ user.sysUserInstructorName }}</span>
         </div>
       </div>
-      <button class="btn" @click="getday">提交</button>
+      <button class="btn" @click="commit">提交</button>
     </div>
   </v-app>
 </template>
@@ -83,24 +91,31 @@
 <script>
 import Nav from '../../components/Nav'
 import DateTime from 'vue-date-time-m'
+import axios from 'axios'
 export default {
   name: 'Note',
   data() {
     return {
       labels: ['事假', '病假', '休学', '其他'],
-      user: {
-        userName: JSON.parse(localStorage.getItem('user')).sysUserName,
-        userGender: JSON.parse(localStorage.getItem('user')).sysUserGender,
-        userXh: JSON.parse(localStorage.getItem('user')).sysJobNumber,
-        teacherName: JSON.parse(localStorage.getItem('user')).teacherName,
-        instructorName: JSON.parse(localStorage.getItem('user')).sysUserInstructorName
-      },
+      selectIndex: 0,
+      user: JSON.parse(localStorage.getItem('user')),
       msg: '请假时间',
       msg1: '结束时间',
       count: 0,
       isLoading: false,
       school: false,
-      attentance: false
+      attentance: false,
+      note: {
+        userId: JSON.parse(localStorage.getItem('user')).pkSysUserId,
+        userPhone: '',
+        reason: '',
+        type: '',
+        startTime: '',
+        finishTime: '',
+        dayCount: '',
+        isSchool: '',
+        isDormitory: ''
+      }
     }
   },
   components: { Nav, DateTime },
@@ -112,10 +127,19 @@ export default {
   },
   methods: {
     async commit() {
-      let data = {}
-      this.$router.push('/notepreview')
-      let increaseRes = await this.GLOBAL.API.init('/note/increase', data, 'psot')
-      console.log(increaseRes)
+      this.note.isSchool = this.school ? 1 : 0
+      this.note.isDormitory = this.attentance ? 1 : 0
+      console.log(this.note)
+      // let res = await this.GLOBAL.API.init('/note/increase', this.note, 'psot')
+      // console.log(res.data)
+      // this.$router.push('/notepreview')
+      axios({
+        method: 'post',
+        url: '/note/increase',
+        data: this.note
+      }).then((res) => {
+        console.log(res.data.data.noteId)
+      })
     },
     show() {
       console.log(this.$refs)
@@ -127,15 +151,25 @@ export default {
     // 日期组件回调
     select(val) {
       this.msg = val
+      this.note.startTime = this.msg + ':00'
+      console.log(this.note.startTime)
     },
     select1(val1) {
       this.msg1 = val1
+      this.note.finishTime = this.msg1 + ':00'
+      console.log(this.note.finishTime)
+      this.getday()
     },
     getday() {
-      var number1 = this.msg.replace(/[^0-9]/gi, '').substring(6, 8) //提取数字
+      var number1 = this.note.startTime.replace(/[^0-9]/gi, '').substring(6, 8) //提取数字
       console.log(number1)
-      var number2 = this.msg1.replace(/[^0-9]/gi, '').substring(6, 8) //提取数字
+      var number2 = this.note.finishTime.replace(/[^0-9]/gi, '').substring(6, 8) //提取数字
       console.log(number2)
+      this.note.dayCount = number2 - number1
+    },
+    getType(index) {
+      this.note.type = index
+      this.selectIndex = index
     }
   },
   computed: {}
