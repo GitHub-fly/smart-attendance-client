@@ -3,10 +3,7 @@
     <div>
       <Nav title="学生请假"></Nav>
     </div>
-    <div
-      class="d-flex flex-column align-center"
-      style="padding-top: 20px"
-    >
+    <div class="d-flex flex-column align-center" style="padding-top: 20px">
       <div class="top d-flex flex-column justify-center padding">
         <div class="userName d-flex justify-space-between">
           <span>请假人</span>
