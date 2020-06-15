@@ -1,8 +1,6 @@
 <template>
   <v-app>
-    <div>
-      <Nav title="学生请假"></Nav>
-    </div>
+    <Nav title="学生请假" :items="items" @operation="handle"></Nav>
     <div class="d-flex flex-column align-center" style="padding-top: 20px">
       <div class="top d-flex flex-column justify-center padding">
         <div class="userName d-flex justify-space-between">
@@ -35,7 +33,7 @@
           <div class="margin-top" style="display: flex;">
             <div class="date-box" @click="show">
               <div class="my-content-list">
-                <div class="date-time-input">{{ msg }}</div>
+                <div class="d-flex align-center justify-center subtitle-2">{{ msg }}</div>
               </div>
               <date-time ref="dateTime" @confirm="select" format="yyyy-MM-dd hh:mm" color="black">
                 <div slot="prevMonth"><i>-</i></div>
@@ -45,7 +43,7 @@
             <span style="margin-left: 5px; margin-right: 5px">至</span>
             <div class="date-box" @click="show1">
               <div class="my-content-list">
-                <div class="date-time-input">{{ msg1 }}</div>
+                <div class="d-flex align-center justify-center subtitle-2">{{ msg1 }}</div>
               </div>
               <date-time ref="dateTime1" @confirm="select1" format="yyyy-MM-dd hh:mm" color="black">
                 <div slot="prevMonth"><i>-</i></div>
@@ -100,7 +98,8 @@ export default {
       count: 0,
       isLoading: false,
       school: false,
-      attentance: false
+      attentance: false,
+      items: ['预览', '退出']
     }
   },
   components: { Nav, DateTime },
@@ -136,6 +135,13 @@ export default {
       console.log(number1)
       var number2 = this.msg1.replace(/[^0-9]/gi, '').substring(6, 8) //提取数字
       console.log(number2)
+    },
+    handle(items) {
+      if (items[0] == '预览') {
+        this.$router.push('/notePreview')
+      } else {
+        this.$router.back(-1)
+      }
     }
   },
   computed: {}

@@ -63,6 +63,7 @@ export default {
       background-color: rgb(246, 248, 250);
       border-radius: 5px;
       width: 250px;
+      outline: none;
     }
     .functions {
       .icon {
