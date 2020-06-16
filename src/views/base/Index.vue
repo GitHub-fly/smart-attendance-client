@@ -21,7 +21,7 @@ export default {
     return {
       functions: [
         {
-          icon: 'home',
+          icon: 'mdi-home-outline',
           name: '首页',
           path: '/home'
         },
@@ -31,7 +31,7 @@ export default {
           path: '/new'
         },
         {
-          icon: 'person',
+          icon: 'mdi-account-circle-outline',
           name: '我的',
           path: '/my'
         }

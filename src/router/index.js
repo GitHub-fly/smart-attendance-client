@@ -67,6 +67,16 @@ const routes = [
     ]
   },
   {
+    path: '/studentInfo',
+    name: 'StudentInfo',
+    component: () => import(/* webpackChunkName: "about" */ '../views/attendance/StudentInfo.vue')
+  },
+  {
+    path: '/teacherView',
+    name: 'TeacherView',
+    component: () => import(/* webpackChunkName: "about" */ '../views/attendance/TeacherView.vue')
+  },
+  {
     path: '/notepreview',
     name: 'NotePreview',
     component: () => import(/* webpackChunkName: "about" */ '../views/sicknote/NotePreview')
