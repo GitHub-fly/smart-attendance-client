@@ -1,8 +1,6 @@
 <template>
   <div>
-    <div>
-      <Nav title="请假管理"></Nav>
-    </div>
+    <Nav title="请假管理"></Nav>
     <div class="noteBody">
       <div class="topNav">
         <ul>

@@ -1,6 +1,6 @@
 <template>
   <div>
-    <Nav title="假条详情（预览）" :items="items" style="margin-bottom: 20px" @operation="print"></Nav>
+    <Nav title="假条详情（预览）" :items="items" @operation="print"></Nav>
     <div class="d-flex flex-column align-center" style="margin-bottom: 20px">
       <p>学生事（病）请假条</p>
       <div class="table">
@@ -128,23 +128,13 @@
       </div>
     </div>
     <div class="text-center">
-      <v-dialog v-model="dialog" width="200">
+      <v-dialog v-model="dialog" persistent max-width="290">
         <v-card>
-          <v-card-title class="headline grey lighten-2" primary-title>
-            Info
-          </v-card-title>
-
-          <v-card-text>
-            打印成功
-          </v-card-text>
-
-          <v-divider></v-divider>
-
+          <v-card-title class="headline">提示：</v-card-title>
+          <v-card-text>打印成功</v-card-text>
           <v-card-actions>
             <v-spacer></v-spacer>
-            <v-btn color="primary" text @click="dialog = false">
-              关闭
-            </v-btn>
+            <v-btn color="green darken-1" text @click="dialog = false">Close</v-btn>
           </v-card-actions>
         </v-card>
       </v-dialog>
@@ -173,9 +163,16 @@ export default {
      * 调取接口数据
      */
     async getData() {
-      this.note['pkNoteId'] = 1
-      let res = await this.GLOBAL.API.init('/note/info', this.note, 'post')
-      let noteData = res.data
+      let noteData = null
+      if (this.$route.params.note == null) {
+        this.note['pkNoteId'] = this.$route.params.pkNoteId
+        let res = await this.GLOBAL.API.init('/note/info', this.note, 'post')
+        noteData = res.data
+      } else {
+        console.log(this.$route.params.note)
+
+        noteData = this.$route.params.note
+      }
       this.note = noteData
       this.note.isDormitory = noteData.isDormitory == 0 ? '否' : '是'
       this.note.isSchool = noteData.isSchool == 0 ? '否' : '是'

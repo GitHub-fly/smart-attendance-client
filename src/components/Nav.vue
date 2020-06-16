@@ -1,7 +1,7 @@
 <template>
-  <div>
-    <div style="position: fixed; width: 100%;">
-      <v-app-bar color="deep-purple accent-4" dense dark>
+  <div style="z-index: 9999">
+    <div style="position: fixed; width: 100%;" class="elevation-5">
+      <v-app-bar color="rgb(21, 119, 253)" dense dark>
         <v-btn icon @click="back()">
           <v-icon>mdi-arrow-left</v-icon>
         </v-btn>
@@ -25,7 +25,7 @@
         </v-menu>
       </v-app-bar>
     </div>
-    <div style="height: 45px"></div>
+    <div style="height: 65px"></div>
   </div>
 </template>
 <script>

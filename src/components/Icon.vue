@@ -1,9 +1,9 @@
 <template>
   <router-link :to="path" class="body-2">
-    <div class="d-flex flex-column align-center">
-      <v-icon>{{ icon }}</v-icon>
+    <div class="d-flex flex-column justify-center align-center" style="width: 65px">
+      <v-icon class="icon" :size="size" :color="iconColor">{{ icon }}</v-icon>
+      <p :style="{ color: fontColor }">{{ name }}</p>
     </div>
-    {{ name }}
   </router-link>
 </template>
 <script>
@@ -27,6 +27,24 @@ export default {
       default() {
         return ''
       }
+    },
+    size: {
+      type: Number,
+      default() {
+        return 30
+      }
+    },
+    iconColor: {
+      type: String,
+      default() {
+        return undefined
+      }
+    },
+    fontColor: {
+      type: String,
+      default() {
+        return undefined
+      }
     }
   },
   watch: {},
@@ -36,4 +54,18 @@ export default {
   methods: {}
 }
 </script>
-<style scoped lang="scss"></style>
+<style scoped lang="scss">
+p {
+  color: black;
+  font-size: 15px;
+}
+
+a {
+  z-index: 10;
+  &.router-link-exact-active {
+    p {
+      color: rgb(20, 118, 250);
+    }
+  }
+}
+</style>

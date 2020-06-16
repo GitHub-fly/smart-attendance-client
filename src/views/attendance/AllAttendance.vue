@@ -1,5 +1,5 @@
 <template>
-  <div class="d-flex mt-5 align-center">
+  <div class="d-flex align-center">
     <v-card class="mt-12 ml-5" color="#40c4ff" width="150" justify="center" dark v-for="(item, index) in dormitoryVo" :key="index">
       <v-avatar size="100" class="ml-5 mt-n12"
         ><div class="circle">{{ item.dormitoryName.substring(5, 8) }}</div></v-avatar

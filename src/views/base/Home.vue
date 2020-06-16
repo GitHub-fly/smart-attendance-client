@@ -8,11 +8,32 @@
           <v-icon class="icon" style="margin-left: 20px;">mdi-plus-circle-outline</v-icon>
         </div>
       </div>
+
       <div class="icons d-flex flex-row justify-start">
         <div v-for="(item, index) in functions" :key="index" style="margin-left: 40px;">
-          <Icon :icon="item.icon" :name="item.name" :path="item.path"></Icon>
+          <Icon
+            iconColor="rgb(254, 253, 249)"
+            fontColor="rgb(254, 253, 249)"
+            :icon="item.icon"
+            :name="item.name"
+            :path="item.path"
+            :size="size"
+          ></Icon>
         </div>
       </div>
+    </div>
+    <div>
+      <template>
+        <v-carousel cycle height="400" hide-delimiter-background show-arrows-on-hover>
+          <v-carousel-item v-for="(slide, i) in slides" :key="i">
+            <v-sheet :color="colors[i]" height="100%">
+              <v-row class="fill-height" align="center" justify="center">
+                <div class="display-3">{{ slide }} Slide</div>
+              </v-row>
+            </v-sheet>
+          </v-carousel-item>
+        </v-carousel>
+      </template>
     </div>
   </div>
 </template>
@@ -27,7 +48,7 @@ export default {
         {
           icon: 'mdi-credit-card-scan-outline',
           name: '扫一扫',
-          path: '/notepreview'
+          path: '/note'
         },
         {
           icon: 'mdi-note-outline',
@@ -39,7 +60,10 @@ export default {
           name: '打卡',
           path: '/attendance'
         }
-      ]
+      ],
+      size: 32,
+      colors: ['indigo', 'warning', 'pink darken-2', 'red lighten-1', 'deep-purple accent-4'],
+      slides: ['First', 'Second', 'Third', 'Fourth', 'Fifth']
     }
   },
   components: {
@@ -55,7 +79,7 @@ export default {
 <style scoped lang="scss">
 .header {
   height: 150px;
-  background-color: rgb(88, 116, 242);
+  background-color: rgb(21, 119, 253);
   .top {
     padding: 10px;
     .input {
@@ -75,8 +99,5 @@ export default {
     margin-top: 20px;
     margin-left: -25px;
   }
-}
-a {
-  color: black;
 }
 </style>

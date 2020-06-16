@@ -1,14 +1,14 @@
 <template>
   <v-app>
     <Nav title="学生请假" :items="items" @operation="handle"></Nav>
-    <div class="d-flex flex-column align-center" style="padding-top: 20px">
+    <div class="d-flex flex-column align-center">
       <div class="top d-flex flex-column justify-center padding">
         <div class="userName d-flex justify-space-between">
           <span>请假人</span>
           <span>{{ user.sysUserName }} {{ user.sysUserGender }} {{ user.sysJobNumber }}</span>
         </div>
         <div class="userPhone d-flex justify-space-between margin-top">
-          <span>联系方式</span>
+          <span>联系方式 <span class="point">*</span></span>
           <input
             type="text"
             style="padding-left: 5px; border: 1px solid gray; outline: none; border-radius: 5px; width: 145px"
@@ -19,17 +19,17 @@
       </div>
       <div class="middle padding d-flex flex-column align-start margin">
         <div class="reason">
-          <span style="display: block">请假原因*</span>
+          <span style="display: block">请假原因 <span class="point">*</span></span>
           <textarea v-model="note.reason" type="textarea" placeholder="请输入请假原因" class="margin-top" />
           <!-- <v-textarea auto-grow outlined v-on="on"></v-textarea> -->
           <div class="margin-top">
-            <span>请假类型*</span>
+            <span>请假类型<span class="point">*</span></span>
             <label
               class="label"
               v-for="(label, index) in labels"
               :key="index"
               @click="getType(index)"
-              v-bind:style="{ 'background-color': selectIndex === index ? 'gray' : '' }"
+              :style="{ 'background-color': selectIndex === index ? 'rgb(189, 189, 189)' : '' }"
               >{{ label }}</label
             >
           </div>
@@ -37,7 +37,7 @@
       </div>
       <div class="bottom margin padding">
         <div class="border-bottom d-flex flex-column">
-          <span>请假起止时间*</span>
+          <span>请假起止时间 <span class="point">*</span></span>
           <div class="margin-top" style="display: flex;">
             <div class="date-box" @click="show">
               <div class="my-content-list">
@@ -61,23 +61,23 @@
           </div>
         </div>
         <div class="border-bottom dayCount margin">
-          <span>请假天数*</span>
-          <input type="text" v-model="note.dayCount" style="width: 20px" />天
+          <span>请假天数</span>
+          <span>{{ note.dayCount }} 天</span>
         </div>
         <div class="border-bottom school margin">
-          <span>是否需要出校门*</span>
+          <span>是否需要出校门 <span class="point">*</span></span>
           <v-checkbox dense class="checkbot" v-model="school" :label="`是否需要出校`"></v-checkbox>
         </div>
         <div class="border-bottom attentance margin" style="display: flex">
-          <span>是否归寝*</span>
+          <span>是否归寝 <span class="point">*</span></span>
           <v-checkbox class="checkbot" v-model="attentance" :label="`是否归寝`"></v-checkbox>
         </div>
         <div class="border-bottom teacher margin">
-          <span>班级审核人*</span>
+          <span>班级审核人</span>
           <span>{{ user.teacherName }}</span>
         </div>
         <div class="acmedy margin">
-          <span>学院审核人*</span>
+          <span>学院审核人</span>
           <span>{{ user.sysUserInstructorName }}</span>
         </div>
       </div>
@@ -98,27 +98,27 @@ export default {
       selectIndex: 0,
       user: JSON.parse(localStorage.getItem('user')),
       msg: '请假时间',
-      msg1: '结束时间',
+      msg1: '请先选择开始时间',
       count: 0,
       isLoading: false,
       school: false,
       attentance: false,
       note: {
-        userId: JSON.parse(localStorage.getItem('user')).pkSysUserId,
-        userPhone: '',
-        reason: '',
-        type: '',
-        startTime: '',
-        finishTime: '',
-        dayCount: '',
-        isSchool: '',
-        isDormitory: ''
+        type: 1
       },
-      items: ['预览', '退出']
+      items: ['预览', '退出'],
+      newNoteId: null
     }
   },
   components: { Nav, DateTime },
-  created() {},
+  created() {
+    this.note.userId = this.user.pkSysUserId
+    this.note.sysUserName = this.user.sysUserName
+    this.note.sysUserGender = this.user.sysUserGender
+    this.note.sysJobNumber = this.user.sysJobNumber
+    this.note.clazzName = this.user.clazzName
+    this.note.teacherName = this.user.teacherName
+  },
   mounted() {
     // async getUser() {
     //   let users = await this.GlOBAL.API.init('')
@@ -137,6 +137,7 @@ export default {
         url: '/note/increase',
         data: this.note
       }).then((res) => {
+        this.newNoteId = res.data.data.noteId
         console.log(res.data.data.noteId)
       })
     },
@@ -151,20 +152,28 @@ export default {
     select(val) {
       this.msg = val
       this.note.startTime = this.msg + ':00'
-      console.log(this.note.startTime)
     },
     select1(val1) {
+      if (this.note.startTime == '') {
+        alert('请先选择请假时间')
+        return
+      }
+      if (val1 <= this.note.startTime) {
+        alert('结束时间不能小于或等于开始时间')
+        return
+      }
       this.msg1 = val1
       this.note.finishTime = this.msg1 + ':00'
       console.log(this.note.finishTime)
       this.getday()
     },
     getday() {
-      var number1 = this.note.startTime.replace(/[^0-9]/gi, '').substring(6, 8) //提取数字
+      let number1 = this.note.startTime.replace(/[^0-9]/gi, '').substring(6, 8) //提取数字
       console.log(number1)
-      var number2 = this.note.finishTime.replace(/[^0-9]/gi, '').substring(6, 8) //提取数字
+      let number2 = this.note.finishTime.replace(/[^0-9]/gi, '').substring(6, 8) //提取数字
       console.log(number2)
-      this.note.dayCount = number2 - number1
+      let count = number2 - number1
+      this.note.dayCount = count == 0 ? 1 : count
     },
     getType(index) {
       this.note.type = index
@@ -172,7 +181,12 @@ export default {
     },
     handle(items) {
       if (items[0] == '预览') {
-        this.$router.push('/notePreview')
+        this.$router.push({
+          name: 'NotePreview',
+          params: {
+            note: this.note
+          }
+        })
       } else {
         this.$router.back(-1)
       }
@@ -183,6 +197,9 @@ export default {
 </script>
 
 <style scoped lang="scss">
+.point {
+  color: red;
+}
 .margin-top {
   margin-top: 15px;
 }

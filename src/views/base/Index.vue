@@ -1,14 +1,19 @@
 <template>
   <div>
-    <v-content>
+    <div>
       <router-view />
-    </v-content>
-    <v-footer padless fixed style="background-color: rgb(238, 238, 238);" class="flex-column justify-center">
-      <v-col class="text-center d-flex justify-space-around" style="height: 60px;">
-        <div v-for="(item, index) in functions" :key="index">
-          <Icon :icon="item.icon" :name="item.name" :path="item.path"></Icon>
+    </div>
+    <v-footer
+      padless
+      fixed
+      style="background-color: rgb(238, 238, 238); height: 70px; margin-bottom: -20px; z-index: 2;"
+      class="flex-column justify-center"
+    >
+      <div class="d-flex justify-space-around align-cennter box">
+        <div v-for="(item, index) in functions" :key="index" class="d-flex justify-center box">
+          <Icon :icon="item.icon" :name="item.name" :path="item.path" :size="size"></Icon>
         </div>
-      </v-col>
+      </div>
     </v-footer>
   </div>
 </template>
@@ -21,7 +26,7 @@ export default {
     return {
       functions: [
         {
-          icon: 'home',
+          icon: 'mdi-home-outline',
           name: '首页',
           path: '/home'
         },
@@ -31,11 +36,12 @@ export default {
           path: '/new'
         },
         {
-          icon: 'person',
+          icon: 'mdi-account-circle-outline',
           name: '我的',
           path: '/my'
         }
-      ]
+      ],
+      size: 25
     }
   },
   components: {
@@ -53,9 +59,9 @@ export default {
 </script>
 
 <style scoped lang="scss">
-a {
-  &.router-link-exact-active {
-    color: rgb(239, 83, 80);
-  }
+.box {
+  width: 100%;
+  height: 100%;
+  align-items: center;
 }
 </style>

@@ -4,16 +4,15 @@
       <p class="headline d-flex justify-center">个人中心</p>
       <div class="img d-flex justify-center">
         <v-avatar color="orange" size="160">
-          <img :src="avatar" alt="头像" />
+          <img :src="user.sysUserAvatar" alt="头像" />
         </v-avatar>
       </div>
-      <p class="title d-flex justify-center">张小龙</p>
+      <p class="title d-flex justify-center">{{ user.sysUserNickname }}</p>
     </div>
-    <div class="function-area">
+    <div class="function-area d-flex flex-column align-center">
       <div class="row-box">
         <p class="title font-weight-black">我的假条</p>
         <div class="item-area d-flex">
-          <Icon class="icon" name="假条列表" path="/noteall" icon="mdi-equal-box"></Icon>
           <Icon class="icon" name="假条列表" path="/noteall" icon="mdi-equal-box"></Icon>
         </div>
       </div>
@@ -33,7 +32,7 @@ export default {
   name: 'My',
   data() {
     return {
-      avatar: JSON.parse(localStorage.getItem('user')).sysUserAvatar
+      user: JSON.parse(localStorage.getItem('user'))
     }
   },
   components: { Icon },
@@ -60,6 +59,7 @@ export default {
 .function-area {
   padding: 5px;
   .row-box {
+    width: 90%;
     padding: 20px;
     margin-bottom: 30px;
     border: 0.5px solid rgb(188, 188, 188);

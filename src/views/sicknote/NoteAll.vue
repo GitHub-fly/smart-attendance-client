@@ -2,10 +2,17 @@
   <div>
     <Nav title="我的所有假条"></Nav>
     <div class="notes d-flex flex-column align-center">
-      <div class="note" v-for="(note, index) in noteList" :key="index">
+      <div
+        elevation="8"
+        v-ripple
+        class="note elevation-2"
+        v-for="(note, index) in noteList"
+        :key="index"
+        @click="toNoteInfo(note.pkNoteId)"
+      >
         <span>{{ note.gmtCreate }}</span>
         <span class="span">{{ note.type }}</span>
-        <span class="span" :style="{ backgroundColor: note.color }">{{ note.status }}</span>
+        <span class="span" :style="{ color: note.color }">{{ note.status }}</span>
       </div>
     </div>
   </div>
@@ -20,7 +27,22 @@ export default {
       sysNote: {
         userId: JSON.parse(localStorage.getItem('user')).pkSysUserId
       },
-      noteList: []
+      noteList: [],
+      items: [
+        {
+          icon: 'mdi-wifi',
+          text: 'Wifi'
+        },
+        {
+          icon: 'mdi-bluetooth',
+          text: 'Bluetooth'
+        },
+        {
+          icon: 'mdi-chart-donut',
+          text: 'Data Usage'
+        }
+      ],
+      model: [1]
     }
   },
   components: { Nav },
@@ -58,7 +80,17 @@ export default {
           item.type = '其它'
         }
       })
-      console.log(this.noteList)
+    },
+    /**
+     * 查看假条详情的方法
+     */
+    toNoteInfo(id) {
+      this.$router.push({
+        name: 'NotePreview',
+        params: {
+          pkNoteId: id
+        }
+      })
     }
   },
   computed: {}
@@ -69,7 +101,6 @@ export default {
 .notes {
   width: 90%;
   margin: 0 auto;
-  padding-top: 20px;
   .note {
     margin: 20px 0 20px 0;
     width: 100%;
@@ -78,7 +109,6 @@ export default {
     justify-content: space-around;
     align-items: center;
     border-radius: 10px;
-    border: 1px solid gray;
 
     .span {
       border-radius: 10px;
