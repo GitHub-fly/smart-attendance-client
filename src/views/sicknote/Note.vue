@@ -112,12 +112,7 @@ export default {
   },
   components: { Nav, DateTime },
   created() {
-    this.note.userId = this.user.pkSysUserId
-    this.note.sysUserName = this.user.sysUserName
-    this.note.sysUserGender = this.user.sysUserGender
-    this.note.sysJobNumber = this.user.sysJobNumber
-    this.note.clazzName = this.user.clazzName
-    this.note.teacherName = this.user.teacherName
+    // 构建 user 对象的基本数据
   },
   mounted() {
     // async getUser() {
@@ -190,6 +185,14 @@ export default {
       } else {
         this.$router.back(-1)
       }
+    },
+    createUser() {
+      this.note.userId = this.user.pkSysUserId
+      this.note.sysUserName = this.user.sysUserName
+      this.note.sysUserGender = this.user.sysUserGender
+      this.note.sysJobNumber = this.user.sysJobNumber
+      this.note.clazzName = this.user.clazzName
+      this.note.teacherName = this.user.teacherName
     }
   },
   computed: {}

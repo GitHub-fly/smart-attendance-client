@@ -1,24 +1,6 @@
 <template>
   <div>
     <Nav title="消息"></Nav>
-    <v-container fluid class="text-center">
-      <v-row class="flex" justify="space-between">
-        <v-col cols="12">
-          <v-btn @click="show = !show">toggle</v-btn>
-        </v-col>
-
-        <v-col cols="12" class="mt-12">
-          <v-tooltip v-model="show" top>
-            <template v-slot:activator="{ on, attrs }">
-              <v-btn icon v-bind="attrs" v-on="on">
-                <v-icon color="grey lighten-1">mdi-cart</v-icon>
-              </v-btn>
-            </template>
-            <span>Programmatic tooltip</span>
-          </v-tooltip>
-        </v-col>
-      </v-row>
-    </v-container>
   </div>
 </template>
 
@@ -27,10 +9,7 @@ import Nav from '../../components/Nav'
 export default {
   name: 'New',
   data() {
-    return {
-      map: null,
-      show: false
-    }
+    return {}
   },
   components: { Nav },
   created() {},
@@ -38,5 +17,10 @@ export default {
   computed: {}
 }
 </script>
-
-<style scoped lang="scss"></style>
+<style scoped lang="scss">
+.text {
+  margin-top: 10px;
+  text-align: center;
+  font-weight: 700;
+}
+</style>

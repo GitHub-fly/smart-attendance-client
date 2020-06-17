@@ -5,7 +5,7 @@
         <input class="input" type="text" placeholder="校园网" />
         <div class="functions">
           <v-icon class="icon">mdi-account-multiple</v-icon>
-          <v-icon class="icon" style="margin-left: 20px;">mdi-plus-circle-outline</v-icon>
+          <v-icon class="icon" style="margin-left: 20px;" @click="loginOut()">mdi-plus-circle-outline</v-icon>
         </div>
       </div>
 
@@ -71,7 +71,11 @@ export default {
   },
   created() {},
   mounted() {},
-  methods: {},
+  methods: {
+    loginOut() {
+      this.$router.push('/')
+    }
+  },
   computed: {}
 }
 </script>

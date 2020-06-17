@@ -30,6 +30,12 @@
     <v-footer absolute class="font-weight-medium">
       <v-col class="text-center" cols="12"> {{ new Date().getFullYear() }} — <strong>smart-attendance</strong> </v-col>
     </v-footer>
+    <v-dialog persistent v-model="dialog" max-width="180">
+      <v-card height="60" class="d-flex flex-column align-center" style="padding: 15px 0 0 0" color="rgb(255, 255, 255)">
+        <!-- <v-icon size="40" color="rgb(1, 217, 39)">check_circle_outline</v-icon> -->
+        <p class="text">同学好</p>
+      </v-card>
+    </v-dialog>
   </v-container>
 </template>
 
@@ -43,7 +49,9 @@ export default {
       loginDto: {
         account: '18851999738',
         password: '123456'
-      }
+      },
+      dialog: false,
+      time: 1
     }
   },
   components: {},
@@ -54,7 +62,16 @@ export default {
       let loginRes = await this.GLOBAL.API.init('/user/login', this.loginDto, 'post')
       if (loginRes.code == 1) {
         localStorage.setItem('user', JSON.stringify(loginRes.data.user))
-        this.$router.push('/index')
+        this.dialog = true
+        let timer = setInterval(() => {
+          this.time--
+          if (this.time == 0) {
+            clearInterval(timer)
+            this.dialog = false
+            this.time = 1
+            this.$router.push('/index')
+          }
+        }, 1000)
       } else {
         alert(loginRes.msg)
       }
