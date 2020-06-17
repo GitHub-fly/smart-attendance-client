@@ -21,7 +21,7 @@
 <script>
 import Nav from '../../components/Nav'
 export default {
-  name: 'NoteAll',
+  name: 'MyNoteAll',
   data() {
     return {
       sysNote: {
@@ -86,7 +86,7 @@ export default {
      */
     toNoteInfo(id) {
       this.$router.push({
-        name: 'NotePreview',
+        name: 'MyNoteAll',
         params: {
           pkNoteId: id
         }

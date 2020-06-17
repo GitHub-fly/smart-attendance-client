@@ -72,9 +72,9 @@ const routes = [
     component: () => import(/* webpackChunkName: "about" */ '../views/sicknote/NotePreview')
   },
   {
-    path: '/noteall',
-    name: 'NoteAll',
-    component: () => import(/* webpackChunkName: "about" */ '../views/sicknote/NoteAll')
+    path: '/mynoteall',
+    name: 'MyNoteAll',
+    component: () => import(/* webpackChunkName: "about" */ '../views/sicknote/MyNoteAll')
   },
   {
     path: '/teacheradmin',
@@ -85,6 +85,16 @@ const routes = [
     path: '/checknote',
     name: 'CheckNote',
     component: () => import('../views/sicknote/CheckNote')
+  },
+  {
+    path: '/counseloradmin',
+    name: 'CounselorAdmin',
+    component: () => import('../views/sicknote/CounselorAdmin')
+  },
+  {
+    path: '/clazznoteadmin',
+    name: 'ClazzNoteAdmin',
+    component: () => import('../views/sicknote/ClazzNoteAdmin')
   }
 ]
 
