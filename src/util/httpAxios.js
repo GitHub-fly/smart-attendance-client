@@ -6,6 +6,9 @@ axios.defaults.baseURL = 'http://121.196.196.150:8080/api'
 //全局请求拦截
 axios.interceptors.request.use((config) => {
   //请求不是登录、验证码接口，添加token header
+  config.headers.common = {
+    'Content-Type': 'application/json'
+  }
   if (['/sysUser/login', '/captcha'].indexOf(config.url) === -1) {
     const token = localStorage.getItem('token')
     if (token != null) {
@@ -13,6 +16,7 @@ axios.interceptors.request.use((config) => {
     }
     return config
   }
+  return config
 })
 
 /**
