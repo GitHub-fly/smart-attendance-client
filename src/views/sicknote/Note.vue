@@ -81,15 +81,16 @@
           <span>{{ user.sysUserInstructorName }}</span>
         </div>
       </div>
-      <button class="btn" @click="commit">提交</button>
+      <v-btn width="90%" color="rgb(1, 152, 255)" dark @click="commit()" style="margin: 20px 0 20px 0">立即打卡</v-btn>
     </div>
+    <Alert :info="info" :isShow="dialog"></Alert>
   </v-app>
 </template>
 
 <script>
 import Nav from '../../components/Nav'
+import Alert from '../../components/Alert'
 import DateTime from 'vue-date-time-m'
-import axios from 'axios'
 export default {
   name: 'Note',
   data() {
@@ -107,37 +108,55 @@ export default {
         type: 1
       },
       items: ['预览', '退出'],
-      newNoteId: null
+      newNoteId: null,
+      dialog: false,
+      time: 3,
+      info: '已发送'
     }
   },
-  components: { Nav, DateTime },
+  components: { Nav, DateTime, Alert },
   created() {
-    // 构建 user 对象的基本数据
+    // 调用初始化用户信息的方法
+    this.createUser()
   },
-  mounted() {
-    // async getUser() {
-    //   let users = await this.GlOBAL.API.init('')
-    // }
-  },
+  mounted() {},
   methods: {
     async commit() {
-      this.note.isSchool = this.school ? 1 : 0
-      this.note.isDormitory = this.attentance ? 1 : 0
-      console.log(this.note)
-      // let res = await this.GLOBAL.API.init('/note/increase', this.note, 'psot')
-      // console.log(res.data)
-      // this.$router.push('/notepreview')
-      axios({
-        method: 'post',
-        url: '/note/increase',
-        data: this.note
-      }).then((res) => {
-        this.newNoteId = res.data.data.noteId
-        console.log(res.data.data.noteId)
-      })
+      if (
+        this.note.userPhone == null ||
+        this.note.reason == null ||
+        this.msg == '请假时间' ||
+        this.msg1 == '请先选择开始时间' ||
+        this.note.dayCount == null
+      ) {
+        this.info = '有未填项'
+        this.dialog = true
+        let timer = setInterval(() => {
+          this.time--
+          if (this.time == 0) {
+            clearInterval(timer)
+            this.dialog = false
+            this.time = 3
+          }
+        }, 500)
+      } else {
+        this.info = '已发送'
+        this.note.isSchool = this.school ? 1 : 0
+        this.note.isDormitory = this.attentance ? 1 : 0
+        let res = await this.GLOBAL.API.init('/note/increase', this.note, 'post')
+        this.newNoteId = res.data.noteId
+        this.dialog = true
+        let timer = setInterval(() => {
+          this.time--
+          if (this.time == 0) {
+            clearInterval(timer)
+            this.dialog = false
+            this.time = 3
+          }
+        }, 500)
+      }
     },
     show() {
-      console.log(this.$refs)
       this.$refs.dateTime.show()
     },
     show1() {
@@ -159,14 +178,11 @@ export default {
       }
       this.msg1 = val1
       this.note.finishTime = this.msg1 + ':00'
-      console.log(this.note.finishTime)
       this.getday()
     },
     getday() {
       let number1 = this.note.startTime.replace(/[^0-9]/gi, '').substring(6, 8) //提取数字
-      console.log(number1)
       let number2 = this.note.finishTime.replace(/[^0-9]/gi, '').substring(6, 8) //提取数字
-      console.log(number2)
       let count = number2 - number1
       this.note.dayCount = count == 0 ? 1 : count
     },
@@ -300,5 +316,6 @@ export default {
   border-radius: 10px;
   background-color: #6200ea;
   font-size: 22px;
+  outline: none;
 }
 </style>
