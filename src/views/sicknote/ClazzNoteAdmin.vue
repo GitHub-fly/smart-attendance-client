@@ -2,14 +2,7 @@
   <div>
     <Nav title="软件1821班假条"></Nav>
     <div class="notes d-flex flex-column align-center">
-      <div
-        elevation="8"
-        v-ripple
-        class="note elevation-2"
-        v-for="(note, index) in noteList"
-        :key="index"
-        
-      >
+      <div elevation="8" v-ripple class="note elevation-2" v-for="(note, index) in noteList" :key="index">
         <span>{{ note.gmtCreate }}</span>
         <span>{{ note.studentXh }}</span>
         <span>{{ note.studentName }}</span>
