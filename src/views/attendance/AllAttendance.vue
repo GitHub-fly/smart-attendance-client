@@ -18,8 +18,6 @@
 </template>
 
 <script>
-import { DecryptData, EncryptData } from '../../util/encryption.js'
-import axios from 'axios'
 export default {
   name: 'AllttendanceInfo',
   data() {
@@ -39,22 +37,9 @@ export default {
   mounted() {},
   methods: {
     async getDormitory() {
-      // let dormitory = await this.GLOBAL.API.init('/attendance/manager/info', this.user, 'post')
-      // dormitory = DecryptData(dormitory)
-      // this.dormitoryVo = dormitory.data
-      // console.log(dormitory.data)
-      axios({
-        method: 'post',
-        url: '/attendance/manager/info',
-        data: EncryptData(JSON.stringify(this.user)),
-        headers: { 'Content-Type': 'application/json' }
-      }).then((res) => {
-        let dormitory = res.data
-        console.log(dormitory)
-        dormitory = DecryptData(dormitory)
-        this.dormitoryVo = dormitory.data
-        console.log(dormitory.data)
-      })
+      let dormitory = await this.GLOBAL.API.init('/attendance/manager/info', this.user, 'post')
+      this.dormitoryVo = dormitory.data
+      console.log(dormitory.data)
     }
   },
   computed: {}

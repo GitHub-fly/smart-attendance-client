@@ -8,7 +8,7 @@ axios.defaults.baseURL = 'http://121.196.196.150:8080/api'
 axios.interceptors.request.use((config) => {
   // 设置全局请求头参数
   config.headers = {
-    'content-type': 'application/json'
+    'Content-Type': 'application/json'
   }
   // 对所有的请求参数进行加密
   config.data = EncryptData(JSON.stringify(config.data))
@@ -18,16 +18,6 @@ axios.interceptors.request.use((config) => {
 // 添加响应拦截器
 axios.interceptors.response.use((response) => {
   if (typeof response.data == 'string') {
-    response.data = DecryptData(response.data)
-  }
-  return response
-})
-
-/**
- * 添加响应拦截器
- */
-axios.interceptors.response.use((response) => {
-  if (typeof response == 'object') {
     response.data = DecryptData(response.data)
   }
   return response
