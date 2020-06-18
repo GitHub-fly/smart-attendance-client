@@ -23,15 +23,15 @@ axios.interceptors.response.use((response) => {
   return response
 })
 
-/**
- * 添加响应拦截器
- */
-axios.interceptors.response.use((response) => {
-  if (typeof response == 'object') {
-    response.data = DecryptData(response.data)
-  }
-  return response
-})
+// /**
+//  * 添加响应拦截器
+//  */
+// axios.interceptors.response.use((response) => {
+//   if (typeof response == 'object') {
+//     response.data = DecryptData(response.data)
+//   }
+//   return response
+// })
 
 /**
  * get方法，对应 get请求

@@ -45,14 +45,16 @@
           </v-list-item-group>
         </div>
         <div class="mt-5 d-flex justify-center" style="width: 290px;">
-          <v-btn width="100%" color="rgb(1, 152, 255)" dark>立即打卡</v-btn>
+          <v-btn width="100%" color="rgb(1, 152, 255)" dark @click="commit()">立即打卡</v-btn>
         </div>
       </v-row>
+      <Alert :info="info" :isShow="dialog"></Alert>
     </v-container>
   </div>
 </template>
 
 <script>
+import Alert from '../../components/Alert'
 import axios from 'axios'
 import Nav from '../../components/Nav'
 import AMap from '../../util/AMap'
@@ -66,10 +68,13 @@ export default {
       // 经度
       lat: '',
       // 纬度
-      lng: ''
+      lng: '',
+      dialog: false,
+      time: 2,
+      info: '打卡成功'
     }
   },
-  components: { Nav },
+  components: { Nav, Alert },
   created() {
     this.area = ''
     this.getInfo()
@@ -124,7 +129,55 @@ export default {
     onError() {
       // console.log(data)
     },
-    operation() {}
+    operation() {},
+    /**
+     * 提交打卡的方法
+     */
+    async commit() {
+      if (this.lat == '' || this.lng == '') {
+        this.info = '打卡失败'
+        this.dialog = true
+        let timer = setInterval(() => {
+          this.time--
+          if (this.time == 0) {
+            clearInterval(timer)
+            this.dialog = false
+            this.time = 2
+          }
+        }, 500)
+        return
+      }
+      let user = {
+        userId: JSON.parse(localStorage.getItem('user')).pkSysUserId,
+        longitude: this.lat,
+        latitude: this.lng
+      }
+      console.log(user)
+      let res = await this.GLOBAL.API.init('/attendance/increase', user, 'post')
+      if (res.code == 1) {
+        this.info = '打卡成功'
+        this.dialog = true
+        let timer = setInterval(() => {
+          this.time--
+          if (this.time == 0) {
+            clearInterval(timer)
+            this.dialog = false
+            this.time = 2
+          }
+        }, 500)
+      } else {
+        this.info = '打卡失败'
+        this.dialog = true
+        let timer = setInterval(() => {
+          this.time--
+          if (this.time == 0) {
+            clearInterval(timer)
+            this.dialog = false
+            this.time = 2
+          }
+        }, 500)
+      }
+    }
   },
   computed: {}
 }

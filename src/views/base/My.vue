@@ -13,7 +13,7 @@
       <div class="row-box">
         <p class="title font-weight-black">我的假条</p>
         <div class="item-area d-flex">
-          <Icon class="icon" name="假条列表" path="/noteall" icon="mdi-equal-box"></Icon>
+          <Icon class="icon" name="假条列表" path="/mynoteall" icon="mdi-equal-box"></Icon>
         </div>
       </div>
       <div class="row-box">
