@@ -26,8 +26,6 @@
 
 <script>
 import Nav from '../../components/Nav'
-import { EncryptData } from '../../util/encryption.js'
-import axios from 'axios'
 export default {
   name: 'TeacherView',
   data() {
@@ -46,19 +44,10 @@ export default {
   mounted() {},
   methods: {
     async getStudents() {
-      //   let students = await this.GLOBAL.API.init('/attendance/manager/info', EncryptData(JSON.stringify(this.user)), 'post')
-      axios({
-        method: 'post',
-        url: '/attendance/manager/info',
-        data: EncryptData(JSON.stringify(this.user)),
-        headers: { 'Content-Type': 'application/json' }
-      }).then((res) => {
-        let students = res.data
-        console.log(students)
-        // students = DecryptData(students)
-        this.stuVo = students.data
-        console.log(students)
-      })
+      let students = await this.GLOBAL.API.init('/attendance/manager/info', this.user, 'post')
+      console.log(students)
+      this.stuVo = students.data
+      console.log(students)
     }
   },
   computed: {}

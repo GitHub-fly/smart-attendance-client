@@ -1,19 +1,28 @@
 <template>
   <div>
     <Nav title="消息"></Nav>
+    <Alert :isShow="isShow" info="你好"></Alert>
+    <button @click="test()">Show</button>
   </div>
 </template>
 
 <script>
 import Nav from '../../components/Nav'
+import Alert from '../../components/Alert'
 export default {
   name: 'New',
   data() {
-    return {}
+    return {
+      isShow: false
+    }
   },
-  components: { Nav },
+  components: { Nav, Alert },
   created() {},
-  methods: {},
+  methods: {
+    test() {
+      this.GLOBAL.timer(this.isShow, 3)
+    }
+  },
   computed: {}
 }
 </script>

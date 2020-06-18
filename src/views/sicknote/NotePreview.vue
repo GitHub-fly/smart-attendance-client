@@ -132,7 +132,7 @@
         <v-card height="145" class="d-flex flex-column align-center" style="padding: 15px 0 0 0">
           <v-icon size="40" color="rgb(1, 217, 39)">check_circle_outline</v-icon>
           <p class="text">请假条正在打印</p>
-          <v-btn text @click="dialog = false" width="150">知道了（{{ time }}）</v-btn>
+          <v-btn text @click="hide()" width="150">知道了（{{ time }}）</v-btn>
         </v-card>
       </v-dialog>
     </div>
@@ -148,7 +148,8 @@ export default {
       items: ['打印'],
       note: {},
       dialog: false,
-      time: 3
+      time: 3,
+      timer: null
     }
   },
   components: { Nav },
@@ -189,15 +190,21 @@ export default {
         this.dialog = true
       }
     },
+    hide() {
+      clearInterval(this.timer)
+      this.time = 2
+      this.dialog = false
+      this.$router.back(-1)
+    },
     /**
      * 计时器，倒计时三秒钟隐藏 dialog 窗体
      */
     showDialog() {
       this.dialog = true
-      let timer = setInterval(() => {
+      this.timer = setInterval(() => {
         this.time--
         if (this.time == 0) {
-          clearInterval(timer)
+          clearInterval(this.timer)
           this.dialog = false
           this.time = 2
           this.$router.back(-1)

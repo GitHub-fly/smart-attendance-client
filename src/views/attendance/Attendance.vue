@@ -8,27 +8,27 @@
         </div>
         <div class="mt-5 content" justify="space-between">
           <v-list-item-group>
-            <v-list-item disabled>
+            <v-list-item disabled class="item">
               <v-list-item-content>姓名 </v-list-item-content>
               <v-list-item-content>{{ user.sysUserName }} </v-list-item-content>
             </v-list-item>
             <v-divider></v-divider>
-            <v-list-item disabled>
+            <v-list-item disabled class="item">
               <v-list-item-content>学号</v-list-item-content>
               <v-list-item-content>{{ user.sysJobNumber }} </v-list-item-content>
             </v-list-item>
             <v-divider></v-divider>
-            <v-list-item disabled>
+            <v-list-item disabled class="item">
               <v-list-item-content>所属房间</v-list-item-content>
               <v-list-item-content>{{ studentVo.roomName }} </v-list-item-content>
             </v-list-item>
             <v-divider></v-divider>
-            <v-list-item disabled>
+            <v-list-item disabled class="item">
               <v-list-item-content>所属班级</v-list-item-content>
               <v-list-item-content>{{ studentVo.clazzName }} </v-list-item-content>
             </v-list-item>
             <v-divider></v-divider>
-            <v-list-item disabled>
+            <v-list-item disabled class="item">
               <v-list-item-content>所属学院</v-list-item-content>
               <v-list-item-content>{{ studentVo.academyName }} </v-list-item-content>
             </v-list-item>
@@ -80,7 +80,6 @@ export default {
     async getInfo() {
       let student = await this.GLOBAL.API.init('/attendance/user/info', this.user, 'post')
       this.studentVo = student.data
-      console.log(student.data.roomName)
     },
     showLocation() {
       this.area = ''
@@ -134,6 +133,9 @@ export default {
 <style scoped lang="scss">
 .content {
   width: 290px;
+  .item {
+    color: black;
+  }
 }
 .img {
   width: 140px;
