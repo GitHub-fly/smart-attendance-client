@@ -1,18 +1,36 @@
 import axios from 'axios'
+import { EncryptData, DecryptData } from './encryption.js'
 
 // axios.defaults.baseURL = 'http://localhost:8080/api'
 axios.defaults.baseURL = 'http://121.196.196.150:8080/api'
 
 //全局请求拦截
 axios.interceptors.request.use((config) => {
-  //请求不是登录、验证码接口，添加token header
-  if (['/sysUser/login', '/captcha'].indexOf(config.url) === -1) {
-    const token = localStorage.getItem('token')
-    if (token != null) {
-      config.headers.Authorization = token
-    }
-    return config
+  // 设置全局请求头参数
+  config.headers = {
+    'content-type': 'application/json'
   }
+  // 对所有的请求参数进行加密
+  config.data = EncryptData(JSON.stringify(config.data))
+  return config
+})
+
+// 添加响应拦截器
+axios.interceptors.response.use((response) => {
+  if (typeof response.data == 'string') {
+    response.data = DecryptData(response.data)
+  }
+  return response
+})
+
+/**
+ * 添加响应拦截器
+ */
+axios.interceptors.response.use((response) => {
+  if (typeof response == 'object') {
+    response.data = DecryptData(response.data)
+  }
+  return response
 })
 
 /**

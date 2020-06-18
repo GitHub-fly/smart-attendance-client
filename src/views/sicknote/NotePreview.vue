@@ -1,6 +1,6 @@
 <template>
   <div>
-    <Nav title="假条详情（预览）" :items="items" @operation="print"></Nav>
+    <Nav title="假条详情（预览）" :items="items" @operation="showDialog"></Nav>
     <div class="d-flex flex-column align-center" style="margin-bottom: 20px">
       <p>学生事（病）请假条</p>
       <div class="table">
@@ -128,14 +128,11 @@
       </div>
     </div>
     <div class="text-center">
-      <v-dialog v-model="dialog" persistent max-width="290">
-        <v-card>
-          <v-card-title class="headline">提示：</v-card-title>
-          <v-card-text>打印成功</v-card-text>
-          <v-card-actions>
-            <v-spacer></v-spacer>
-            <v-btn color="green darken-1" text @click="dialog = false">Close</v-btn>
-          </v-card-actions>
+      <v-dialog persistent v-model="dialog" max-width="180">
+        <v-card height="145" class="d-flex flex-column align-center" style="padding: 15px 0 0 0">
+          <v-icon size="40" color="rgb(1, 217, 39)">check_circle_outline</v-icon>
+          <p class="text">请假条正在打印</p>
+          <v-btn text @click="hide()" width="150">知道了（{{ time }}）</v-btn>
         </v-card>
       </v-dialog>
     </div>
@@ -150,7 +147,9 @@ export default {
     return {
       items: ['打印'],
       note: {},
-      dialog: false
+      dialog: false,
+      time: 3,
+      timer: null
     }
   },
   components: { Nav },
@@ -190,6 +189,27 @@ export default {
       if (items[0] == '打印') {
         this.dialog = true
       }
+    },
+    hide() {
+      clearInterval(this.timer)
+      this.time = 2
+      this.dialog = false
+      this.$router.back(-1)
+    },
+    /**
+     * 计时器，倒计时三秒钟隐藏 dialog 窗体
+     */
+    showDialog() {
+      this.dialog = true
+      this.timer = setInterval(() => {
+        this.time--
+        if (this.time == 0) {
+          clearInterval(this.timer)
+          this.dialog = false
+          this.time = 2
+          this.$router.back(-1)
+        }
+      }, 1000)
     }
   },
   computed: {}

@@ -40,10 +40,10 @@
             <v-divider></v-divider>
           </v-list-item-group>
         </div>
-        <div class="mt-5">
-          <v-chip large color="green" text-color="white" v-if="show"><v-icon color="dark">mdi-checkbox-marked-circle</v-icon>已打卡</v-chip>
-          <v-chip large color="red" text-color="white" v-if="!show"><v-icon color="dark">highlight_off</v-icon>未打卡</v-chip>
-        </div>
+        <v-chip class="mt-5">
+          <v-chip color="green" text-color="white" v-if="show"><v-icon color="dark">mdi-checkbox-marked-circle</v-icon>已打卡</v-chip>
+          <v-chip color="red" text-color="white" v-if="!show"><v-icon color="dark">highlight_off</v-icon>未打卡</v-chip>
+        </v-chip>
       </v-row>
     </v-container>
   </div>
@@ -80,4 +80,13 @@ export default {
 }
 </script>
 
-<style scoped lang="scss"></style>
+<style scoped lang="scss">
+.content {
+  width: 290px;
+}
+.v-chip {
+  width: 200px;
+  height: 35px;
+  justify-content: center;
+}
+</style>

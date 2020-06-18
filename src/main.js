@@ -3,7 +3,7 @@ import App from './App.vue'
 import router from './router'
 import store from './store'
 import vuetify from './plugins/vuetify'
-import httpAxios from './util/httpAxios'
+import httpAxios from './util/httpAxios.js'
 import global from './util/Global.vue'
 import dateTime from 'vue-date-time-m'
 
