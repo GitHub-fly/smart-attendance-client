@@ -26,7 +26,7 @@
 
 <script>
 import Nav from '../../components/Nav'
-import { DecryptData, EncryptData } from '../../util/encryption.js'
+import { EncryptData } from '../../util/encryption.js'
 import axios from 'axios'
 export default {
   name: 'TeacherView',
@@ -55,7 +55,7 @@ export default {
       }).then((res) => {
         let students = res.data
         console.log(students)
-        students = DecryptData(students)
+        // students = DecryptData(students)
         this.stuVo = students.data
         console.log(students)
       })

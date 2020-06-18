@@ -1,7 +1,8 @@
 import axios from 'axios'
+import { DecryptData } from '../util/encryption'
 
-// axios.defaults.baseURL = 'http://localhost:8080/api'
-axios.defaults.baseURL = 'http://121.196.196.150:8080/api'
+axios.defaults.baseURL = 'http://localhost:8080/api'
+// axios.defaults.baseURL = 'http://121.196.196.150:8080/api'
 
 //全局请求拦截
 axios.interceptors.request.use((config) => {
@@ -14,6 +15,14 @@ axios.interceptors.request.use((config) => {
     return config
   }
   return config
+})
+
+// 添加响应拦截器
+axios.interceptors.response.use((response) => {
+  if (typeof response.data == 'string') {
+    response.data = DecryptData(response.data)
+  }
+  return response
 })
 
 /**
