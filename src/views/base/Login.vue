@@ -30,16 +30,12 @@
     <v-footer absolute class="font-weight-medium">
       <v-col class="text-center" cols="12"> {{ new Date().getFullYear() }} — <strong>smart-attendance</strong> </v-col>
     </v-footer>
-    <v-dialog persistent v-model="dialog" max-width="180">
-      <v-card height="60" class="d-flex flex-column align-center" style="padding: 15px 0 0 0" color="rgb(255, 255, 255)">
-        <!-- <v-icon size="40" color="rgb(1, 217, 39)">check_circle_outline</v-icon> -->
-        <p class="text">同学好</p>
-      </v-card>
-    </v-dialog>
+    <Alert info="同学好" :isShow="dialog"></Alert>
   </v-container>
 </template>
 
 <script>
+import Alert from '../../components/Alert'
 export default {
   name: 'Login',
   data() {
@@ -54,7 +50,7 @@ export default {
       time: 1
     }
   },
-  components: {},
+  components: { Alert },
   created() {},
   mounted() {},
   methods: {
@@ -71,7 +67,7 @@ export default {
             this.time = 1
             this.$router.push('/index')
           }
-        }, 1000)
+        }, 500)
       } else {
         alert(loginRes.msg)
       }

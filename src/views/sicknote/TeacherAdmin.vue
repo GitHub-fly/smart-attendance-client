@@ -65,10 +65,6 @@ export default {
     },
     changeData(i) {
       switch (i) {
-        case 0:
-          // this.infoList = this.studentNotes
-          console.log(this.infoList[0].name)
-          break
         case 1:
           this.dealData('事假')
           break

@@ -1,4 +1,4 @@
-<script>
+<script type="text/javascript">
 const API = require('./api.js')
 
 /**
@@ -8,6 +8,7 @@ const API = require('./api.js')
  * @param time 倒计时
  */
 function timer(status, time) {
+  status = !status
   let timer = setInterval(() => {
     time--
     if (time == 0) {
@@ -19,6 +20,7 @@ function timer(status, time) {
     }
   }, 1000)
 }
+
 export default {
   API,
   timer
