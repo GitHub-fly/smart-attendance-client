@@ -7,16 +7,16 @@
           <v-avatar size="100" class="">
             <v-img :src="item.sysUserAvatar" style="border-radius: 50%;"></v-img>
           </v-avatar>
-          <v-list-item
-            ><v-list-item-title class="ml-10">{{ item.sysUserName }}</v-list-item-title></v-list-item
-          >
-          <v-list-item
-            ><v-list-item-title>{{ item.sysUserPhone }}</v-list-item-title></v-list-item
-          >
-          <v-chip color="green" text-color="white" v-if="item.isAttendance === 1"
-            ><v-icon color="dark">mdi-checkbox-marked-circle</v-icon>已打卡</v-chip
-          >
-          <v-chip color="red" text-color="white" v-if="item.isAttendance === 0"><v-icon color="dark">highlight_off</v-icon>未打卡</v-chip>
+          <v-list-item>
+            <v-list-item-title class="ml-10">{{ item.sysUserName }}</v-list-item-title>
+          </v-list-item>
+          <v-list-item>
+            <v-list-item-title>{{ item.sysUserPhone }}</v-list-item-title>
+          </v-list-item>
+          <v-chip color="green" text-color="white" v-if="item.isAttendance === 1">
+            <v-icon color="dark">mdi-checkbox-marked-circle</v-icon>已打卡
+          </v-chip>
+          <v-chip color="red" text-color="white" v-if="item.isAttendance === 0"> <v-icon color="dark">highlight_off</v-icon>未打卡</v-chip>
         </v-card>
       </div>
     </v-container>

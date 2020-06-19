@@ -1,7 +1,7 @@
 <template>
   <div style="z-index: 9999">
-    <div style="position: fixed; width: 100%;" class="elevation-5">
-      <v-app-bar color="rgb(21, 119, 253)" dense dark>
+    <div style="position: fixed; width: 100%;" class="elevation-2">
+      <v-app-bar style="background-image: linear-gradient(rgb(21, 119, 253), rgb(100, 181, 246))" dense dark>
         <v-btn icon @click="back()">
           <v-icon>mdi-arrow-left</v-icon>
         </v-btn>
@@ -43,6 +43,12 @@ export default {
       default() {
         return []
       }
+    },
+    path: {
+      type: String,
+      default() {
+        return ''
+      }
     }
   },
   watch: {},
@@ -51,7 +57,11 @@ export default {
   },
   methods: {
     back() {
-      this.$router.back(-1)
+      if (this.path == '') {
+        this.$router.back(-1)
+      } else {
+        this.$router.push(this.path)
+      }
     },
     operation(item) {
       this.$emit('operation', [item])

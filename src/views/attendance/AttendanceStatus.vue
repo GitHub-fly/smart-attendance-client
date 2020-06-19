@@ -1,14 +1,14 @@
 <template>
-  <div>
-    <Nav title="宿舍考勤情况"></Nav>
-    <v-container>
-      <v-tabs centered>
+  <v-app>
+    <Nav title="宿舍考勤情况" path="/login"></Nav>
+    <v-container class="d-flex flex-column align-center">
+      <v-tabs class="mb-6" centered height="30">
         <v-tab to="/attendance/all">全部</v-tab>
         <v-tab to="/attendance/un">未打卡</v-tab>
       </v-tabs>
       <router-view />
     </v-container>
-  </div>
+  </v-app>
 </template>
 
 <script>
@@ -18,8 +18,13 @@ export default {
   data() {
     return {
       user: {
-        pkSysUserId: '1'
-      }
+        pkSysUserId: JSON.parse(localStorage.getItem('user')).pkSysUserId,
+        roleId: 5
+      },
+      dormitoryVo: {},
+      showList: [],
+      studentList: [],
+      dorName: ''
     }
   },
   components: { Nav },
