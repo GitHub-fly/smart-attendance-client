@@ -127,7 +127,8 @@ export default {
       })
     },
     onError() {
-      // console.log(data)
+      this.info = '定位失败'
+      this.timer()
     },
     operation() {},
     /**
@@ -136,15 +137,7 @@ export default {
     async commit() {
       if (this.lat == '' || this.lng == '') {
         this.info = '打卡失败'
-        this.dialog = true
-        let timer = setInterval(() => {
-          this.time--
-          if (this.time == 0) {
-            clearInterval(timer)
-            this.dialog = false
-            this.time = 2
-          }
-        }, 500)
+        this.timer
         return
       }
       let user = {
@@ -152,31 +145,27 @@ export default {
         longitude: this.lat,
         latitude: this.lng
       }
-      console.log(user)
       let res = await this.GLOBAL.API.init('/attendance/increase', user, 'post')
-      if (res.code == 1) {
-        this.info = '打卡成功'
-        this.dialog = true
-        let timer = setInterval(() => {
-          this.time--
-          if (this.time == 0) {
-            clearInterval(timer)
-            this.dialog = false
-            this.time = 2
-          }
-        }, 500)
+      if (res.code == 80001) {
+        this.info = '不在打卡时间内'
       } else {
-        this.info = '打卡失败'
-        this.dialog = true
-        let timer = setInterval(() => {
-          this.time--
-          if (this.time == 0) {
-            clearInterval(timer)
-            this.dialog = false
-            this.time = 2
-          }
-        }, 500)
+        this.info = '打卡成功'
       }
+      this.timer()
+    },
+    /**
+     * 计时器方法
+     */
+    timer() {
+      this.dialog = true
+      let timer = setInterval(() => {
+        this.time--
+        if (this.time == 0) {
+          clearInterval(timer)
+          this.dialog = false
+          this.time = 2
+        }
+      }, 500)
     }
   },
   computed: {}
