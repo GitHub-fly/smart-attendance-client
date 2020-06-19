@@ -3,9 +3,16 @@ import Vuex from 'vuex'
 
 Vue.use(Vuex)
 
-export default new Vuex.Store({
-  state: {},
-  mutations: {},
+const store = new Vuex.Store({
+  state: {
+    clazzName: ''
+  },
+  mutations: {
+    setClazzName(state, clazzName) {
+      state.clazzName = clazzName
+    }
+  },
   actions: {},
   modules: {}
 })
+export default store
