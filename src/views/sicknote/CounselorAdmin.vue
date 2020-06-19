@@ -3,26 +3,16 @@
     <div>
       <Nav title="各班级假条管理"></Nav>
     </div>
-    <div class="content d-flex align-center">
-      <v-card
-        class="mt-12 ml-5 margin-top"
-        color="#40c4ff"
-        width="150"
-        justify="center"
-        dark
-        v-for="(item, index) in dormitoryVo"
-        :key="index"
-      >
-        <v-avatar size="100" class="ml-5 mt-n12 margin-top"><img class="circle margin-top" :src="item.avatar"/></v-avatar>
-        <v-list-item
-          ><v-list-item-title class="center">{{ item.teacherName }}</v-list-item-title></v-list-item
-        >
-        <v-list-item
-          ><v-list-item-title class="center">{{ item.teacherPhone }}</v-list-item-title></v-list-item
-        >
-        <v-list-item
-          ><v-list-item-title class="center">{{ item.clazzName }}</v-list-item-title></v-list-item
-        >
+    <div class="content">
+      <v-card class="card" color="#40c4ff" width="150" height="190" justify="center" dark v-for="(item, index) in dormitoryVo" :key="index">
+        <v-avatar size="100" class="ml-6 mt-n12" @click="toNoteInfo(item.teacher.name)"
+          ><img class="circle" src="item.teacher.avatar"
+        /></v-avatar>
+        <v-list-item class="item margin-top">
+          <v-list-item-title>{{ item.teacher.teacherName }}</v-list-item-title>
+          <v-list-item-title class="margin1-top">{{ item.teacher.teacherPhone }}</v-list-item-title>
+          <v-list-item-title class="margin1-top">{{ item.teacher.name }}</v-list-item-title>
+        </v-list-item>
       </v-card>
     </div>
   </div>
@@ -35,48 +25,34 @@ export default {
   data() {
     return {
       user: {
-        pkSysUserId: '1'
+        pkSysUserId: '004'
       },
-      dormitoryVo: [
-        {
-          avatar: 'https://s1.ax1x.com/2020/06/17/NAQixP.jpg',
-          teacherName: '凡颖',
-          teacherPhone: '18851996666',
-          clazzName: '软件1821'
-        },
-        {
-          avatar: 'https://s1.ax1x.com/2020/06/17/NAQixP.jpg',
-          teacherName: '许莫淇',
-          teacherPhone: '18851996666',
-          clazzName: '软件1851'
-        },
-        {
-          avatar: 'https://s1.ax1x.com/2020/06/17/NAQm5j.jpg',
-          teacherName: '李中科',
-          teacherPhone: '18851996666',
-          clazzName: '软件1813'
-        },
-        {
-          avatar: 'https://s1.ax1x.com/2020/06/17/NAQm5j.jpg',
-          teacherName: '刘芳芳',
-          teacherPhone: '18851996666',
-          clazzName: '软件1811'
-        }
-      ],
+      dormitoryVo: [],
       stuVo: {}
     }
   },
   components: { Nav },
   created() {
-    // this.getDormitory()
+    this.getDormitory()
   },
   mounted() {},
   methods: {
-    // async getDormitory() {
-    //   let dormitory = await this.GLOBAL.API.init('/attendance/manager/info', this.user, 'post')
-    //   this.dormitoryVo = dormitory.data
-    //   console.log(dormitory.data)
-    // }
+    async getDormitory() {
+      let dormitory = await this.GLOBAL.API.init('/note/insturctor/all', this.user, 'post')
+      this.dormitoryVo = dormitory.data
+      // if(dormitory.code == 1) {
+      //   localStorage.setItem('clazzNote', JSON.stringify())
+      // }
+      console.log(dormitory.data)
+    },
+    toNoteInfo(name1) {
+      this.$router.push({
+        name: 'ClazzNoteAdmin',
+        params: {
+          name: name1
+        }
+      })
+    }
   },
   computed: {}
 }
@@ -84,27 +60,42 @@ export default {
 
 <style scoped lang="scss">
 .margin-top {
-    margin-top: 30px;
+  margin-top: 20px;
+}
+.margin1-top {
+  margin-top: 10px;
 }
 .content {
-    display: flex;
-    flex-wrap: wrap;
+  width: 90%;
+  margin: auto;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
 }
 .center {
-    display: flex;
-    align-items: center;
-    align-content: center;
-    justify-content: center;
+  display: flex;
+  align-items: center;
+  align-content: center;
+  justify-content: center;
+}
+.card {
+  margin-top: 70px;
 }
 .circle {
-  width: 100px;
-  height: 100px;
+  width: 95px;
+  height: 95px;
   background-color: #eee;
   border: 1px solid rgb(202, 212, 200);
   border-radius: 50%;
   color: black;
   display: flex;
+  // align-items: center;
+  // justify-content: center;
+}
+.item {
+  display: flex;
+  flex-direction: column;
+  align-content: center;
   align-items: center;
-  justify-content: center;
 }
 </style>
