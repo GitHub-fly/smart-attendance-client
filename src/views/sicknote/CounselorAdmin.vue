@@ -5,8 +5,8 @@
     </div>
     <div class="content">
       <v-card class="card" color="#40c4ff" width="150" height="190" justify="center" dark v-for="(item, index) in dormitoryVo" :key="index">
-        <v-avatar size="100" class="ml-6 mt-n12" @click="toNoteInfo(item.teacher.name)"
-          ><img class="circle" src="item.teacher.avatar"
+        <v-avatar size="100" class="ml-6 mt-n12" @click="toNoteInfo(index)"
+          ><img class="circle" :src="item.teacher.sysUserAvatar"
         /></v-avatar>
         <v-list-item class="item margin-top">
           <v-list-item-title>{{ item.teacher.teacherName }}</v-list-item-title>
@@ -45,13 +45,9 @@ export default {
       // }
       console.log(dormitory.data)
     },
-    toNoteInfo(name1) {
-      this.$router.push({
-        name: 'ClazzNoteAdmin',
-        params: {
-          name: name1
-        }
-      })
+    toNoteInfo(i) {
+      this.$store.commit('setClazzName', this.dormitoryVo[i].teacher.name)
+      this.$router.push('/clazzNoteAdmin')
     }
   },
   computed: {}

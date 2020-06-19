@@ -1,6 +1,6 @@
 <template>
   <div>
-    <Nav title="软件1821班假条"></Nav>
+    <Nav :title="title"></Nav>
     <div class="notes d-flex flex-column align-center">
       <div
         elevation="8"
@@ -26,8 +26,9 @@ export default {
   name: 'ClazzNoteAdmin',
   data() {
     return {
+      title: '',
       clazz: {
-        name: '软件1821'
+        name: this.$store.state.clazzName
       },
       noteList: [],
       items: [
@@ -50,6 +51,7 @@ export default {
   components: { Nav },
   created() {
     this.getClazzNote()
+    this.title = this.$store.state.clazzName + '班假条'
   },
   mounted() {},
   methods: {
