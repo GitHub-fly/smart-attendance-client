@@ -81,7 +81,7 @@
           <span>{{ user.sysUserInstructorName }}</span>
         </div>
       </div>
-      <v-btn width="90%" color="rgb(1, 152, 255)" dark @click="commit()" style="margin: 20px 0 20px 0">立即打卡</v-btn>
+      <v-btn width="90%" color="rgb(1, 152, 255)" dark @click="commit()" style="margin: 20px 0 20px 0">提交申请</v-btn>
     </div>
     <Alert :info="info" :isShow="dialog"></Alert>
   </v-app>

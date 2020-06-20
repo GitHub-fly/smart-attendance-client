@@ -5,12 +5,12 @@
         <input class="input" type="text" placeholder="校园网" />
         <div class="functions">
           <v-icon class="icon">mdi-account-multiple</v-icon>
-          <v-icon class="icon" style="margin-left: 20px;" @click="loginOut()">mdi-plus-circle-outline</v-icon>
+          <v-icon class="icon" style="margin-left: 20px;" @click="loginOut()">exit_to_app</v-icon>
         </div>
       </div>
 
-      <div class="icons d-flex flex-row justify-start">
-        <div v-for="(item, index) in functions" :key="index" style="margin-left: 40px;">
+      <div class="icons d-flex flex-row justify-start flex-wrap">
+        <div v-for="(item, index) in functions" :key="index" style="margin-left: 30px;">
           <Icon
             iconColor="rgb(254, 253, 249)"
             fontColor="rgb(254, 253, 249)"
@@ -48,17 +48,7 @@ export default {
         {
           icon: 'mdi-credit-card-scan-outline',
           name: '扫一扫',
-          path: '/note'
-        },
-        {
-          icon: 'mdi-note-outline',
-          name: '请假条',
-          path: '/note'
-        },
-        {
-          icon: 'mdi-bullseye',
-          name: '打卡',
-          path: '/attendance'
+          path: '/scan'
         }
       ],
       size: 32,
@@ -69,10 +59,21 @@ export default {
   components: {
     Icon
   },
-  created() {},
+  created() {
+    let menuList = JSON.parse(localStorage.getItem('menuList'))
+    for (let i = 0; i < menuList.length; i++) {
+      let item = menuList[i]
+      this.functions.push({
+        icon: item.icon,
+        name: item.name,
+        path: item.path
+      })
+    }
+  },
   mounted() {},
   methods: {
     loginOut() {
+      localStorage.clear()
       this.$router.push('/')
     }
   },
@@ -82,7 +83,6 @@ export default {
 
 <style scoped lang="scss">
 .header {
-  height: 150px;
   background-color: rgb(21, 119, 253);
   .top {
     padding: 10px;

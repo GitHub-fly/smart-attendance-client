@@ -86,7 +86,7 @@ export default {
      */
     toNoteInfo(id) {
       this.$router.push({
-        name: 'MyNoteAll',
+        name: 'NotePreview',
         params: {
           pkNoteId: id
         }
