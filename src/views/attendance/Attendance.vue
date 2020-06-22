@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <v-app>
     <Nav title="归寝打卡"></Nav>
     <v-container>
       <v-row class="d-flex flex-column align-center">
@@ -50,7 +50,7 @@
       </v-row>
       <Alert :info="info" :isShow="dialog"></Alert>
     </v-container>
-  </div>
+  </v-app>
 </template>
 
 <script>

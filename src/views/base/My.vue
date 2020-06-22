@@ -10,7 +10,7 @@
       <p class="title d-flex justify-center">{{ user.sysUserNickname }}</p>
     </div>
     <div class="function-area d-flex flex-column align-center">
-      <div class="row-box">
+      <!-- <div class="row-box">
         <p class="title font-weight-black">我的假条</p>
         <div class="item-area d-flex">
           <Icon class="icon" name="假条列表" path="/mynoteall" icon="mdi-equal-box"></Icon>
@@ -21,13 +21,13 @@
         <div class="item-area d-flex">
           <Icon class="icon" name="签到历史" path="/noteall" icon="mdi-equal-box"></Icon>
         </div>
-      </div>
+      </div> -->
     </div>
   </div>
 </template>
 
 <script>
-import Icon from '../../components/Icon'
+// import Icon from '../../components/Icon'
 export default {
   name: 'My',
   data() {
@@ -35,7 +35,7 @@ export default {
       user: JSON.parse(localStorage.getItem('user'))
     }
   },
-  components: { Icon },
+  components: {},
   created() {},
   mounted() {},
   methods: {},

@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <v-app>
     <Nav :title="title"></Nav>
     <div class="notes d-flex flex-column align-center">
       <div
@@ -17,7 +17,7 @@
         <span class="span" :style="{ color: note.color }">{{ note.status }}</span>
       </div>
     </div>
-  </div>
+  </v-app>
 </template>
 
 <script>

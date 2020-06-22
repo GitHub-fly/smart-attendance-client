@@ -8,7 +8,7 @@
           <v-icon class="icon" style="margin-left: 20px;" @click="loginOut()">exit_to_app</v-icon>
         </div>
       </div>
-
+      <Alert info="退出登录" :isShow="dialog"></Alert>
       <div class="icons d-flex flex-row justify-start flex-wrap">
         <div v-for="(item, index) in functions" :key="index" style="margin-left: 30px;">
           <Icon
@@ -40,6 +40,7 @@
 
 <script>
 import Icon from '../../components/Icon'
+import Alert from '../../components/Alert'
 export default {
   name: 'Home',
   data() {
@@ -53,11 +54,14 @@ export default {
       ],
       size: 32,
       colors: ['indigo', 'warning', 'pink darken-2', 'red lighten-1', 'deep-purple accent-4'],
-      slides: ['First', 'Second', 'Third', 'Fourth', 'Fifth']
+      slides: ['First', 'Second', 'Third', 'Fourth', 'Fifth'],
+      dialog: false,
+      time: 1
     }
   },
   components: {
-    Icon
+    Icon,
+    Alert
   },
   created() {
     let menuList = JSON.parse(localStorage.getItem('menuList'))
@@ -74,7 +78,26 @@ export default {
   methods: {
     loginOut() {
       localStorage.clear()
-      this.$router.push('/')
+      this.timer(true)
+    },
+    /**
+     * 倒计时并跳转的方法
+     *
+     * @param isGo 表示是否进行路由跳转
+     */
+    timer(isGo) {
+      this.dialog = true
+      let timer = setInterval(() => {
+        this.time--
+        if (this.time == 0) {
+          clearInterval(timer)
+          this.dialog = false
+          this.time = 1
+          if (isGo) {
+            this.$router.push('/login')
+          }
+        }
+      }, 1000)
     }
   },
   computed: {}

@@ -1,27 +1,24 @@
 <template>
-  <div>
+  <v-app>
     <Nav title="请假管理"></Nav>
-    <div class="noteBody">
-      <div class="topNav">
-        <ul>
-          <li v-for="(item, index) in funList" :key="index" @click="changeData(index)">{{ item }}</li>
-        </ul>
+    <div class="noteBody d-flex flex-column align-center">
+      <div class="topNav d-flex justify-center">
+        <v-tabs height="30" style="margin-left: -30px">
+          <v-tab v-for="(item, index) in funList" :key="index" @click="changeData(index)">{{ item }}</v-tab>
+        </v-tabs>
       </div>
-      <div class="container">
-        <div class="all">
-          <div class="allNote" v-for="(note, index) in infoList" :key="index">
-            <span class="padding">{{ note.type }}</span>
-            <div style="display: flex; flex-direction: column; align-items: center;">
-              <img :src="note.sysUserAvatar" class="user-avatar" />
-              <span>{{ note.sysUserName }}</span>
-              <span>{{ note.name }}</span>
-              <span>{{ note.gmtCreate }}</span>
-            </div>
+      <div class="mt-2 d-flex flex-wrap justify-space-between" style="width: 95%">
+        <div class="allNote" v-for="(note, index) in studentNotes" :key="index" @click="checkNote(note)">
+          <span class="mt-1 ml-1">{{ note.type }}</span>
+          <div class="d-flex flex-column align-center">
+            <img :src="note.sysUserAvatar" class="user-avatar mt-4" />
+            <span class="mt-4">{{ note.sysUserName }}</span>
+            <span class="date">{{ note.gmtCreate }}</span>
           </div>
         </div>
       </div>
     </div>
-  </div>
+  </v-app>
 </template>
 
 <script>
@@ -30,25 +27,26 @@ export default {
   name: 'TeacherAdmin',
   data() {
     return {
-      // studentNotes: [],
+      // 所有假条数组
       infoList: [],
       funList: ['全部', '事假', '病假', '休学', '其他'],
       teacher: {
-        pkSysUserId: '003'
-      }
+        pkSysUserId: JSON.parse(localStorage.getItem('user')).pkSysUserId
+      },
+      // 界面上被循环的数组对象
+      studentNotes: []
     }
   },
   components: { Nav },
   created() {
     this.getAllNote()
-    // this.getNote()
   },
   mounted() {},
   methods: {
     async getAllNote() {
       let res = await this.GLOBAL.API.init('/note/teacher/all', this.teacher, 'post')
-      let studentNotes = res.data
-      studentNotes.forEach((item) => {
+      this.infoList = res.data
+      this.infoList.forEach((item) => {
         if (item.type == 1) {
           item.type = '事假'
         } else if (item.type == 2) {
@@ -58,13 +56,15 @@ export default {
         } else {
           item.type = '其他'
         }
+        item.gmtCreate = item.gmtCreate.split(' ')[0]
       })
-      this.infoList = studentNotes
-
-      // this.studentNotes = studentNotes.data
+      this.studentNotes = this.infoList
     },
     changeData(i) {
       switch (i) {
+        case 0:
+          this.studentNotes = this.infoList
+          break
         case 1:
           this.dealData('事假')
           break
@@ -80,10 +80,21 @@ export default {
       }
     },
     dealData(str) {
-      this.infoList = []
-      this.studentNotes.forEach((item) => {
-        if (item.noteType == str) {
-          this.infoList.push(item)
+      this.studentNotes = []
+      this.infoList.forEach((item) => {
+        if (item.type == str) {
+          this.studentNotes.push(item)
+        }
+      })
+    },
+    /**
+     * 跳转到审核界面的方法
+     */
+    checkNote(item) {
+      this.$router.push({
+        name: 'CheckNote',
+        params: {
+          note: item
         }
       })
     }
@@ -102,20 +113,12 @@ export default {
   border-radius: 50%;
   margin-bottom: 10px;
 }
-.noteBody {
-  width: 100%;
-  height: 100%;
-}
 .topNav {
-  width: 100%;
-  height: 40px;
+  width: 95%;
 }
 .topNav ul {
   display: flex;
   justify-content: space-around;
-}
-.container {
-  height: 500px;
 }
 .all {
   display: flex;
@@ -124,11 +127,21 @@ export default {
 }
 .allNote {
   width: 140px;
-  height: 210px;
+  height: 215px;
   margin: 10px;
   border-radius: 5px;
   display: flex;
   flex-direction: column;
   background-color: blueviolet;
+
+  span {
+    margin-top: 3px;
+    font-size: 17px;
+  }
+  .date {
+    text-align: center;
+    font-size: 14px;
+    padding: 6px;
+  }
 }
 </style>

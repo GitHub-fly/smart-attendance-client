@@ -1,7 +1,7 @@
 <template>
-  <div>
+  <v-app>
     <Nav title="扫一扫"></Nav>
-  </div>
+  </v-app>
 </template>
 
 <script>
