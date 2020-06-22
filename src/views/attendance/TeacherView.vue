@@ -4,6 +4,8 @@
     <v-container style="width: 95%">
       <div class="d-flex mt-5 justify-space-between flex-wrap">
         <v-card class="mb-6" elevation="3" width="140" height="215" v-for="(item, index) in stuVo" :key="index">
+          <v-icon class="warn" v-if="item.isAttendance !== 1" @click="warn(index)">notifications_active</v-icon>
+
           <v-avatar size="80" class="">
             <v-img :src="item.sysUserAvatar" style="border-radius: 50%;"></v-img>
           </v-avatar>
@@ -16,7 +18,10 @@
           <v-chip color="green" text-color="white" v-if="item.isAttendance === 1">
             <v-icon color="dark">mdi-checkbox-marked-circle</v-icon>已打卡
           </v-chip>
-          <v-chip v-else color="red" text-color="white"> <v-icon color="dark">highlight_off</v-icon>未打卡</v-chip>
+          <v-chip v-else color="red" text-color="white">
+            <v-icon color="dark" size="15" class="mr-2">highlight_off</v-icon>
+            未打卡
+          </v-chip>
         </v-card>
       </div>
     </v-container>
@@ -45,7 +50,12 @@ export default {
     async getStudents() {
       let students = await this.GLOBAL.API.init('/attendance/manager/info', this.user, 'post')
       this.stuVo = students.data
-      console.log(students)
+    },
+    /**
+     * 提醒打卡打的方法
+     */
+    warn(i) {
+      console.log(i)
     }
   },
   computed: {}
@@ -58,6 +68,13 @@ export default {
   flex-wrap: wrap;
   justify-content: center;
   align-items: center;
+  position: relative;
+
+  .warn {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+  }
 }
 .v-chip {
   margin-top: -20px;

@@ -2,6 +2,12 @@
   <v-app>
     <Nav title="消息"></Nav>
     <Alert :isShow="isShow" info="你好"></Alert>
+    <v-tooltip bottom>
+      <template v-slot:activator="{ on, attrs }">
+        <v-btn color="primary" dark v-bind="attrs" v-on="on">Button</v-btn>
+      </template>
+      <span>Tooltip</span>
+    </v-tooltip>
     <button @click="test()">Show</button>
   </v-app>
 </template>
