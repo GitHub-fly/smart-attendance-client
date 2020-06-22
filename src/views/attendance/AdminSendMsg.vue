@@ -87,11 +87,11 @@ export default {
     sendMessage(event) {
 
       if (this.messageContent && this.stompClient) {
-        var chatMessage = {
-          sender: this.username,
-          content: this.messageContent,
-          type: 'CHAT'
-        }
+        // let chatMessage = {
+        //   sender: this.username,
+        //   content: this.messageContent,
+        //   type: 'CHAT'
+        // }
 
         // stompClient.send('/app/chat.sendMessage', {}, JSON.stringify(chatMessage))
         this.messageContent = ''

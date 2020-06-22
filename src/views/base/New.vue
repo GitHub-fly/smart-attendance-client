@@ -1,23 +1,56 @@
 <template>
   <v-app>
     <Nav title="消息"></Nav>
-    <Alert :isShow="isShow" info="你好"></Alert>
-    <button @click="test()">Show</button>
+    <div>
+      <div class="new-box" v-for="(item, index) in news" :key="index">
+        <div style="width: 80%; margin-left: 60px;display: flex;  justify-content: space-between;">
+          <span style="font-family: 宋体; color:#656565">{{ item.title }}</span>
+          <span style="font-family: 宋体; color:#c7c7c7">{{ item.gmtCreate }}</span>
+        </div>
+        <span style="margin-left: 60px;;font-family: 宋体; color:#777777">{{ item.content }}</span>
+      </div>
+    </div>
   </v-app>
 </template>
 
 <script>
 import Nav from '../../components/Nav'
-import Alert from '../../components/Alert'
 import axios from 'axios'
 export default {
   name: 'New',
   data() {
     return {
-      isShow: false
+      isShow: false,
+      news: [
+        {
+          title: '提醒',
+          content: '【工作提醒】安全教育平台尽快完成',
+          gmtCreate: '2020-6-12'
+        },
+        {
+          title: '会议提醒',
+          content: '【会议通知】总结大会',
+          gmtCreate: '2020-6-13'
+        },
+        {
+          title: '监考提醒',
+          content: '【监考通知】监考监考',
+          gmtCreate: '2020-6-14'
+        },
+        {
+          title: '提醒',
+          content: '【工作提醒】周会',
+          gmtCreate: '2020-6-12'
+        },
+        {
+          title: '提醒',
+          content: '【工作提醒】安全教育平台尽快完成',
+          gmtCreate: '2020-6-12'
+        }
+      ]
     }
   },
-  components: { Nav, Alert },
+  components: { Nav },
   created() {
     axios({
       method: 'get',
@@ -36,9 +69,12 @@ export default {
 }
 </script>
 <style scoped lang="scss">
-.text {
-  margin-top: 10px;
-  text-align: center;
-  font-weight: 700;
+.new-box {
+  height: 60px;
+  display: flex;
+  flex-direction: column;
+  align-content: center;
+  padding: 5px;
+  border-bottom: 1px solid gray;
 }
 </style>
