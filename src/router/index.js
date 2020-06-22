@@ -110,7 +110,13 @@ const routes = [
     path: '/clazznoteadmin',
     name: 'ClazzNoteAdmin',
     component: () => import('../views/sicknote/ClazzNoteAdmin')
+  },
+  {
+    path: '/promptmsg',
+    name: 'PromptMsg',
+    component: () => import('../views/message/PromptMsg')
   }
+
 ]
 
 const router = new VueRouter({

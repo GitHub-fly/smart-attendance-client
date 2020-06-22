@@ -25,7 +25,13 @@
         </v-card>
       </div>
     </v-container>
+<<<<<<< HEAD
+  </div>
+
+  <!-- <span class="">班级打卡情况</span> -->
+=======
   </v-app>
+>>>>>>> ab49bae0536ab0f42c2226aed42bb26860375af0
 </template>
 
 <script>
