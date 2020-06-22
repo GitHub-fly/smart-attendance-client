@@ -129,7 +129,11 @@ export default {
           this.dialog = false
           this.time = 1
           if (isGo) {
-            this.$router.push('/teacheradmin')
+            if (JSON.parse(localStorage.getItem('user')).roleId == 2) {
+              this.$router.push('/teacheradmin')
+            } else {
+              this.$router.push('/clazzNoteAdmin')
+            }
           }
         }
       }, 1000)

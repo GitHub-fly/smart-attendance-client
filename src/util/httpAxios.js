@@ -1,8 +1,8 @@
 import axios from 'axios'
 import { EncryptData, DecryptData } from './encryption.js'
 
-// axios.defaults.baseURL = 'http://localhost:8080/api'
-axios.defaults.baseURL = 'http://3m18978w00.wicp.vip:10156/api'
+axios.defaults.baseURL = 'http://localhost:8080/api'
+// axios.defaults.baseURL = 'http://3m18978w00.wicp.vip:10156/api'
 // axios.defaults.baseURL = 'http://121.196.196.150:8080/api'
 
 //全局请求拦截

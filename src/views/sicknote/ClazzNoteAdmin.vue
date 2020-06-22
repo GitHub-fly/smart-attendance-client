@@ -31,20 +31,6 @@ export default {
         name: this.$store.state.clazzName
       },
       noteList: [],
-      items: [
-        {
-          icon: 'mdi-wifi',
-          text: 'Wifi'
-        },
-        {
-          icon: 'mdi-bluetooth',
-          text: 'Bluetooth'
-        },
-        {
-          icon: 'mdi-chart-donut',
-          text: 'Data Usage'
-        }
-      ],
       model: [1]
     }
   },
@@ -58,9 +44,7 @@ export default {
     async getClazzNote() {
       let noteAll = await this.GLOBAL.API.init('/clazz/noteAll', this.clazz, 'post')
       this.noteList = noteAll.data
-      console.log(noteAll.data)
       this.noteList.forEach((item) => {
-        console.log(item.gmtCreate.substr(0, 10))
         item.gmtCreate1 = item.gmtCreate.substr(0, 10)
         if (item.status == 0) {
           item.status = '驳回'
@@ -95,7 +79,9 @@ export default {
       this.$router.push({
         name: 'CheckNote',
         params: {
-          pkNoteId: id
+          note: {
+            pkNoteId: id
+          }
         }
       })
     }

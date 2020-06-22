@@ -1,13 +1,16 @@
 <template>
   <v-app>
     <Nav title="消息"></Nav>
+    <button @click="handle(1)">11111111111111111</button>
+    <Load :isShow="dialog" info="打卡"></Load>
+
     <div
       v-ripple
       class="d-flex justify-space-between align-center pl-2 pr-2"
       style="width: 100%; height: 70px; border-bottom: 1px solid gray;"
       v-for="(item, index) in news"
       :key="index"
-      @click="handle(item)"
+      @click="handle(index)"
     >
       <v-icon color="white" class="icon" :style="{ backgroundColor: item.bcColor }">{{ item.icon }}</v-icon>
       <div style="width: 80%">
@@ -23,15 +26,19 @@
 
 <script>
 import Nav from '../../components/Nav'
+import Load from '../../components/Load'
 export default {
   name: 'New',
   data() {
     return {
-      isShow: false,
-      news: []
+      news: [],
+      dialog: false,
+      info: '',
+      time: 1,
+      roleId: JSON.parse(localStorage.getItem('user')).roleId
     }
   },
-  components: { Nav },
+  components: { Nav, Load },
   created() {
     this.getData()
   },
@@ -47,21 +54,36 @@ export default {
         if (type == '打卡') {
           item.icon = 'mdi-bullseye'
           item.bcColor = 'rgb(62, 182, 124)'
+          item.path = '/attendance'
         } else {
           item.icon = 'mdi-note-outline'
           item.bcColor = 'rgb(158, 144, 187)'
+          if (this.roleId == 1) {
+            item.path = '/mynoteall'
+          } else if (this.roleId == 2) {
+            item.path = '/teacheradmin'
+          } else {
+            item.path = '/counseloradmin'
+          }
         }
       })
-      console.log(res)
     },
     /**
      * 处理消息的方法
      */
-    handle(item) {
-      console.log(item)
+    handle(i) {
+      let item = this.news[i]
+      console.log(i)
+      this.dialog = true
+      setTimeout(() => {
+        this.dialog = false
+        this.news.splice(i, 1)
+        this.$router.push(item.path)
+      }, 1000)
     }
   },
-  computed: {}
+  computed: {},
+  watch: {}
 }
 </script>
 <style scoped lang="scss">
