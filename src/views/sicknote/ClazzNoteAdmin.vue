@@ -43,6 +43,8 @@ export default {
   methods: {
     async getClazzNote() {
       let noteAll = await this.GLOBAL.API.init('/clazz/noteAll', this.clazz, 'post')
+      console.log(noteAll)
+
       this.noteList = noteAll.data
       this.noteList.forEach((item) => {
         item.gmtCreate1 = item.gmtCreate.substr(0, 10)

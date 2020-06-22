@@ -67,7 +67,7 @@
               <td colspan="2" class="border-bottom re-ri"></td>
               <td align="right" class="border-bottom  re-le-ri">签字</td>
               <td align="center" class="border-bottom rele">
-                <span v-if="note.teacherOpinion == ''">{{ user.teacherName }}</span>
+                <span v-if="note.teacherOpinion">{{ user.teacherName }}</span>
               </td>
             </tr>
             <!-- 辅导员意见 -->
@@ -85,7 +85,7 @@
               <td colspan="2" class="border-bottom re-ri"></td>
               <td align="right" class="border-bottom re-le-ri">签字</td>
               <td align="center" class="border-bottom rele">
-                <span v-if="note.instructorOpinion == ''">{{ user.sysUserInstructorName }}</span>
+                <span v-if="note.instructorOpinion">{{ user.sysUserInstructorName }}</span>
               </td>
             </tr>
             <!-- 二级学院意见 -->
@@ -103,7 +103,7 @@
               <td colspan="2" class="border-bottom re-ri"></td>
               <td align="right" class="border-bottom re-le-ri">签字</td>
               <td align="center" class="border-bottom rele">
-                <span v-if="note.academyOpinion == ''">{{ user.sysUserAcademyTeacherName }}</span>
+                <span v-if="note.academyOpinion">{{ user.sysUserAcademyTeacherName }}</span>
               </td>
             </tr>
             <!-- 假条说明区域 -->
