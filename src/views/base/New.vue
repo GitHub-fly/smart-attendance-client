@@ -1,9 +1,9 @@
 <template>
-  <div>
+  <v-app>
     <Nav title="消息"></Nav>
     <Alert :isShow="isShow" info="你好"></Alert>
     <button @click="test()">Show</button>
-  </div>
+  </v-app>
 </template>
 
 <script>

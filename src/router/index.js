@@ -44,12 +44,17 @@ const routes = [
     component: () => import(/* webpackChunkName: "about" */ '../views/sicknote/Note.vue')
   },
   {
+    path: '/scan',
+    name: 'Scan',
+    component: () => import(/* webpackChunkName: "about" */ '../views/base/Scan.vue')
+  },
+  {
     path: '/attendance',
     name: 'Attendance',
     component: () => import(/* webpackChunkName: "about" */ '../views/attendance/Attendance.vue')
   },
   {
-    path: '/attendanceStatus',
+    path: '/attendancestatus',
     name: 'AttendanceStatus',
     component: () => import(/* webpackChunkName: "about" */ '../views/attendance/AttendanceStatus.vue'),
     redirect: '/attendance/all',
@@ -67,12 +72,12 @@ const routes = [
     ]
   },
   {
-    path: '/studentInfo',
+    path: '/studentinfo',
     name: 'StudentInfo',
     component: () => import(/* webpackChunkName: "about" */ '../views/attendance/StudentInfo.vue')
   },
   {
-    path: '/teacherView',
+    path: '/teacherview',
     name: 'TeacherView',
     component: () => import(/* webpackChunkName: "about" */ '../views/attendance/TeacherView.vue')
   },

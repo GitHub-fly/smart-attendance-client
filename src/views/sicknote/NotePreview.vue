@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <v-app>
     <Nav title="假条详情（预览）" :items="items" @operation="showDialog"></Nav>
     <div class="d-flex flex-column align-center" style="margin-bottom: 20px">
       <p>学生事（病）请假条</p>
@@ -136,7 +136,7 @@
         </v-card>
       </v-dialog>
     </div>
-  </div>
+  </v-app>
 </template>
 
 <script>

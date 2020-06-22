@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <v-app>
     <Nav title="我的所有假条"></Nav>
     <div class="notes d-flex flex-column align-center">
       <div
@@ -15,7 +15,7 @@
         <span class="span" :style="{ color: note.color }">{{ note.status }}</span>
       </div>
     </div>
-  </div>
+  </v-app>
 </template>
 
 <script>
@@ -86,7 +86,7 @@ export default {
      */
     toNoteInfo(id) {
       this.$router.push({
-        name: 'MyNoteAll',
+        name: 'NotePreview',
         params: {
           pkNoteId: id
         }

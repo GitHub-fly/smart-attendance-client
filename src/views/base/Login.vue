@@ -7,6 +7,7 @@
         <v-row class="flex-column align-center" style="margin-top: 180px">
           <v-text-field
             class="xun-input title"
+            type="number"
             :rules="rulesPhone"
             label="Phone"
             hide-details="auto"
@@ -30,7 +31,7 @@
     <v-footer absolute class="font-weight-medium">
       <v-col class="text-center" cols="12"> {{ new Date().getFullYear() }} — <strong>smart-attendance</strong> </v-col>
     </v-footer>
-    <Alert info="同学好" :isShow="dialog"></Alert>
+    <Alert :info="info" :isShow="dialog"></Alert>
   </v-container>
 </template>
 
@@ -43,11 +44,17 @@ export default {
       rulesPhone: [(value) => !!value || 'Required.', (value) => (value && value.length >= 11) || 'Min 11 characters'],
       rulesPass: [(value) => !!value || 'Required.', (value) => (value && value.length >= 6) || 'Min 6 characters'],
       loginDto: {
-        account: '18851999738',
+        // 同学账号
+        // account: '18851999738',
+        // 班主任账号
+        account: '14455559999',
+        // 阿姨账号
+        // account: '17783208600',
         password: '123456'
       },
       dialog: false,
-      time: 1
+      time: 2,
+      info: ''
     }
   },
   components: { Alert },
@@ -57,20 +64,42 @@ export default {
     async login() {
       let loginRes = await this.GLOBAL.API.init('/user/login', this.loginDto, 'post')
       if (loginRes.code == 1) {
+        let user = loginRes.data.user
         localStorage.setItem('user', JSON.stringify(loginRes.data.user))
-        this.dialog = true
-        let timer = setInterval(() => {
-          this.time--
-          if (this.time == 0) {
-            clearInterval(timer)
-            this.dialog = false
-            this.time = 1
+        localStorage.setItem('menuList', JSON.stringify(loginRes.data.menuList))
+        let roleName = ''
+        if (user.roleId == 1) {
+          roleName = '同学'
+        } else if (user.roleId == 5) {
+          roleName = '阿姨'
+        } else {
+          roleName = '老师'
+        }
+        this.info = '您好！' + loginRes.data.user.sysUserName + roleName
+        this.timer(true)
+      } else {
+        this.info = loginRes.msg
+        this.timer()
+      }
+    },
+    /**
+     * 倒计时并跳转的方法
+     *
+     * @param isGo 表示是否进行路由跳转
+     */
+    timer(isGo) {
+      this.dialog = true
+      let timer = setInterval(() => {
+        this.time--
+        if (this.time == 0) {
+          clearInterval(timer)
+          this.dialog = false
+          this.time = 2
+          if (isGo) {
             this.$router.push('/index')
           }
-        }, 500)
-      } else {
-        alert(loginRes.msg)
-      }
+        }
+      }, 1000)
     }
   },
   computed: {}

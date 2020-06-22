@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <v-app>
     <Nav title="学生打卡详情"></Nav>
     <v-container>
       <v-row justify="center" class="flex-column align-center">
@@ -46,7 +46,7 @@
         </v-chip>
       </v-row>
     </v-container>
-  </div>
+  </v-app>
 </template>
 
 <script>

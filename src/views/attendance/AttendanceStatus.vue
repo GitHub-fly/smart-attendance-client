@@ -1,6 +1,6 @@
 <template>
   <v-app>
-    <Nav title="宿舍考勤情况" path="/login"></Nav>
+    <Nav title="宿舍考勤情况" path="/home"></Nav>
     <v-container class="d-flex flex-column align-center">
       <v-tabs class="mb-6" centered height="30">
         <v-tab to="/attendance/all">全部</v-tab>

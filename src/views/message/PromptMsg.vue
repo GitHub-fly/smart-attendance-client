@@ -116,7 +116,7 @@ export default {
   margin: 0 auto;
   border-radius: 5px;
   border: 1px solid gray;
-  
+
   // z-index: 998;
   // background-color:#000;
   // opacity:0.6;
