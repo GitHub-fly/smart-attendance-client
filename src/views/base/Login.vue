@@ -47,7 +47,7 @@ export default {
         // 同学账号
         // account: '18851999738',
         // 班主任账号
-        account: '14455559999',
+        account: '18844515551',
         // 阿姨账号
         // account: '17783208600',
         password: '123456'

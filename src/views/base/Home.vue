@@ -1,6 +1,9 @@
 <template>
   <div>
     <div class="header">
+      <div class="title">
+        <span>智慧考勤</span>
+      </div>
       <div class="top d-flex justify-space-between">
         <input class="input" type="text" placeholder="校园网" />
         <div class="functions">
@@ -9,8 +12,26 @@
         </div>
       </div>
       <Alert info="退出登录" :isShow="dialog"></Alert>
+      <div>
+        <template>
+          <v-carousel cycle height="200" hide-delimiter-background show-arrows-on-hover>
+            <v-carousel-item v-for="(slide, i) in slides" :key="i">
+              <v-sheet :color="colors[i]" height="100%">
+                <v-row class="fill-height" align="center" justify="center">
+                  <div class="display-3">{{ slide }} Slide</div>
+                </v-row>
+              </v-sheet>
+            </v-carousel-item>
+          </v-carousel>
+        </template>
+      </div>
       <div class="icons d-flex flex-row justify-start flex-wrap">
-        <div v-for="(item, index) in functions" :key="index" style="margin-left: 30px;">
+        <div
+          class="d-flex align-center align-content-center"
+          v-for="(item, index) in functions"
+          :key="index"
+          style="margin-left: 30px; background-color: burlywood; border-radius: 50%;"
+        >
           <Icon
             iconColor="rgb(254, 253, 249)"
             fontColor="rgb(254, 253, 249)"
@@ -21,19 +42,6 @@
           ></Icon>
         </div>
       </div>
-    </div>
-    <div>
-      <template>
-        <v-carousel cycle height="400" hide-delimiter-background show-arrows-on-hover>
-          <v-carousel-item v-for="(slide, i) in slides" :key="i">
-            <v-sheet :color="colors[i]" height="100%">
-              <v-row class="fill-height" align="center" justify="center">
-                <div class="display-3">{{ slide }} Slide</div>
-              </v-row>
-            </v-sheet>
-          </v-carousel-item>
-        </v-carousel>
-      </template>
     </div>
   </div>
 </template>
@@ -106,7 +114,7 @@ export default {
 
 <style scoped lang="scss">
 .header {
-  background-color: rgb(21, 119, 253);
+  // background-color: rgb(21, 119, 253);
   .top {
     padding: 10px;
     .input {
