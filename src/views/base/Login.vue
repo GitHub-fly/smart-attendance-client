@@ -45,9 +45,9 @@ export default {
       rulesPass: [(value) => !!value || 'Required.', (value) => (value && value.length >= 6) || 'Min 6 characters'],
       loginDto: {
         // 同学账号
-        // account: '18851999738',
+        account: '18851999738',
         // 班主任账号
-        account: '14455559999',
+        // account: '14455559999',
         // 阿姨账号
         // account: '17783208600',
         password: '123456'
