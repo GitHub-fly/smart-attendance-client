@@ -1,6 +1,6 @@
 <template>
   <v-app>
-    <Nav title="请假管理"></Nav>
+    <Nav title="请假管理" path="/home"></Nav>
     <div class="noteBody d-flex flex-column align-center">
       <div class="topNav d-flex justify-center">
         <v-tabs height="30" style="margin-left: -30px">

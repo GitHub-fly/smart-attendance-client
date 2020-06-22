@@ -38,7 +38,7 @@ export default {
   mounted() {},
   methods: {
     async getDormitory() {
-      let dormitory = await this.GLOBAL.API.init('/note/insturctor/all', this.user, 'post')
+      let dormitory = await this.GLOBAL.API.init('/note/instructor/all', this.user, 'post')
       this.dormitoryVo = dormitory.data
       // if(dormitory.code == 1) {
       //   localStorage.setItem('clazzNote', JSON.stringify())

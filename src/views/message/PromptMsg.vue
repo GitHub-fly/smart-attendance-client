@@ -13,16 +13,16 @@
       <span>系统提示</span>
       <span>今日未打卡</span>
     </div>
-    <v-dialog v-model="dialog">
+    <v-dialog persistent v-model="dialog">
       <v-card>
-        <v-card-title class="center" style="font-size: 15px; color: #171717; font-family: 宋体;">提醒</v-card-title>
+        <v-card-title class="center" style="font-size: 25px; color: #171717; font-family: 宋体;">提醒</v-card-title>
         <v-divider></v-divider>
-        <v-card-text style="height: 80px;">
-          <span class="center" style="font-size: 15px; color: #171717; font-family: 宋体;">即将超过归寝时间，请归寝并打卡</span>
+        <v-card-text class="d-flex justify-center aligin-center" style="height: 60px;">
+          <span class="mt-5" style="font-size: 15px; color: #171717; font-family: 宋体;">即将超过归寝时间，请归寝并打卡 </span>
         </v-card-text>
-        <v-divider></v-divider>
-        <v-card-actions>
+        <v-card-actions class="pl-3 pr-3 d-flex justify-space-between">
           <v-btn style="font-family: 宋体" color="blue darken-1" text @click="dialog = false">去打卡</v-btn>
+          <v-btn style="font-family: 宋体" color="blue darken-1" text @click="dialog = false">取消</v-btn>
         </v-card-actions>
       </v-card>
     </v-dialog>
@@ -36,18 +36,18 @@ export default {
   name: 'PromptMsg',
   data() {
     return {
-      isShow: true,
+      isShow: false,
       stipulateDate: '8:00:00',
       user: JSON.parse(localStorage.getItem('user')),
       studentVo: [],
-      dialog: false
+      dialog: true
     }
   },
   components: { Nav },
   created() {
-    this.getInfo()
-
-    //this.getdate()
+    // this.getInfo()
+    this.isAttendance()
+    console.log(new Date())
   },
   methods: {
     async getInfo() {
@@ -73,6 +73,16 @@ export default {
       if (isNaN(dateA) || isNaN(dateB)) return null
       if (dateA > dateB) return true
       if (dateA <= dateB) return false
+    },
+    /**
+     * 判断用户是否已经打卡，并且展示出提示框
+     */
+    isAttendance() {
+      if (this.user.roleId == 1 && this.useeeeer.isAttendance == 0) {
+        this.isShow = true
+      } else {
+        this.isShow = false
+      }
     }
   },
   computed: {

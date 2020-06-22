@@ -137,6 +137,7 @@
       <v-dialog persistent v-model="dialog" max-width="180">
         <v-card height="145" class="d-flex flex-column align-center" style="padding: 15px 0 0 0">
           <v-icon size="40" color="rgb(1, 217, 39)">check_circle_outline</v-icon>
+          <v-divider></v-divider>
           <p class="text mt-3">请假条正在打印</p>
           <v-btn text @click="hide()" width="150">知道了（{{ time }}）</v-btn>
         </v-card>
