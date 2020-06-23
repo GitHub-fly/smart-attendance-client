@@ -80,6 +80,7 @@ export default {
           item.type = '其它'
         }
       })
+      console.log(this.noteList)
     },
     /**
      * 查看假条详情的方法

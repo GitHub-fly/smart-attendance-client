@@ -30,7 +30,7 @@
           class="d-flex align-center align-content-center"
           v-for="(item, index) in functions"
           :key="index"
-          style="margin-left: 30px; background-color: burlywood; border-radius: 50%;"
+          style="margin-left: 30px; background-color: burlywood"
         >
           <Icon
             iconColor="rgb(254, 253, 249)"
@@ -40,6 +40,22 @@
             :path="item.path"
             :size="size"
           ></Icon>
+        </div>
+      </div>
+      <div class="modille">
+        <div class="card" v-for="(punishment, index) in punishments" :key="index">
+          <span>{{ punishment.title }}:</span>
+          <span>{{ punishment.content }}</span>
+        </div>
+      </div>
+      <div class="mt-7">
+        <label class="ml-4" style="font-size: 20px">校园生活</label>
+        <div class="schoolLife" v-for="(life, index) in lifes" :key="index">
+          <div style="display: flex; justify-content: space-between;">
+            <span style="font-weight: bold;">{{ life.title }}</span>
+            <span>{{ life.time }}</span>
+          </div>
+          <span class="mt-3" style="color: #888888">{{ life.content }}</span>
         </div>
       </div>
     </div>
@@ -64,7 +80,56 @@ export default {
       colors: ['indigo', 'warning', 'pink darken-2', 'red lighten-1', 'deep-purple accent-4'],
       slides: ['First', 'Second', 'Third', 'Fourth', 'Fifth'],
       dialog: false,
-      time: 1
+      time: 1,
+      punishments: [
+        {
+          id: 1,
+          title: '处分通知',
+          content: '夜不归宿'
+        },
+        {
+          id: 2,
+          title: '阿姨建议',
+          content: '清理宿舍卫生'
+        },
+        {
+          id: 3,
+          title: '处分通知',
+          content: '夜不归宿'
+        },
+        {
+          id: 4,
+          title: '阿姨建议',
+          content: '清理宿舍卫生'
+        }
+      ],
+      lifes: [
+        {
+          title: '超市优惠',
+          content: '水果特价优惠',
+          time: '6月10日'
+        },
+        {
+          title: '超市优惠',
+          content: '零食全场优惠',
+          time: '6月10日'
+        },
+        {
+          title: '理发优惠',
+          content: '今日理发全部减5元',
+          time: '6月11日'
+        },
+        {
+          title: '超市优惠',
+          content: '水果特价优惠',
+          time: '6月10日'
+        },
+        {
+          title: '洗衣优惠',
+          content: '假期洗衣优惠',
+          time: '6月15日'
+        }
+      ]
     }
   },
   components: {
@@ -115,6 +180,14 @@ export default {
 <style scoped lang="scss">
 .header {
   // background-color: rgb(21, 119, 253);
+  .title {
+    height: 70px;
+    display: flex;
+
+    justify-content: center;
+    align-items: center;
+    // background-color: burlywood;
+  }
   .top {
     padding: 10px;
     .input {
@@ -133,6 +206,39 @@ export default {
   .icons {
     margin-top: 20px;
     margin-left: -25px;
+    // font-weight: bold;
   }
+}
+.modille {
+  width: 100%;
+  display: flex;
+  margin-top: 20px;
+  overflow-x: scroll;
+  white-space: nowrap;
+  background-color: aquamarine;
+}
+.modille::-webkit-scrollbar {
+  display: none;
+}
+.card {
+  min-width: 170px;
+  height: 80px;
+  //line-height: 70px;
+  margin: 10px;
+  padding: 5px;
+  display: flex;
+  border-radius: 10px;
+  justify-content: center;
+  align-content: center;
+  align-items: center;
+  flex-direction: column;
+  // overflow-x: scroll;
+  white-space: wrap;
+  background-color: brown;
+}
+.schoolLife {
+  height: 70px;
+  border-bottom: 1px solid gainsboro;
+  padding: 10px 10px 5px 15px;
 }
 </style>

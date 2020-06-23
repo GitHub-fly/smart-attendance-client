@@ -66,7 +66,9 @@
             <tr>
               <td colspan="2" class="border-bottom re-ri"></td>
               <td align="right" class="border-bottom  re-le-ri">签字</td>
-              <td align="center" class="border-bottom  rele">凡颖</td>
+              <td align="center" class="border-bottom rele">
+                <span v-if="note.teacherOpinion == ''">{{ user.teacherName }}</span>
+              </td>
             </tr>
             <!-- 辅导员意见 -->
             <tr>
@@ -81,8 +83,10 @@
             <tr></tr>
             <tr>
               <td colspan="2" class="border-bottom re-ri"></td>
-              <td align="right" class="border-bottom  re-le-ri">签字</td>
-              <td align="center" class="border-bottom  rele">解宇宁</td>
+              <td align="right" class="border-bottom re-le-ri">签字</td>
+              <td align="center" class="border-bottom rele">
+                <span v-if="note.instructorOpinion == ''">{{ user.sysUserInstructorName }}</span>
+              </td>
             </tr>
             <!-- 二级学院意见 -->
             <tr>
@@ -97,8 +101,10 @@
             <tr></tr>
             <tr>
               <td colspan="2" class="border-bottom re-ri"></td>
-              <td align="right" class="border-bottom  re-le-ri">签字</td>
-              <td align="center" class="border-bottom  rele">刘老师</td>
+              <td align="right" class="border-bottom re-le-ri">签字</td>
+              <td align="center" class="border-bottom rele">
+                <span v-if="note.academyOpinion == ''">{{ user.sysUserAcademyTeacherName }}</span>
+              </td>
             </tr>
             <!-- 假条说明区域 -->
             <tr>
@@ -131,7 +137,8 @@
       <v-dialog persistent v-model="dialog" max-width="180">
         <v-card height="145" class="d-flex flex-column align-center" style="padding: 15px 0 0 0">
           <v-icon size="40" color="rgb(1, 217, 39)">check_circle_outline</v-icon>
-          <p class="text">请假条正在打印</p>
+          <v-divider></v-divider>
+          <p class="text mt-3">请假条正在打印</p>
           <v-btn text @click="hide()" width="150">知道了（{{ time }}）</v-btn>
         </v-card>
       </v-dialog>
@@ -149,7 +156,8 @@ export default {
       note: {},
       dialog: false,
       time: 3,
-      timer: null
+      timer: null,
+      user: JSON.parse(localStorage.getItem('user'))
     }
   },
   components: { Nav },
@@ -168,8 +176,6 @@ export default {
         let res = await this.GLOBAL.API.init('/note/info', this.note, 'post')
         noteData = res.data
       } else {
-        console.log(this.$route.params.note)
-
         noteData = this.$route.params.note
       }
       this.note = noteData

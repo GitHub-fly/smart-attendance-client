@@ -1,13 +1,24 @@
 <template>
   <v-app>
     <Nav title="消息"></Nav>
-    <div>
-      <div class="new-box" v-for="(item, index) in news" :key="index">
-        <div style="width: 80%; margin-left: 60px;display: flex;  justify-content: space-between;">
-          <span style="font-family: 宋体; color:#656565">{{ item.title }}</span>
-          <span style="font-family: 宋体; color:#c7c7c7">{{ item.gmtCreate }}</span>
+    <button @click="handle(1)">11111111111111111</button>
+    <Load :isShow="dialog" info="打卡"></Load>
+
+    <div
+      v-ripple
+      class="d-flex justify-space-between align-center pl-2 pr-2"
+      style="width: 100%; height: 70px; border-bottom: 1px solid gray;"
+      v-for="(item, index) in news"
+      :key="index"
+      @click="handle(index)"
+    >
+      <v-icon color="white" class="icon" :style="{ backgroundColor: item.bcColor }">{{ item.icon }}</v-icon>
+      <div style="width: 80%">
+        <div class="mb-1" style="width: 100%; display: flex; justify-content: space-between;">
+          <span style="color:#656565">{{ item.fromUser }}</span>
+          <span style="color:#c7c7c7">{{ item.gmtCreate }}</span>
         </div>
-        <span style="margin-left: 60px;;font-family: 宋体; color:#777777">{{ item.content }}</span>
+        <span style="color: #777777">{{ item.title }} {{ item.content }}</span>
       </div>
     </div>
   </v-app>
@@ -15,66 +26,70 @@
 
 <script>
 import Nav from '../../components/Nav'
-import axios from 'axios'
+import Load from '../../components/Load'
 export default {
   name: 'New',
   data() {
     return {
-      isShow: false,
-      news: [
-        {
-          title: '提醒',
-          content: '【工作提醒】安全教育平台尽快完成',
-          gmtCreate: '2020-6-12'
-        },
-        {
-          title: '会议提醒',
-          content: '【会议通知】总结大会',
-          gmtCreate: '2020-6-13'
-        },
-        {
-          title: '监考提醒',
-          content: '【监考通知】监考监考',
-          gmtCreate: '2020-6-14'
-        },
-        {
-          title: '提醒',
-          content: '【工作提醒】周会',
-          gmtCreate: '2020-6-12'
-        },
-        {
-          title: '提醒',
-          content: '【工作提醒】安全教育平台尽快完成',
-          gmtCreate: '2020-6-12'
-        }
-      ]
+      news: [],
+      dialog: false,
+      info: '',
+      time: 1,
+      roleId: JSON.parse(localStorage.getItem('user')).roleId
     }
   },
-  components: { Nav },
+  components: { Nav, Load },
   created() {
-    axios({
-      method: 'get',
-      url:
-        'https://restapi.amap.com/v3/geocode/regeo?output=json&key=c366ab4d4a894354574b28c1e817c247&radius=1000&roadlevel=1&location=118.938254,32.121761'
-    }).then((res) => {
-      console.log(res)
-    })
+    this.getData()
   },
   methods: {
-    test() {
-      this.GLOBAL.timer(this.isShow, 3)
+    /**
+     * 获取数据的方法
+     */
+    async getData() {
+      let res = await this.GLOBAL.API.init('/msg/info', { field1: JSON.parse(localStorage.getItem('user')).pkSysUserId }, 'post')
+      this.news = res.data
+      this.news.forEach((item) => {
+        let type = item.title.substring(1, 3)
+        if (type == '打卡') {
+          item.icon = 'mdi-bullseye'
+          item.bcColor = 'rgb(62, 182, 124)'
+          item.path = '/attendance'
+        } else {
+          item.icon = 'mdi-note-outline'
+          item.bcColor = 'rgb(158, 144, 187)'
+          if (this.roleId == 1) {
+            item.path = '/mynoteall'
+          } else if (this.roleId == 2) {
+            item.path = '/teacheradmin'
+          } else {
+            item.path = '/counseloradmin'
+          }
+        }
+      })
+    },
+    /**
+     * 处理消息的方法
+     */
+    handle(i) {
+      let item = this.news[i]
+      console.log(i)
+      this.dialog = true
+      setTimeout(() => {
+        this.dialog = false
+        this.news.splice(i, 1)
+        this.$router.push(item.path)
+      }, 1000)
     }
   },
-  computed: {}
+  computed: {},
+  watch: {}
 }
 </script>
 <style scoped lang="scss">
-.new-box {
-  height: 60px;
-  display: flex;
-  flex-direction: column;
-  align-content: center;
-  padding: 5px;
-  border-bottom: 1px solid gray;
+.icon {
+  width: 55px;
+  height: 55px;
+  border-radius: 10px;
 }
 </style>

@@ -10,7 +10,7 @@
         <div class="userPhone d-flex justify-space-between margin-top">
           <span>联系方式 <span class="point">*</span></span>
           <input
-            type="text"
+            type="number"
             style="padding-left: 5px; border: 1px solid gray; outline: none; border-radius: 5px; width: 145px"
             v-model="note.userPhone"
             placeholder="手机号"
@@ -145,22 +145,30 @@ export default {
         this.note.isDormitory = this.attentance ? 1 : 0
         let res = await this.GLOBAL.API.init('/note/increase', this.note, 'post')
         this.newNoteId = res.data.noteId
-        this.dialog = true
-        let timer = setInterval(() => {
-          this.time--
-          if (this.time == 0) {
-            clearInterval(timer)
-            this.dialog = false
-            this.time = 3
-          }
-        }, 500)
+        this.timer()
       }
+    },
+    timer() {
+      this.dialog = true
+      let ti = setInterval(() => {
+        this.time--
+        if (this.time == 0) {
+          clearInterval(ti)
+          this.dialog = false
+          this.time = 3
+        }
+      }, 500)
     },
     show() {
       this.$refs.dateTime.show()
     },
     show1() {
-      this.$refs.dateTime1.show()
+      if (this.msg == '请假时间') {
+        this.info = '请先选择开始时间'
+        this.timer()
+      } else {
+        this.$refs.dateTime1.show()
+      }
     },
     // 日期组件回调
     select(val) {
@@ -187,7 +195,7 @@ export default {
       this.note.dayCount = count == 0 ? 1 : count
     },
     getType(index) {
-      this.note.type = index
+      this.note.type = index + 1
       this.selectIndex = index
     },
     handle(items) {

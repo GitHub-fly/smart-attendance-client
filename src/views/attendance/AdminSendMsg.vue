@@ -85,13 +85,21 @@ export default {
     // },
 
     sendMessage(event) {
-
       if (this.messageContent && this.stompClient) {
+<<<<<<< HEAD
+        var chatMessage = {
+          sender: this.username,
+          content: this.messageContent,
+          type: 'CHAT'
+        }
+        console.log(chatMessage)
+=======
         // let chatMessage = {
         //   sender: this.username,
         //   content: this.messageContent,
         //   type: 'CHAT'
         // }
+>>>>>>> d1eb440d7b9fcf6e387d9596f5bc5f2ae59b1d90
 
         // stompClient.send('/app/chat.sendMessage', {}, JSON.stringify(chatMessage))
         this.messageContent = ''
@@ -132,8 +140,8 @@ export default {
 
       messageElement.appendChild(textElement)
 
-    //   messageArea.appendChild(messageElement)
-    //   messageArea.scrollTop = messageArea.scrollHeight
+      //   messageArea.appendChild(messageElement)
+      //   messageArea.scrollTop = messageArea.scrollHeight
     },
 
     getAvatarColor(messageSender) {

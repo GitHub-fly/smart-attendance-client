@@ -43,35 +43,40 @@
           <span>请假原因</span>
           <textarea type="textarea" v-model="notePreview.reason" disabled class="inputarea margin-top" />
         </div>
-        <div class="teacherOpinoin margin" v-if="notePreview.dayCount > 3">
+        <div class="teacherOpinoin margin" v-if="notePreview.dayCount > 3 && roleId == 3">
           <span>班主任意见</span>
           <textarea type="textarea" disabled v-model="notePreview.teacherOpinion" class="inputarea margin-top" />
         </div>
-        <div class="teacherOpinoin margin" v-if="notePreview.dayCount > 3">
+        <!-- <div class="teacherOpinoin margin" v-if="notePreview.dayCount > 3 && roleId == 3">
           <span>辅导员意见</span>
           <textarea type="textarea" disabled v-model="notePreview.instructorOpinion" class="inputarea margin-top" />
-        </div>
+        </div> -->
       </div>
       <div class="button-box margin-top1">
-        <button style="background-color: #4caf50" @click="commit()">批准</button>
-        <button style="background-color: #dd2c00">驳回</button>
+        <button style="background-color: #4caf50" @click="access()">批准</button>
+        <button style="background-color: #dd2c00" @click="refuse()">驳回</button>
       </div>
     </div>
+    <Alert :info="info" :isShow="dialog"> </Alert>
   </v-app>
 </template>
 
 <script>
 import Nav from '../../components/Nav'
-import axios from 'axios'
+import Alert from '../../components/Alert'
 export default {
   name: 'CheckNote',
   data() {
     return {
       notePreview: {},
-      note: {}
+      note: {},
+      info: '',
+      dialog: false,
+      time: 1,
+      roleId: JSON.parse(localStorage.getItem('user')).roleId
     }
   },
-  components: { Nav },
+  components: { Nav, Alert },
   created() {
     this.note.pkNoteId = this.$route.params.note.pkNoteId
     this.getNotepreview()
@@ -81,16 +86,57 @@ export default {
     async getNotepreview() {
       let res = await this.GLOBAL.API.init('/note/info', this.note, 'post')
       this.notePreview = res.data
-      console.log(this.notePreview)
     },
-    async commit() {
-      axios({
-        method: 'post',
-        url: '/note/teacher/advice',
-        data: this.note
-      }).then((res) => {
-        console.log(res)
-      })
+    /**
+     * 教师同意的方法
+     */
+    async access() {
+      let noteDto = {
+        pkNoteId: this.note.pkNoteId,
+        roleId: JSON.parse(localStorage.getItem('user')).roleId
+      }
+      let res = await this.GLOBAL.API.init('/note/teacher/agreeAdvice', noteDto, 'post')
+      if (res.code == 1) {
+        this.info = '已批准'
+        this.timer(true)
+      }
+    },
+    /**
+     * 教师拒绝的方法
+     */
+    async refuse() {
+      let noteDto = {
+        pkNoteId: this.note.pkNoteId,
+        roleId: JSON.parse(localStorage.getItem('user')).roleId
+      }
+      let res = await this.GLOBAL.API.init('/note/teacher/unAgreeAdvice', noteDto, 'post')
+      if (res.code == 1) {
+        this.info = '已驳回'
+        this.timer(true)
+      }
+    },
+    /**
+     * 倒计时并跳转的方法
+     *
+     * @param isGo 表示是否进行路由跳转
+     */
+    timer(isGo) {
+      this.dialog = true
+      let timer = setInterval(() => {
+        this.time--
+        if (this.time == 0) {
+          clearInterval(timer)
+          this.dialog = false
+          this.time = 1
+          if (isGo) {
+            if (JSON.parse(localStorage.getItem('user')).roleId == 2) {
+              this.$router.push('/teacheradmin')
+            } else {
+              this.$router.push('/clazzNoteAdmin')
+            }
+          }
+        }
+      }, 1000)
     }
   },
   computed: {}

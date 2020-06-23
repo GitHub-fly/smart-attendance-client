@@ -8,6 +8,7 @@
       v-for="(item, index) in stuVo"
       :key="index"
     >
+      <v-icon  class="warn" @click="warn(index)">notifications_active</v-icon>
       <v-avatar size="60" style="margin-top: -30px">
         <v-img :src="item.sysUserAvatar" style="border-radius: 50%;"></v-img>
       </v-avatar>
@@ -48,6 +49,12 @@ export default {
       let stu = await this.GLOBAL.API.init('/attendance/info/not', this.user, 'post')
       this.stuVo = stu.data
       console.log(this.stuVo)
+    },
+    /**
+     * 提醒打卡的方法
+     */
+    warn(i) {
+      console.log(i)
     }
   },
   computed: {}
@@ -60,5 +67,13 @@ export default {
   display: flex;
   align-items: center;
   justify-content: center;
+}
+.v-card {
+  position: relative;
+  .warn {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+  }
 }
 </style>
