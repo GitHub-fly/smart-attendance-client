@@ -46,11 +46,11 @@ export default {
       rulesPass: [(value) => !!value || 'Required.', (value) => (value && value.length >= 6) || 'Min 6 characters'],
       loginDto: {
         // 同学账号
-        // account: 'counseloradmin',
+        // account: '18851999738',
         // 班主任账号
-        // account: '14455559999',
+        account: '14455559999',
         // 阿姨账号
-        account: '17783208600',
+        // account: '17783208600',
         // 辅导员账号
         // account: '18844515551',
         password: '123456'
@@ -70,6 +70,7 @@ export default {
         let user = loginRes.data.user
         localStorage.setItem('user', JSON.stringify(loginRes.data.user))
         localStorage.setItem('menuList', JSON.stringify(loginRes.data.menuList))
+        this.$store.commit('setTeacherId', loginRes.data.teacherId)
         let roleName = ''
         if (user.roleId == 1) {
           roleName = '同学'

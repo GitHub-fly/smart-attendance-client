@@ -53,8 +53,8 @@
         </div> -->
       </div>
       <div class="button-box margin-top1">
-        <button style="background-color: #4caf50" @click="access()">批准</button>
-        <button style="background-color: #dd2c00" @click="refuse()">驳回</button>
+        <button v-ripple style="background-color: #4caf50" @click="access()">批准</button>
+        <button v-ripple style="background-color: #dd2c00" @click="refuse()">驳回</button>
       </div>
     </div>
     <Alert :info="info" :isShow="dialog"> </Alert>

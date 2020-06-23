@@ -1,6 +1,7 @@
 <template>
   <v-app>
     <Nav title="扫一扫"></Nav>
+    <v-file-input label="File input" filled prepend-icon="mdi-camera"></v-file-input>
   </v-app>
 </template>
 

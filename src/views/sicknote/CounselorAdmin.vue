@@ -49,8 +49,6 @@ export default {
     async getDormitory() {
       let res = await this.GLOBAL.API.init('/note/instructor/all', this.user, 'post')
       let clazzList = res.data
-      console.log(clazzList)
-
       for (let i = 0; i < clazzList.length; i++) {
         const item = clazzList[i]
         let sta = item.status
