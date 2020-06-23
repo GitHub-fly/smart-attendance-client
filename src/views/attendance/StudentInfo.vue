@@ -40,10 +40,10 @@
             <v-divider></v-divider>
           </v-list-item-group>
         </div>
-        <v-chip class="mt-5">
-          <v-chip color="green" text-color="white" v-if="show"><v-icon color="dark">mdi-checkbox-marked-circle</v-icon>已打卡</v-chip>
-          <v-chip color="red" text-color="white" v-if="!show"><v-icon color="dark">highlight_off</v-icon>未打卡</v-chip>
+        <v-chip class="mt-6" color="green" text-color="white" v-if="show">
+          <v-icon color="dark">mdi-checkbox-marked-circle</v-icon>已打卡
         </v-chip>
+        <v-chip class="mt-6" color="red" text-color="white" v-else><v-icon color="dark">highlight_off</v-icon>未打卡</v-chip>
       </v-row>
     </v-container>
   </v-app>
