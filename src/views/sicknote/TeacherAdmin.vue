@@ -44,6 +44,7 @@ export default {
   mounted() {},
   methods: {
     async getAllNote() {
+      console.log(this.teacher)
       let res = await this.GLOBAL.API.init('/note/teacher/all', this.teacher, 'post')
       this.infoList = res.data
       this.infoList.forEach((item) => {

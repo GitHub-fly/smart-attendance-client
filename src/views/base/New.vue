@@ -1,9 +1,7 @@
 <template>
   <v-app>
     <Nav title="消息"></Nav>
-    <button @click="handle(1)">11111111111111111</button>
-    <Load :isShow="dialog" info="打卡"></Load>
-
+    <Load :isShow="dialog" :info="info"></Load>
     <div
       v-ripple
       class="d-flex justify-space-between align-center pl-2 pr-2"
@@ -52,10 +50,12 @@ export default {
       this.news.forEach((item) => {
         let type = item.title.substring(1, 3)
         if (type == '打卡') {
+          this.info = '打卡'
           item.icon = 'mdi-bullseye'
           item.bcColor = 'rgb(62, 182, 124)'
           item.path = '/attendance'
         } else {
+          this.info = '假条'
           item.icon = 'mdi-note-outline'
           item.bcColor = 'rgb(158, 144, 187)'
           if (this.roleId == 1) {
@@ -71,15 +71,21 @@ export default {
     /**
      * 处理消息的方法
      */
-    handle(i) {
+    async handle(i) {
       let item = this.news[i]
-      console.log(i)
       this.dialog = true
       setTimeout(() => {
         this.dialog = false
         this.news.splice(i, 1)
+        this.delNew(item)
         this.$router.push(item.path)
       }, 1000)
+    },
+    /**
+     * 删除消息的方法
+     */
+    async delNew(item) {
+      await this.GLOBAL.API.init('/msg/delete', { field2: item.pkMessageId }, 'post')
     }
   },
   computed: {},

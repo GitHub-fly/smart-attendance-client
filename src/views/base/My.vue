@@ -23,6 +23,24 @@
         </div>
       </div> -->
     </div>
+
+    <template>
+      <v-row
+        v-touch="{
+          left: () => swipe('Left'),
+          right: () => swipe('Right'),
+          up: () => swipe('Up'),
+          down: () => swipe('Down')
+        }"
+        align="center"
+        class="grey lighten-2"
+        justify="center"
+        style="height: 500px"
+      >
+        <v-subheader>Swipe Direction</v-subheader>
+        {{ swipeDirection }}
+      </v-row>
+    </template>
   </div>
 </template>
 
@@ -32,13 +50,18 @@ export default {
   name: 'My',
   data() {
     return {
-      user: JSON.parse(localStorage.getItem('user'))
+      user: JSON.parse(localStorage.getItem('user')),
+      swipeDirection: 'None'
     }
   },
   components: {},
   created() {},
   mounted() {},
-  methods: {},
+  methods: {
+    swipe(direction) {
+      this.swipeDirection = direction
+    }
+  },
   computed: {}
 }
 </script>

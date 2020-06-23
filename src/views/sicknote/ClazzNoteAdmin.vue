@@ -1,17 +1,10 @@
 <template>
   <v-app>
-    <Nav :title="title"></Nav>
+    <Nav :title="title" path="/counseloradmin"></Nav>
     <div class="notes d-flex flex-column align-center">
-      <div
-        elevation="8"
-        v-ripple
-        class="note elevation-2"
-        v-for="(note, index) in noteList"
-        :key="index"
-        @click="toNoteInfo(note.pkNoteId)"
-      >
+      <div elevation="8" v-ripple class="note elevation-2" v-for="(note, index) in noteList" :key="index" @click="toNoteInfo(note)">
         <span>{{ note.gmtCreate1 }}</span>
-        <span>{{ note.sysJobNumber }}</span>
+        <!-- <span>{{ note.sysJobNumber }}</span> -->
         <span>{{ note.sysUserName }}</span>
         <span class="span">{{ note.type }}</span>
         <span class="span" :style="{ color: note.color }">{{ note.status }}</span>
@@ -42,8 +35,12 @@ export default {
   mounted() {},
   methods: {
     async getClazzNote() {
+      console.log(this.clazz)
+
       let noteAll = await this.GLOBAL.API.init('/clazz/noteAll', this.clazz, 'post')
       this.noteList = noteAll.data
+      console.log(noteAll.data)
+
       this.noteList.forEach((item) => {
         item.gmtCreate1 = item.gmtCreate.substr(0, 10)
         if (item.status == 0) {
@@ -75,13 +72,11 @@ export default {
     /**
      * 查看假条详情的方法
      */
-    toNoteInfo(id) {
+    toNoteInfo(item) {
       this.$router.push({
         name: 'CheckNote',
         params: {
-          note: {
-            pkNoteId: id
-          }
+          note: item
         }
       })
     }

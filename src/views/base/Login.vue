@@ -20,6 +20,7 @@
             type="password"
             style="margin-top: 60px"
             v-model="loginDto.password"
+            @keyup.enter="login()"
           ></v-text-field>
           <div class="d-flex justify-space-between" style="width: 50%">
             <v-btn @click="login()">登录</v-btn>
@@ -45,11 +46,11 @@ export default {
       rulesPass: [(value) => !!value || 'Required.', (value) => (value && value.length >= 6) || 'Min 6 characters'],
       loginDto: {
         // 同学账号
-        account: '18851999738',
+        // account: 'counseloradmin',
         // 班主任账号
         // account: '14455559999',
         // 阿姨账号
-        // account: '17783208600',
+        account: '17783208600',
         // 辅导员账号
         // account: '18844515551',
         password: '123456'
@@ -70,8 +71,6 @@ export default {
         localStorage.setItem('user', JSON.stringify(loginRes.data.user))
         localStorage.setItem('menuList', JSON.stringify(loginRes.data.menuList))
         let roleName = ''
-        console.log(user.roleId)
-
         if (user.roleId == 1) {
           roleName = '同学'
         } else if (user.roleId == 5) {
