@@ -1,7 +1,7 @@
 <template>
   <router-link :to="path" class="body-2">
     <div class="d-flex flex-column justify-center align-center" style="width: 65px">
-      <v-icon class="icon" :size="size" :color="iconColor">{{ icon }}</v-icon>
+      <v-icon :style="{ backgroundColor: bcColor }" :class="isCircle ? 'circle' : ''" :size="size" :color="iconColor">{{ icon }}</v-icon>
       <p :style="{ color: fontColor }">{{ name }}</p>
     </div>
   </router-link>
@@ -45,6 +45,18 @@ export default {
       default() {
         return undefined
       }
+    },
+    isCircle: {
+      type: Boolean,
+      default() {
+        return false
+      }
+    },
+    bcColor: {
+      type: String,
+      default() {
+        return ''
+      }
     }
   },
   watch: {},
@@ -62,6 +74,10 @@ p {
 
 a {
   z-index: 10;
+  .circle {
+    padding: 10px;
+    border-radius: 50%;
+  }
   &.router-link-exact-active {
     p {
       color: rgb(20, 118, 250);

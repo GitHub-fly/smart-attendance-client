@@ -111,13 +111,15 @@ export default {
       newNoteId: null,
       dialog: false,
       time: 3,
-      info: '已发送'
+      info: '已发送',
+      teacherId: ''
     }
   },
   components: { Nav, DateTime, Alert },
   created() {
     // 调用初始化用户信息的方法
     this.createUser()
+    this.teacherId = this.$store.state.teacherId
   },
   mounted() {},
   methods: {
@@ -145,6 +147,8 @@ export default {
         this.note.isDormitory = this.attentance ? 1 : 0
         let res = await this.GLOBAL.API.init('/note/increase', this.note, 'post')
         this.newNoteId = res.data.noteId
+        // 学生给班主任发送消息
+        await this.GLOBAL.sendNew('[假条消息]', '我需要老师帮我审核假条', this.teacherId)
         this.timer()
       }
     },

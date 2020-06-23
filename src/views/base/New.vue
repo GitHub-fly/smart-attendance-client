@@ -1,6 +1,7 @@
 <template>
   <v-app>
     <Nav title="消息"></Nav>
+    <p class="headline" v-if="news.length == 0">空空如也</p>
     <Load :isShow="dialog" :info="info"></Load>
     <div
       v-ripple

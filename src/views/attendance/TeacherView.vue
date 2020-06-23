@@ -4,7 +4,7 @@
     <v-container style="width: 95%">
       <div class="d-flex mt-5 justify-space-between flex-wrap">
         <v-card class="mb-6" elevation="3" width="140" height="215" v-for="(item, index) in stuVo" :key="index">
-          <v-icon class="warn" v-if="item.isAttendance !== 1" @click="warn(index)">notifications_active</v-icon>
+          <v-icon class="warn" v-if="item.isShow" @click="warn(index)">notifications_active</v-icon>
 
           <v-avatar size="80" class="">
             <v-img :src="item.sysUserAvatar" style="border-radius: 50%;"></v-img>
@@ -25,11 +25,14 @@
         </v-card>
       </div>
     </v-container>
+    <Alert :info="info" :isShow="dialog"></Alert>
   </v-app>
 </template>
 
 <script>
 import Nav from '../../components/Nav'
+import Alert from '../../components/Alert'
+
 export default {
   name: 'TeacherView',
   data() {
@@ -38,10 +41,13 @@ export default {
         pkSysUserId: JSON.parse(localStorage.getItem('user')).pkSysUserId,
         roleId: JSON.parse(localStorage.getItem('user')).roleId
       },
-      stuVo: {}
+      stuVo: {},
+      info: '',
+      dialog: false,
+      time: 1
     }
   },
-  components: { Nav },
+  components: { Nav, Alert },
   created() {
     this.getStudents()
   },
@@ -49,13 +55,40 @@ export default {
   methods: {
     async getStudents() {
       let students = await this.GLOBAL.API.init('/attendance/manager/info', this.user, 'post')
+      students.data.forEach((item) => {
+        if (item.isAttendance == 0) {
+          item.isShow = true
+        } else {
+          item.isShow = false
+        }
+      })
       this.stuVo = students.data
+      console.log(this.stuVo)
     },
     /**
      * 提醒打卡打的方法
      */
-    warn(i) {
-      console.log(i)
+    async warn(i) {
+      this.info = '已提醒'
+      this.timer()
+      let item = this.stuVo[i]
+      item.isShow = false
+      this.stuVo.splice(i, 1, item)
+      await this.GLOBAL.sendNew('[打卡消息]', this.stuVo[i].sysUserName + '，请您尽快回寝打卡！', this.stuVo[i].pkSysUserId)
+    },
+    /**
+     * 倒计时并跳转的方法
+     */
+    timer() {
+      this.dialog = true
+      let timer = setInterval(() => {
+        this.time--
+        if (this.time == 0) {
+          clearInterval(timer)
+          this.dialog = false
+          this.time = 1
+        }
+      }, 1000)
     }
   },
   computed: {}

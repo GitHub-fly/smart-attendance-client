@@ -1,7 +1,13 @@
 <template>
   <div class="d-flex justify-space-between" style="width: 95%; flex-wrap: wrap;">
     <v-card class="mb-10" elevation="3" min-height="215" v-for="(item, dorIndex) in dormitoryVo" :key="dorIndex" @click="show(dorIndex)">
-      <v-card v-if="showList[dorIndex]" class="d-flex flex-column align-center" height="215" color="rgb(236, 239, 241)" width="150">
+      <v-card
+        v-if="showList[dorIndex]"
+        class="d-flex flex-column align-center"
+        height="215"
+        style="background-image: linear-gradient(to top,#6AAFE6, #CADBE9);"
+        width="150"
+      >
         <v-avatar color="rgb(255, 255, 255)" height="40" size="100" class="elevation-1">
           <span class="headline" style="color: black">{{ item.dormitoryName.substring(5) }}</span>
         </v-avatar>

@@ -6,7 +6,7 @@
     <v-footer
       padless
       fixed
-      style="background-color: rgb(238, 238, 238); height: 70px; margin-bottom: -20px; z-index: 20;"
+      style="background-image: linear-gradient(to top, rgb(224, 227, 218), rgb(225, 238, 246)); height: 70px; margin-bottom: -22px; z-index: 20;"
       class="flex-column justify-center"
     >
       <div class="d-flex justify-space-around align-cennter box">

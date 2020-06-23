@@ -35,12 +35,8 @@ export default {
   mounted() {},
   methods: {
     async getClazzNote() {
-      console.log(this.clazz)
-
       let noteAll = await this.GLOBAL.API.init('/clazz/noteAll', this.clazz, 'post')
       this.noteList = noteAll.data
-      console.log(noteAll.data)
-
       this.noteList.forEach((item) => {
         item.gmtCreate1 = item.gmtCreate.substr(0, 10)
         if (item.status == 0) {

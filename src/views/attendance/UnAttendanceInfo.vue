@@ -7,22 +7,23 @@
       justify="center"
       v-for="(item, index) in stuVo"
       :key="index"
+      style="background-image: linear-gradient(to top,#6AAFE6, #CADBE9);"
     >
       <v-icon v-show="iconShow[index]" class="warn" @click="warn(index)">notifications_active</v-icon>
       <v-avatar size="60" style="margin-top: -30px">
         <v-img :src="item.sysUserAvatar" style="border-radius: 50%;"></v-img>
       </v-avatar>
       <v-list-item>
-        <v-list-item-title class="">{{ item.sysUserName }}</v-list-item-title>
+        <v-list-item-title class="font">{{ item.sysUserName }}</v-list-item-title>
       </v-list-item>
       <v-list-item>
-        <v-list-item-title>{{ item.sysUserPhone }}</v-list-item-title>
+        <v-list-item-title class="font">{{ item.sysUserPhone }}</v-list-item-title>
       </v-list-item>
       <v-list-item>
-        <v-list-item-title>班主任：{{ item.teacherName }}</v-list-item-title>
+        <v-list-item-title class="font">班主任：{{ item.teacherName }}</v-list-item-title>
       </v-list-item>
       <v-list-item>
-        <v-list-item-title>{{ item.teacherPhone }}</v-list-item-title>
+        <v-list-item-title class="font">{{ item.teacherPhone }}</v-list-item-title>
       </v-list-item>
     </v-card>
     <Alert :info="info" :isShow="dialog"></Alert>
@@ -66,7 +67,6 @@ export default {
       this.info = '已提醒'
       this.iconShow.splice(i, 1, false)
       this.timer()
-      console.log(i)
       await this.GLOBAL.sendNew('[打卡消息]', this.stuVo[i].sysUserName + '，请您尽快回寝打卡！', this.stuVo[i].pkUserId)
     },
 
@@ -104,5 +104,8 @@ export default {
     top: 0px;
     right: 30px;
   }
+}
+.font {
+  color: white;
 }
 </style>

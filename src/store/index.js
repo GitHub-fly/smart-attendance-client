@@ -5,11 +5,15 @@ Vue.use(Vuex)
 
 const store = new Vuex.Store({
   state: {
-    clazzName: ''
+    clazzName: '',
+    teacherId: ''
   },
   mutations: {
     setClazzName(state, clazzName) {
       state.clazzName = clazzName
+    },
+    setTeacherId(state, teacherId) {
+      state.teacherId = teacherId
     }
   },
   actions: {},
