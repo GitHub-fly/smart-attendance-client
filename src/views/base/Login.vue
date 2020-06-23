@@ -50,9 +50,9 @@ export default {
         // 班主任账号
         // account: '14455559999',
         // 阿姨账号
-        account: '17783208600',
+        // account: '17783208600',
         // 辅导员账号
-        // account: '18844515551',
+        account: '18844515551',
         password: '123456'
       },
       dialog: false,

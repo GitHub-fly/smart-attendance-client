@@ -34,7 +34,8 @@ export default {
         pkSysUserId: JSON.parse(localStorage.getItem('user')).pkSysUserId
       },
       // 界面上被循环的数组对象
-      studentNotes: []
+      studentNotes: [],
+      instructorId: ''
     }
   },
   components: { Nav },
@@ -44,9 +45,10 @@ export default {
   mounted() {},
   methods: {
     async getAllNote() {
-      console.log(this.teacher)
       let res = await this.GLOBAL.API.init('/note/teacher/all', this.teacher, 'post')
-      this.infoList = res.data
+      // 假条数组
+      this.infoList = res.data.noteList
+      this.instructorId = res.data.instructorId
       this.infoList.forEach((item) => {
         if (item.type == 1) {
           item.type = '事假'
@@ -60,6 +62,7 @@ export default {
         item.gmtCreate = item.gmtCreate.split(' ')[0]
       })
       this.studentNotes = this.infoList
+      console.log(this.infoList[0])
     },
     changeData(i) {
       switch (i) {
@@ -92,6 +95,7 @@ export default {
      * 跳转到审核界面的方法
      */
     checkNote(item) {
+      item.instructorId = this.instructorId
       this.$router.push({
         name: 'CheckNote',
         params: {
