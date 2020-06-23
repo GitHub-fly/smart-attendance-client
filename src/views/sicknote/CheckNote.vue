@@ -98,7 +98,7 @@ export default {
     async access() {
       let res = await this.GLOBAL.API.init('/note/teacher/agreeAdvice', this.noteDto, 'post')
       if (res.code == 1) {
-        await this.GLOBAL.sendNew('【假条消息】', '您' + this.note.gmtCreate + '的假条有更新哟!', this.note.pkSysUserId)
+        await this.GLOBAL.sendNew('[假条消息]', '您' + this.note.gmtCreate + '的假条有更新哟!', this.note.pkSysUserId)
         this.info = '已批准'
         this.timer(true)
       }
@@ -109,7 +109,7 @@ export default {
     async refuse() {
       let res = await this.GLOBAL.API.init('/note/teacher/unAgreeAdvice', this.noteDto, 'post')
       if (res.code == 1) {
-        await this.GLOBAL.sendNew('【假条消息】', '您' + this.note.gmtCreate + '的假条有更新哟!', this.note.pkSysUserId)
+        await this.GLOBAL.sendNew('[假条消息]', '您' + this.note.gmtCreate + '的假条有更新哟!', this.note.pkSysUserId)
         this.info = '已驳回'
         this.timer(true)
       }

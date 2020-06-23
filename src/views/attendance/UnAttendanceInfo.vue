@@ -67,7 +67,7 @@ export default {
       this.iconShow.splice(i, 1, false)
       this.timer()
       console.log(i)
-      await this.GLOBAL.sendNew('【打卡消息】', this.stuVo[i].sysUserName + '请您尽快回寝打卡！', this.stuVo[i].pkUserId)
+      await this.GLOBAL.sendNew('[打卡消息]', this.stuVo[i].sysUserName + '，请您尽快回寝打卡！', this.stuVo[i].pkUserId)
     },
 
     /**

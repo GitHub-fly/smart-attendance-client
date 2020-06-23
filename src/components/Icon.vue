@@ -66,6 +66,9 @@ a {
     p {
       color: rgb(20, 118, 250);
     }
+    .v-icon {
+      color: rgb(20, 118, 250);
+    }
   }
 }
 </style>

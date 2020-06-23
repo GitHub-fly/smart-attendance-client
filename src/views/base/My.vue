@@ -23,50 +23,33 @@
         </div>
       </div> -->
     </div>
-
-    <template>
-      <v-row
-        v-touch="{
-          left: () => swipe('Left'),
-          right: () => swipe('Right'),
-          up: () => swipe('Up'),
-          down: () => swipe('Down')
-        }"
-        align="center"
-        class="grey lighten-2"
-        justify="center"
-        style="height: 500px"
-      >
-        <v-subheader>Swipe Direction</v-subheader>
-        {{ swipeDirection }}
-      </v-row>
-    </template>
   </div>
 </template>
 
 <script>
-// import Icon from '../../components/Icon'
 export default {
   name: 'My',
   data() {
     return {
       user: JSON.parse(localStorage.getItem('user')),
-      swipeDirection: 'None'
+      swipeDirection: 'None',
+      isShow: false
     }
   },
   components: {},
   created() {},
   mounted() {},
-  methods: {
-    swipe(direction) {
-      this.swipeDirection = direction
-    }
-  },
+  methods: {},
   computed: {}
 }
 </script>
 
 <style scoped lang="scss">
+.box {
+  width: 100px;
+  width: 50px;
+  background-color: red;
+}
 .user-info {
   padding: 10px;
   background-color: rgb(61, 90, 254);

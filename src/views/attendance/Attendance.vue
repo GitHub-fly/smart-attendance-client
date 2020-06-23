@@ -149,7 +149,7 @@ export default {
       if (res.code == 80001) {
         this.info = '不在打卡时间内'
       } else if (res.code == 80002) {
-        this.info = '今日已打卡成功！'
+        this.info = '请勿重复打卡！'
       } else {
         this.info = '打卡成功'
       }
