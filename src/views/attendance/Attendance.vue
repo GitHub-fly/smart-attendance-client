@@ -148,6 +148,8 @@ export default {
       let res = await this.GLOBAL.API.init('/attendance/increase', user, 'post')
       if (res.code == 80001) {
         this.info = '不在打卡时间内'
+      } else if (res.code == 80002) {
+        this.info = '今日已打卡成功！'
       } else {
         this.info = '打卡成功'
       }

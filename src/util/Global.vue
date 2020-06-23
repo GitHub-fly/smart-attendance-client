@@ -21,8 +21,28 @@ function timer(status, time) {
   }, 1000)
 }
 
+/**
+ * 老师处理假条后发送消息的方法
+ *
+ * @param title 消息标题
+ * @param content 消息内容
+ * @param toId 接收者id
+ * @returns 接口返回值
+ */
+async function sendNew(title, content, toId) {
+  let newDto = {
+    title: title,
+    content: content,
+    fromId: JSON.parse(localStorage.getItem('user')).pkSysUserId,
+    toId: toId
+  }
+  let res = await this.API.init('/msg/send', newDto, 'post')
+  return res.data
+}
+
 export default {
   API,
-  timer
+  timer,
+  sendNew
 }
 </script>

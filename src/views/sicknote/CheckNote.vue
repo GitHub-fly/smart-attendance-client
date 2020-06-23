@@ -69,6 +69,8 @@ export default {
   data() {
     return {
       notePreview: {},
+      noteIdDto: {},
+      noteDto: {},
       note: {},
       info: '',
       dialog: false,
@@ -78,25 +80,25 @@ export default {
   },
   components: { Nav, Alert },
   created() {
-    this.note.pkNoteId = this.$route.params.note.pkNoteId
+    this.note = this.$route.params.note
+    this.noteIdDto.pkNoteId = this.note.pkNoteId
+    this.noteDto.pkNoteId = this.note.pkNoteId
+    this.noteDto.roleId = JSON.parse(localStorage.getItem('user')).roleId
     this.getNotepreview()
   },
   mounted() {},
   methods: {
     async getNotepreview() {
-      let res = await this.GLOBAL.API.init('/note/info', this.note, 'post')
+      let res = await this.GLOBAL.API.init('/note/info', this.noteIdDto, 'post')
       this.notePreview = res.data
     },
     /**
      * 教师同意的方法
      */
     async access() {
-      let noteDto = {
-        pkNoteId: this.note.pkNoteId,
-        roleId: JSON.parse(localStorage.getItem('user')).roleId
-      }
-      let res = await this.GLOBAL.API.init('/note/teacher/agreeAdvice', noteDto, 'post')
+      let res = await this.GLOBAL.API.init('/note/teacher/agreeAdvice', this.noteDto, 'post')
       if (res.code == 1) {
+        await this.GLOBAL.sendNew('【假条消息】', '您' + this.note.gmtCreate + '的假条有更新哟!', this.note.pkSysUserId)
         this.info = '已批准'
         this.timer(true)
       }
@@ -105,12 +107,9 @@ export default {
      * 教师拒绝的方法
      */
     async refuse() {
-      let noteDto = {
-        pkNoteId: this.note.pkNoteId,
-        roleId: JSON.parse(localStorage.getItem('user')).roleId
-      }
-      let res = await this.GLOBAL.API.init('/note/teacher/unAgreeAdvice', noteDto, 'post')
+      let res = await this.GLOBAL.API.init('/note/teacher/unAgreeAdvice', this.noteDto, 'post')
       if (res.code == 1) {
+        await this.GLOBAL.sendNew('【假条消息】', '您' + this.note.gmtCreate + '的假条有更新哟!', this.note.pkSysUserId)
         this.info = '已驳回'
         this.timer(true)
       }

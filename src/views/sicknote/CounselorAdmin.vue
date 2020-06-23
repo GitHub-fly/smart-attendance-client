@@ -1,24 +1,25 @@
 <template>
   <v-app>
-    <Nav title="各班级假条管理" class="mb-4"></Nav>
+    <Nav title="各班级假条管理" path="/home" class="mb-4"></Nav>
     <div class="content mt-4 mb-4">
-      <v-card elevation="5"
+      <v-card
+        elevation="5"
         class="mt-6 mb-12 d-flex flex-column align-center justify-center"
         color="#40c4ff"
         width="150"
         height="215"
         justify="center"
         dark
-        v-for="(item, index) in dormitoryVo"
+        v-for="(item, index) in clazz"
         :key="index"
       >
         <div class="mt-n12 img" @click="toNoteInfo(index)">
-          <img :src="item.teacher.sysUserAvatar" />
+          <img :src="item.sysUserAvatar" />
         </div>
         <v-list-item class="item margin-top mt-6 mb-n6">
-          <v-list-item-title>{{ item.teacher.teacherName }}</v-list-item-title>
-          <v-list-item-title class="mt-4">{{ item.teacher.teacherPhone }}</v-list-item-title>
-          <v-list-item-title class="mt-4">{{ item.teacher.name }}</v-list-item-title>
+          <v-list-item-title>{{ item.teacherName }}</v-list-item-title>
+          <v-list-item-title class="mt-4">{{ item.teacherPhone }}</v-list-item-title>
+          <v-list-item-title class="mt-4">{{ item.name }}</v-list-item-title>
         </v-list-item>
       </v-card>
     </div>
@@ -34,26 +35,40 @@ export default {
       user: {
         pkSysUserId: '004'
       },
-      dormitoryVo: [],
+      clazz: [],
       stuVo: {}
     }
   },
   components: { Nav },
   created() {
+    this.clazz = []
     this.getDormitory()
   },
   mounted() {},
   methods: {
     async getDormitory() {
-      let dormitory = await this.GLOBAL.API.init('/note/instructor/all', this.user, 'post')
-      this.dormitoryVo = dormitory.data
-      // if(dormitory.code == 1) {
-      //   localStorage.setItem('clazzNote', JSON.stringify())
-      // }
-      console.log(dormitory.data)
+      let res = await this.GLOBAL.API.init('/note/instructor/all', this.user, 'post')
+      let clazzList = res.data
+      console.log(clazzList)
+
+      for (let i = 0; i < clazzList.length; i++) {
+        const item = clazzList[i]
+        let sta = item.status
+        if (sta.length != 0) {
+          console.log(item.status)
+          for (let j = 0; j < sta.length; j++) {
+            let obj = sta[j]
+            if (obj == 1) {
+              this.clazz.push(item.teacher)
+              break
+            }
+          }
+        }
+      }
+      console.log(this.clazz)
     },
     toNoteInfo(i) {
-      this.$store.commit('setClazzName', this.dormitoryVo[i].teacher.name)
+      this.$store.commit('setClazzName', this.clazz[i].name)
       this.$router.push('/clazzNoteAdmin')
     }
   },

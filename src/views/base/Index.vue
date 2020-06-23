@@ -1,7 +1,7 @@
 <template>
   <div>
     <div>
-      <router-view />
+      <router-view style="margin-bottom: 60px" />
     </div>
     <v-footer
       padless

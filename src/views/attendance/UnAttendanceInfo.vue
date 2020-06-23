@@ -8,7 +8,7 @@
       v-for="(item, index) in stuVo"
       :key="index"
     >
-      <v-icon  class="warn" @click="warn(index)">notifications_active</v-icon>
+      <v-icon v-show="iconShow[index]" class="warn" @click="warn(index)">notifications_active</v-icon>
       <v-avatar size="60" style="margin-top: -30px">
         <v-img :src="item.sysUserAvatar" style="border-radius: 50%;"></v-img>
       </v-avatar>
@@ -25,10 +25,12 @@
         <v-list-item-title>{{ item.teacherPhone }}</v-list-item-title>
       </v-list-item>
     </v-card>
+    <Alert :info="info" :isShow="dialog"></Alert>
   </div>
 </template>
 
 <script>
+import Alert from '../../components/Alert'
 export default {
   name: 'UnAttendanceInfo',
   data() {
@@ -36,10 +38,14 @@ export default {
       user: {
         pkSysUserId: '1'
       },
-      stuVo: {}
+      stuVo: {},
+      info: '',
+      dialog: false,
+      time: 1,
+      iconShow: []
     }
   },
-  components: {},
+  components: { Alert },
   created() {
     this.getUnCheckStu()
   },
@@ -48,13 +54,35 @@ export default {
     async getUnCheckStu() {
       let stu = await this.GLOBAL.API.init('/attendance/info/not', this.user, 'post')
       this.stuVo = stu.data
-      console.log(this.stuVo)
+      let length = this.stuVo.length
+      for (let i = 0; i < length; i++) {
+        this.iconShow.splice(i, 0, true)
+      }
     },
     /**
      * 提醒打卡的方法
      */
-    warn(i) {
+    async warn(i) {
+      this.info = '已提醒'
+      this.iconShow.splice(i, 1, false)
+      this.timer()
       console.log(i)
+      await this.GLOBAL.sendNew('【打卡消息】', this.stuVo[i].sysUserName + '请您尽快回寝打卡！', this.stuVo[i].pkUserId)
+    },
+
+    /**
+     * 倒计时并跳转的方法
+     */
+    timer() {
+      this.dialog = true
+      let timer = setInterval(() => {
+        this.time--
+        if (this.time == 0) {
+          clearInterval(timer)
+          this.dialog = false
+          this.time = 1
+        }
+      }, 1000)
     }
   },
   computed: {}
@@ -72,8 +100,9 @@ export default {
   position: relative;
   .warn {
     position: absolute;
-    top: 5px;
-    right: 5px;
+    z-index: 2;
+    top: 0px;
+    right: 30px;
   }
 }
 </style>
