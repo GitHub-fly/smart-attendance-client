@@ -22,7 +22,7 @@
             v-model="loginDto.password"
             @keyup.enter="login()"
           ></v-text-field>
-          <div class="d-flex justify-space-between" style="width: 50%">
+          <div class="mt-4 d-flex justify-space-between" style="width: 50%">
             <v-btn @click="login()">登录</v-btn>
             <v-btn>注册</v-btn>
           </div>
@@ -48,12 +48,14 @@ export default {
         // 同学账号
         // account: '18851999738',
         // 班主任账号
-        account: '14455559999',
+        // account: '14455559999',
         // 阿姨账号
         // account: '17783208600',
         // 辅导员账号
         // account: '18844515551',
-        password: '123456'
+        password: '123456',
+        account: ''
+        // password: ''
       },
       dialog: false,
       time: 2,
@@ -70,6 +72,7 @@ export default {
         let user = loginRes.data.user
         localStorage.setItem('user', JSON.stringify(loginRes.data.user))
         localStorage.setItem('menuList', JSON.stringify(loginRes.data.menuList))
+        localStorage.setItem('teacherId', loginRes.data.teacherId)
         this.$store.commit('setTeacherId', loginRes.data.teacherId)
         let roleName = ''
         if (user.roleId == 1) {

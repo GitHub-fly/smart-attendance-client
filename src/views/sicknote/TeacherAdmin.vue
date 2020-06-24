@@ -132,7 +132,7 @@ export default {
   border-radius: 5px;
   display: flex;
   flex-direction: column;
-  background-color: blueviolet;
+  background-image: linear-gradient(to bottom, rgb(216, 233, 239), rgb(78, 161, 211));
 
   span {
     margin-top: 3px;

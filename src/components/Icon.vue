@@ -81,9 +81,11 @@ a {
   &.router-link-exact-active {
     p {
       color: rgb(20, 118, 250);
+      margin-bottom: 20px;
     }
     .v-icon {
       color: rgb(20, 118, 250);
+      margin-top: -5px;
     }
   }
 }

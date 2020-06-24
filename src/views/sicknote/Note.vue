@@ -13,6 +13,7 @@
             type="number"
             style="padding-left: 5px; border: 1px solid gray; outline: none; border-radius: 5px; width: 145px"
             v-model="note.userPhone"
+            maxlength="11"
             placeholder="手机号"
           />
         </div>
@@ -120,6 +121,8 @@ export default {
     // 调用初始化用户信息的方法
     this.createUser()
     this.teacherId = this.$store.state.teacherId
+    this.teacherId = localStorage.getItem('teacherId')
+    console.log(this.$store.state.teacherId)
   },
   mounted() {},
   methods: {

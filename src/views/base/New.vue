@@ -1,7 +1,14 @@
 <template>
   <v-app>
     <Nav title="消息"></Nav>
-    <p class="headline" v-if="news.length == 0">空空如也</p>
+    <div
+      v-if="news.length == 0"
+      class="d-flex flex-column align-center justify-center"
+      style="width: 100%; height: 100%; margin-top: -60px"
+    >
+      <v-icon size="100">notifications_none</v-icon>
+      <v-subheader class="headline">空空如也</v-subheader>
+    </div>
     <Load :isShow="dialog" :info="info"></Load>
     <div
       v-ripple
