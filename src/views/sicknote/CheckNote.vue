@@ -96,12 +96,18 @@ export default {
      * 教师同意的方法
      */
     async access() {
+      console.log(this.note)
       let res = await this.GLOBAL.API.init('/note/teacher/agreeAdvice', this.noteDto, 'post')
-      if (res.code == 1) {
-        await this.GLOBAL.sendNew('[假条消息]', '您' + this.note.gmtCreate + '的假条有更新哟!', this.note.pkSysUserId)
-        this.info = '已批准'
-        this.timer(true)
+      if (res.code == 1 && this.roleId == 2) {
+        if (this.notePreview.dayCount > 3) {
+          // 给辅导员发送消息
+          await this.GLOBAL.sendNew('[假条消息]', '有假条需要您审核。', this.note.instructorId)
+        }
       }
+      // 给学生发送消息
+      await this.GLOBAL.sendNew('[假条消息]', '您' + this.note.gmtCreate + '的假条有更新哟!', this.note.pkSysUserId)
+      this.info = '已批准'
+      this.timer(true)
     },
     /**
      * 教师拒绝的方法

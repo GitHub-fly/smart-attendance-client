@@ -11,9 +11,9 @@
           <span>联系方式 <span class="point">*</span></span>
           <input
             type="number"
+            maxlength="11"
             style="padding-left: 5px; border: 1px solid gray; outline: none; border-radius: 5px; width: 145px"
             v-model="note.userPhone"
-            maxlength="11"
             placeholder="手机号"
           />
         </div>

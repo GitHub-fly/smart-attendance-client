@@ -42,7 +42,7 @@
       </div>
       <!-- 静态资源区 -->
       <div class="modille">
-        <div class="card elevation-8" v-for="(punishment, index) in punishments" :key="index">
+        <div class="card elevation-3" v-for="(punishment, index) in punishments" :key="index">
           <span>{{ punishment.title }}:</span>
           <span>{{ punishment.content }}</span>
         </div>

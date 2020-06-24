@@ -42,7 +42,7 @@ export default {
   name: 'Login',
   data() {
     return {
-      rulesPhone: [(value) => !!value || 'Required.', (value) => (value && value.length >= 11) || 'Min 11 characters'],
+      rulesPhone: [(value) => !!value || 'Required.', (value) => (value && value.length == 11) || 'Must 11 characters'],
       rulesPass: [(value) => !!value || 'Required.', (value) => (value && value.length >= 6) || 'Min 6 characters'],
       loginDto: {
         // 同学账号

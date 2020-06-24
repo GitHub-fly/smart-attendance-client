@@ -1,7 +1,15 @@
 <template>
   <v-app>
     <Nav title="请假管理" path="/home"></Nav>
-    <div class="noteBody d-flex flex-column align-center">
+    <div
+      v-if="infoList.length == 0"
+      class="d-flex flex-column align-center justify-center"
+      style="width: 100%; height: 100%; margin-top: -60px"
+    >
+      <v-icon size="100">notifications_none</v-icon>
+      <v-subheader class="headline">空空如也</v-subheader>
+    </div>
+    <div v-else class="noteBody d-flex flex-column align-center">
       <div class="topNav d-flex justify-center">
         <v-tabs height="30" style="margin-left: -30px">
           <v-tab v-for="(item, index) in funList" :key="index" @click="changeData(index)">{{ item }}</v-tab>
@@ -34,7 +42,8 @@ export default {
         pkSysUserId: JSON.parse(localStorage.getItem('user')).pkSysUserId
       },
       // 界面上被循环的数组对象
-      studentNotes: []
+      studentNotes: [],
+      instructorId: ''
     }
   },
   components: { Nav },
@@ -45,7 +54,11 @@ export default {
   methods: {
     async getAllNote() {
       let res = await this.GLOBAL.API.init('/note/teacher/all', this.teacher, 'post')
-      this.infoList = res.data
+      // 假条数组
+      this.infoList = res.data.noteList
+      this.instructorId = res.data.instructorId
+      console.log(this.infoList)
+
       this.infoList.forEach((item) => {
         if (item.type == 1) {
           item.type = '事假'
@@ -91,6 +104,7 @@ export default {
      * 跳转到审核界面的方法
      */
     checkNote(item) {
+      item.instructorId = this.instructorId
       this.$router.push({
         name: 'CheckNote',
         params: {

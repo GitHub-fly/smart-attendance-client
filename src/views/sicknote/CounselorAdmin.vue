@@ -1,7 +1,7 @@
 <template>
   <v-app>
     <Nav title="各班级假条管理" path="/home" class="mb-4"></Nav>
-    <div class="content mt-4 mb-4">
+    <div class="content mt-4 mb-4" @click="toNoteInfo(index)">
       <v-card
         elevation="5"
         class="mt-6 mb-12 d-flex flex-column align-center justify-center"
@@ -13,7 +13,7 @@
         v-for="(item, index) in clazz"
         :key="index"
       >
-        <div class="mt-n12 img" @click="toNoteInfo(index)">
+        <div class="mt-n12 img">
           <img :src="item.sysUserAvatar" />
         </div>
         <v-list-item class="item margin-top mt-6 mb-n6">

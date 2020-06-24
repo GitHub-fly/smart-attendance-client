@@ -38,8 +38,8 @@
               <v-list-item-content @click="showLocation()">点击获取当前定位</v-list-item-content>
             </v-list-item>
             <div class="d-flex flex-column">
-              <div id="container" style="width: 290px; height: 200px" class="mt-1"></div>
-              <span class="mt-1">{{ area }}</span>
+              <div id="container" style="width: 290px; height: 120px" class="mt-1"></div>
+              <span style="font-size: 10px" class="mt-1">{{ area }}</span>
             </div>
             <v-divider></v-divider>
           </v-list-item-group>
